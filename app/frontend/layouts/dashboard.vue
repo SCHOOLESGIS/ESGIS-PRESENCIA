@@ -1,13 +1,11 @@
 <template lang="">
-    <div>
+    <div class="layout">
         
     </div>
 </template>
-<script>
-export default {
-    
-}
+<script setup>
+
 </script>
-<style lang="">
+<style scoped>
     
 </style>

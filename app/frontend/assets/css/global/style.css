@@ -12,3 +12,27 @@
     --gray: #EFF4FB;
     --red: #FB5454;
 }
+
+* {
+    color: var(--black);
+    outline: 1px solid var(--primary);
+    margin: 0;
+    /* padding: 0; */
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: auto;
+    background-color: var(--white);
+}
+
+#__nuxt, .app {
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* .auth-layout {
+    width: 100%;
+    background-color: var(--white);
+} */
