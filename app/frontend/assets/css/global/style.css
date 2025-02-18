@@ -11,11 +11,15 @@
     --yellow: #F0950C;
     --gray: #EFF4FB;
     --red: #FB5454;
+    --text-grey: #637381;
+    --p-toggleswitch-checked-background: var(--dark-text-color-1) !important;
+    --p-toggleswitch-handle-checked-background: black !important;
+    --p-toggleswitch-checked-hover-background: var(--dark-text-color-1) !important;
 }
 
 * {
     color: var(--black);
-    outline: 1px solid var(--primary);
+    /* outline: 1px solid var(--primary); */
     margin: 0;
     /* padding: 0; */
     box-sizing: border-box;
@@ -36,3 +40,20 @@ body {
     width: 100%;
     background-color: var(--white);
 } */
+
+.p-toggleswitch-handle i{
+    color: var(--white) !important;
+}
+
+.p-toggleswitch-input:hover {
+    background-color: var(--dark-text-color-1) !important;
+}
+
+.router-link-active.router-link-exact-active {
+    background-color: var(--primary) !important;
+    box-shadow: 0 2px 10px 1px #3C50E0;
+}
+
+.router-link-active.router-link-exact-active span{
+    color: var(--white) !important;
+}
