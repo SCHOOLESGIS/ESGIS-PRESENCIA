@@ -10,8 +10,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface ModuleInterface
 {
     public function getAllModules () : LengthAwarePaginator;
-    public function getModuleByID (Module $module) : Module;
+    public function getModuleByID (int $moduleId) : Module;
     public function createModule (CreateModuleRequest $createModuleRequest) : Module;
     public function updateModuleByID (UpdateModuleRequest $updateModuleRequest, Module $module) : Module;
-    public function deleteModuleByID (Module $module) : Module;
+    public function deleteModuleByID (int $moduleId) : Module;
 }

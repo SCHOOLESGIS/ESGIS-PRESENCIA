@@ -1,4 +1,5 @@
 <?php
+namespace App\Usecases;
 
 use App\Http\Requests\modules\CreateModuleRequest;
 use App\Http\Requests\modules\UpdateModuleRequest;
@@ -12,9 +13,10 @@ class ModuleUsecase implements ModuleInterface {
         return Module::paginate(10);
     }
 
-    public function getModuleByID(Module $module): Module
+    public function getModuleByID(int $moduleId): Module
     {
-        return $module;
+        $moduleToShow = Module::with(['filiere', 'cours'])->findOrFail($moduleId);
+        return $moduleToShow;
     }
 
     public function createModule(CreateModuleRequest $createModuleRequest): Module
@@ -28,9 +30,11 @@ class ModuleUsecase implements ModuleInterface {
         return $module;
     }
 
-    public function deleteModuleByID(Module $module): Module
+    public function deleteModuleByID(int $moduleId): Module
     {
-        $module->delete();
-        return $module;
+        $moduleToDelete = Module::findOrFail($moduleId);
+        $moduleToReturn = $moduleToDelete;
+        $moduleToDelete->delete();
+        return $moduleToReturn;
     }
 }

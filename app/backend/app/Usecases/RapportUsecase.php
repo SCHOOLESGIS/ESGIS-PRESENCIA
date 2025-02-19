@@ -1,4 +1,5 @@
 <?php
+namespace App\Usecases;
 
 use App\Http\Requests\rapports\CreateRapportRequest;
 use App\Http\Requests\rapports\UpdateRapportRequest;
@@ -12,9 +13,10 @@ class RapportUsecase implements RapportInterface{
         return Rapport::paginate(10);
     }
 
-    public function getRapportByID(Rapport $rapport): Rapport
+    public function getRapportByID(int $rapportId): Rapport
     {
-        return $rapport;
+        $rapportToShow = Rapport::with(['enseignant'])->findOrFail($rapportId);
+        return $rapportToShow;
     }
 
     public function createRapport(CreateRapportRequest $createRapportRequest): Rapport
@@ -28,9 +30,11 @@ class RapportUsecase implements RapportInterface{
         return $rapport;
     }
 
-    public function deleteRapportByID(Rapport $rapport): Rapport
+    public function deleteRapportByID(int $rapportId): Rapport
     {
-        $rapport->delete();
-        return $rapport;
+        $rapportToDelete = Rapport::findOrFail($rapportId);
+        $rapportToReturn = $rapportToDelete;
+        $rapportToDelete->delete();
+        return $rapportToReturn;
     }
 }

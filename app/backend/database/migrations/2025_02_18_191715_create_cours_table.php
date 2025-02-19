@@ -20,6 +20,7 @@ return new class extends Migration
             $table->time('begin_hour');
             $table->time('end_hour');
             $table->enum('status', ['VALIDE', 'NON_VALIDE']);
+            $table->softDeletes();
             $table->timestamps();
         });
 

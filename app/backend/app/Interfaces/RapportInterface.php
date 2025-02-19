@@ -10,8 +10,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface RapportInterface
 {
     public function getAllRapports () : LengthAwarePaginator;
-    public function getRapportByID (Rapport $rapport) : Rapport;
+    public function getRapportByID (int $rapportId) : Rapport;
     public function createRapport (CreateRapportRequest $createRapportRequest) : Rapport;
     public function updateRapportByID (UpdateRapportRequest $updateRapportRequest, Rapport $rapport) : Rapport;
-    public function deleteRapportByID (Rapport $rapport) : Rapport;
+    public function deleteRapportByID (int $rapportId) : Rapport;
 }

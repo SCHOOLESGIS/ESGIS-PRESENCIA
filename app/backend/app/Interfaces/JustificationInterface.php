@@ -10,8 +10,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface JustificationInterface
 {
     public function getAllJustifications () : LengthAwarePaginator;
-    public function getJustificationByID (Justification $justification) : Justification;
+    public function getJustificationByID (int $justificationId) : Justification;
     public function createJustification (CreateJustificationRequest $createJustificationRequest) : Justification;
     public function updateJustificationByID (UpdateJustificationRequest $updateJustificationRequest, Justification $justification) : Justification;
-    public function deleteJustificationByID (Justification $justification) : Justification;
+    public function deleteJustificationByID (int $justificationId) : Justification;
 }

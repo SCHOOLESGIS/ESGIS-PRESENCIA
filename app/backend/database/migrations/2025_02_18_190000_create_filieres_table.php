@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('filiere_id');
             $table->string('filiere_name');
             $table->string('filiere_level');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

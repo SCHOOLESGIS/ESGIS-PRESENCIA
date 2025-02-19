@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('module_id');
             $table->date('absence_date');
             $table->enum('status', ['JUSTIFIE', 'NON_JUSTIFIE']);
+            $table->softDeletes();
             $table->timestamps();
         });
 

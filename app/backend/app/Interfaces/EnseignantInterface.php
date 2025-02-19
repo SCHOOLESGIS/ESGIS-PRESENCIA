@@ -10,8 +10,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface EnseignantInterface
 {
     public function getAllEnseignants () : LengthAwarePaginator;
-    public function getEnseignantByID (Enseignant $enseignant) : Enseignant;
+    public function getEnseignantByID (int $enseignantId) : Enseignant;
     public function createEnseignant (CreateEnseignantRequest $createEnseignantRequest) : Enseignant;
     public function updateEnseignantByID (UpdateEnseignantRequest $updateEnseignantRequest, Enseignant $enseignant) : Enseignant;
-    public function deleteEnseignantByID (Enseignant $enseignant) : Enseignant;
+    public function deleteEnseignantByID (int $enseignantId) : Enseignant;
 }

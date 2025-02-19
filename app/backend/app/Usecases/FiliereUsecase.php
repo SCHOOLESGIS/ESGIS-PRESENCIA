@@ -1,4 +1,5 @@
 <?php
+namespace App\Usecases;
 
 use App\Http\Requests\filieres\CreateFiliereRequest;
 use App\Http\Requests\filieres\UpdateFiliereRequest;
@@ -12,9 +13,10 @@ class FiliererUsecase implements FiliereInterface{
         return Filiere::paginate(10);
     }
 
-    public function getFiliereByID(Filiere $filiere): Filiere
+    public function getFiliereByID(int $filiereId): Filiere
     {
-        return $filiere;
+        $filiereToShow = Filiere::with(['modules'])->findOrFail($filiereId);
+        return $filiereToShow;
     }
 
     public function createFiliere(CreateFiliereRequest $createFiliereRequest): Filiere
@@ -28,9 +30,11 @@ class FiliererUsecase implements FiliereInterface{
         return $filiere;
     }
 
-    public function deleteFiliereByID(Filiere $filiere): Filiere
+    public function deleteFiliereByID(int $filiereId): Filiere
     {
-        $filiere->delete();
-        return $filiere;
+        $filiereToDelete = Filiere::findOrFail($filiereId);
+        $filiereToReturn = $filiereToDelete;
+        $filiereToDelete->delete();
+        return $filiereToReturn;
     }
 }

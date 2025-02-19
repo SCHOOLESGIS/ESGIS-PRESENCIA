@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Justification extends Model
@@ -17,7 +18,7 @@ class Justification extends Model
         'doc'
     ];
 
-    public function justification () : BelongsTo
+    public function abscence () : BelongsTo
     {
         return $this->belongsTo(Justification::class, 'absence_id', 'absence_id');
     }

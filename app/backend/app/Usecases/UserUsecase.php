@@ -1,4 +1,5 @@
 <?php
+namespace App\Usecases;
 
 use App\Interfaces\UserInterface;
 

@@ -1,4 +1,5 @@
 <?php
+namespace App\Usecases;
 
 use App\Http\Requests\absences\CreateAbsenceRequest;
 use App\Http\Requests\absences\UpdateAbsenceRequest;
@@ -9,12 +10,13 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class AbsenceUsecase implements AbsenceInterface {
     public function getAllAbsences(): LengthAwarePaginator
     {
-        return Absence::paginate(10);
+        return Absence::with(['justification', 'enseignant', 'cour'])->paginate(10);
     }
 
-    public function getAbsenceByID(Absence $absence): Absence
+    public function getAbsenceByID(int $absenceId): Absence
     {
-        return $absence;
+        $absenceToShow = Absence::with(['justification', 'enseignant', 'cour'])->findOrFail($absenceId);
+        return $absenceToShow;
     }
 
     public function createAbsence(CreateAbsenceRequest $createAbsenceRequest): Absence
@@ -28,9 +30,11 @@ class AbsenceUsecase implements AbsenceInterface {
         return $absence;
     }
 
-    public function deleteAbsenceByID(Absence $absence): Absence
+    public function deleteAbsenceByID(int $absenceId): Absence
     {
-        $absence->delete();
-        return $absence;
+        $absenceToDelete = Absence::findOrFail($absenceId);
+        $absenceToReturn = $absenceToDelete;
+        $absenceToDelete->delete();
+        return $absenceToReturn;
     }
 }
