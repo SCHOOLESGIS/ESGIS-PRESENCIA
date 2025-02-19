@@ -10,8 +10,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface EmargementInterface
 {
     public function getAllEmargements () : LengthAwarePaginator;
-    public function getEmargementByID (Emargement $emargement) : Emargement;
+    public function getEmargementByID (int $emargementId) : Emargement;
     public function createEmargement (CreateEmargementRequest $createEmargementRequest) : Emargement;
-    public function updateEmargementByID (UpdateEmargementRequest $updateEmargementRequest, Emargement $absence) : Emargement;
-    public function deleteEmargementByID (Emargement $absence) : Emargement;
+    public function updateEmargementByID (UpdateEmargementRequest $updateEmargementRequest, Emargement $emargement) : Emargement;
+    public function deleteEmargementByID (int $emargementId) : Emargement;
 }

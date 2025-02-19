@@ -10,8 +10,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface AbsenceInterface
 {
     public function getAllAbsences () : LengthAwarePaginator;
-    public function getAbsenceByID (Absence $absence) : Absence;
+    public function getAbsenceByID (int $absenceId) : Absence;
     public function createAbsence (CreateAbsenceRequest $createAbsenceRequest) : Absence;
     public function updateAbsenceByID (UpdateAbsenceRequest $updateAbsenceRequest, Absence $absence) : Absence;
-    public function deleteAbsenceByID (Absence $absence) : Absence;
+    public function deleteAbsenceByID (int $absenceId) : Absence;
 }

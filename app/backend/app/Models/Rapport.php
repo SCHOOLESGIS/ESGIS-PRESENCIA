@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Rapport extends Model
@@ -18,8 +19,8 @@ class Rapport extends Model
         'justification_number'
     ];
 
-    public function enseignants () : HasMany
+    public function enseignant () : HasOne
     {
-        return $this->hasMany(Enseignant::class, 'rapport_id', 'rapport_id');
+        return $this->hasOne(Enseignant::class, 'rapport_id', 'rapport_id');
     }
 }

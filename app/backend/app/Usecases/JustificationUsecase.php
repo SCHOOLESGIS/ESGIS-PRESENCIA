@@ -1,4 +1,5 @@
 <?php
+namespace App\Usecases;
 
 use App\Http\Requests\justifications\CreateJustificationRequest;
 use App\Http\Requests\justifications\UpdateJustificationRequest;
@@ -12,9 +13,10 @@ class JustificationUsecase implements JustificationInterface {
         return Justification::paginate(10);
     }
 
-    public function getJustificationByID(Justification $justification): Justification
+    public function getJustificationByID(int $justificationId): Justification
     {
-        return $justification;
+        $justificationToShow = Justification::with(['absence'])->findOrFail($justificationId);
+        return $justificationToShow;
     }
 
     public function createJustification(CreateJustificationRequest $createJustificationRequest): Justification
@@ -28,9 +30,11 @@ class JustificationUsecase implements JustificationInterface {
         return $justification;
     }
 
-    public function deleteJustificationByID(Justification $justification): Justification
+    public function deleteJustificationByID(int $justificationId): Justification
     {
-        $justification->delete();
-        return $justification;
+        $justificationToDelete = Justification::findOrFail($justificationId);
+        $justificationToReturn = $justificationToDelete;
+        $justificationToDelete->delete();
+        return $justificationToReturn;
     }
 }

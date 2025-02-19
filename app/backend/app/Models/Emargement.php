@@ -25,6 +25,6 @@ class Emargement extends Model
 
     public function enseignant () : BelongsTo
     {
-        return $this->belongsTo(Enseignant::class, 'absence_id', 'absence_id');
+        return $this->belongsTo(Enseignant::class, 'enseignant_id', 'enseignant_id');
     }
 }

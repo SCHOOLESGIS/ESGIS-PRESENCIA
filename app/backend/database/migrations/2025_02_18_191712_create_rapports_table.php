@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('hour_number');
             $table->integer('absence_number');
             $table->integer('justification_number');
+            $table->softDeletes();
             $table->timestamps();
         });
 

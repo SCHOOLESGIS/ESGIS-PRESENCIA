@@ -1,4 +1,5 @@
 <?php
+namespace App\Usecases;
 
 use App\Http\Requests\emargements\CreateEmargementRequest;
 use App\Http\Requests\emargements\UpdateEmargementRequest;
@@ -12,9 +13,10 @@ class EmargementUsecase implements EmargementInterface {
         return Emargement::paginate(10);
     }
 
-    public function getEmargementByID(Emargement $emargement): Emargement
+    public function getEmargementByID(int $emargementId): Emargement
     {
-        return $emargement;
+        $emargementToShow = Emargement::with(['cour', 'enseignant'])->findOrFail($emargementId);
+        return $emargementToShow;
     }
 
     public function createEmargement(CreateEmargementRequest $createEmargementRequest): Emargement
@@ -28,9 +30,11 @@ class EmargementUsecase implements EmargementInterface {
         return $emargement;
     }
 
-    public function deleteEmargementByID(Emargement $emargement): Emargement
+    public function deleteEmargementByID(int $emargementId): Emargement
     {
-        $emargement->delete();
-        return $emargement;
+        $emargementToDelete = Emargement::findOrFail($emargementId);
+        $emargementToReturn = $emargementToDelete;
+        $emargementToDelete->delete();
+        return $emargementToReturn;
     }
 }

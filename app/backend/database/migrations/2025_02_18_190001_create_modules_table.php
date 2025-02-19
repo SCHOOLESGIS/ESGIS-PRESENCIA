@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('module_code');
             $table->string('description');
             $table->unsignedBigInteger('filiere_id');
+            $table->softDeletes();
             $table->timestamps();
         });
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('matricule')->unique();
             $table->string('speciality');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

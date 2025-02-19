@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('absence_id');
             $table->string('type');
             $table->string('doc');
+            $table->softDeletes();
             $table->timestamps();
         });
 

@@ -1,4 +1,5 @@
 <?php
+namespace App\Usecases;
 
 use App\Http\Requests\cours\CreateCourRequest;
 use App\Http\Requests\cours\UpdateCourRequest;
@@ -12,9 +13,10 @@ class CourUsecase implements CourInterface {
         return Cour::paginate(10);
     }
 
-    public function getCourByID(Cour $cour): Cour
+    public function getCourByID(int $courId): Cour
     {
-        return $cour;
+        $courToShow = Cour::with(['emargement', 'enseignant', 'module'])->findOrFail($courId);
+        return $courToShow;
     }
 
     public function createCour(CreateCourRequest $createCourRequest): Cour
@@ -28,9 +30,11 @@ class CourUsecase implements CourInterface {
         return $cour;
     }
 
-    public function deleteCourByID(Cour $cour): Cour
+    public function deleteCourByID(int $courId): Cour
     {
-        $cour->delete();
-        return $cour;
+        $courToDelete = Cour::findOrFail($courId);
+        $courToReturn = $courToDelete;
+        $courToDelete->delete();
+        return $courToReturn;
     }
 }

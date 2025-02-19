@@ -1,4 +1,5 @@
 <?php
+namespace App\Usecases;
 
 use App\Http\Requests\enseignants\CreateEnseignantRequest;
 use App\Http\Requests\enseignants\UpdateEnseignantRequest;
@@ -12,9 +13,10 @@ class EnseignantUsecase implements EnseignantInterface{
         return Enseignant::paginate(10);
     }
 
-    public function getEnseignantByID(Enseignant $enseignant): Enseignant
+    public function getEnseignantByID(int $enseignantId): Enseignant
     {
-        return $enseignant;
+        $enseignantToShow = Enseignant::with(['emargements', 'absences', 'cours', 'rapports'])->findOrFail($enseignantId);
+        return $enseignantToShow;
     }
 
     public function createEnseignant(CreateEnseignantRequest $createEnseignantRequest): Enseignant
@@ -28,9 +30,11 @@ class EnseignantUsecase implements EnseignantInterface{
         return $enseignant;
     }
 
-    public function deleteEnseignantByID(Enseignant $enseignant): Enseignant
+    public function deleteEnseignantByID(int $enseignantId): Enseignant
     {
-        $enseignant->delete();
-        return $enseignant;
+        $enseignantToDelete = Enseignant::findOrFail($enseignantId);
+        $enseignantToReturn = $enseignantToDelete;
+        $enseignantToDelete->delete();
+        return $enseignantToReturn;
     }
 }
