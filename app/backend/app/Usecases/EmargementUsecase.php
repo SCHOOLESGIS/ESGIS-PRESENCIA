@@ -21,12 +21,21 @@ class EmargementUsecase implements EmargementInterface {
 
     public function createEmargement(CreateEmargementRequest $createEmargementRequest): Emargement
     {
-        return Emargement::create($createEmargementRequest->validated());
+        $emargementData = $createEmargementRequest->validated();
+        $emargement = new Emargement();
+        $emargement->enseignant_id =  $emargementData['enseignant_id'];
+        $emargement->cour_id =  $emargementData['cour_id'];
+        $emargement->begin_hour =  $emargementData['begin_hour'];
+        $emargement->end_hour =  $emargementData['end_hour'];
+        $emargement->status =  $emargementData['status'];
+        $emargement->save();
+
+        return $emargement;
     }
 
     public function updateEmargementByID(UpdateEmargementRequest $updateEmargementRequest, Emargement $emargement): Emargement
     {
-        $emargement->update($updateEmargementRequest->validated());
+        $emargement->enseignant_id;
         return $emargement;
     }
 

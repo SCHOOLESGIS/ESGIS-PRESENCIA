@@ -25,8 +25,9 @@ class CreateUserRequest extends FormRequest
             'name' => 'required|string|max:255',
             'surname' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6|confirmed',
-            'role' => 'required|in:admin,enseignant'
+            'password' => 'nullable|string|min:6|confirmed',
+            'role' => 'required|in:admin,enseignant',
+            'specialite' => 'nullable|in:admin,enseignant'
         ];
     }
 }
