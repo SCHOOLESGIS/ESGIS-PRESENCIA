@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -35,5 +36,10 @@ class Enseignant extends Model
     public function rapports () : HasMany
     {
         return $this->hasMany(Rapport::class, 'enseignant_id', 'enseignant_id');
+    }
+
+    public function user () : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 }
