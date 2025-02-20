@@ -10,7 +10,7 @@
         </div>
         <div class="w-[50%] hidden sm:hidden lg:block h-[calc(100vh-20px)]">   
             <div class="form-bg w-[100%] h-[100%] flex items-end justify-end rounded-[10px] bg-[url()] bg-cover bg-left">
-                <img src="../assets/images/icons/form_logo.svg" class="shadow" alt="">
+                <img src="/icons/form_logo.svg" class="shadow" alt="">
             </div>
         </div>
     </div>
