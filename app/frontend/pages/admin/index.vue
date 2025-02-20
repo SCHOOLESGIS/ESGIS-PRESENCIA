@@ -1,6 +1,6 @@
 <template>
-    <div>
-        {{route}}
+    <div class="w-full min-h-[100vh]">
+        {{ route }}
     </div>
 </template>
 
