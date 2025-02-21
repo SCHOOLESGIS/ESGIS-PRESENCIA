@@ -1,6 +1,6 @@
 <template>
-    <div class="w-full min-h-[100vh]">
-        {{ route }}
+    <div class="w-full min-h-[100vh] flex flex-col gap-[20px]">
+        
     </div>
 </template>
 

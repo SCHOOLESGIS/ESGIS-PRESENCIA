@@ -4,15 +4,13 @@
         <div class="card shadow-sm rounded-[10px] bg-(--white)">
             <DataTable :value="products" tableStyle="min-width: 50rem rounded-[10px]">
                 <Column :field="'id'" :header="'M'"></Column>
-                <Column :field="'name'" :header="'Nom enseignants'"></Column>
-                <Column :field="'email'" :header="'Email'"></Column>
-                <Column :field="'hoursAssigned'" :header="'Nbre d\'heure affectuées'"></Column>
-                <Column :field="'hoursAbsent'" :header="'Nbre d\'heure d\'absences'"></Column>
+                <Column :field="'libel'" :header="'Libéllé'"></Column>
+                <Column :field="'code'" :header="'Code module'"></Column>
                 <Column :field="'createdAt'" :header="'Date de création'"></Column>
                 <Column :field="'action'" :header="'Actions'">
                     <template #body="slotProps">
                         <div class="flex gap-[5px]">
-                            <NuxtLink :to="`/admin/enseignants/${slotProps.data.id}`">
+                            <NuxtLink :to="`/admin/modules-filieres/modules/${slotProps.data.id}`">
                                 <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
                                     <i class="pi pi-eye"></i>
                                 </div>
@@ -24,21 +22,9 @@
                                 </div>
                             </NuxtLink>
 
-                            <NuxtLink to="">
+                            <NuxtLink class="cursor-pointer" @click="requireConfirmation()">
                                 <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--red) text-(--red) flex items-center justify-center">
                                     <i class="pi pi-trash"></i>
-                                </div>
-                            </NuxtLink>
-
-                            <NuxtLink to="" class="hidden-white cursor-pointer" @click="visible = true">
-                                <div class="h-[25px] w-[25px] rounded-[2px] border border-(--white) text-(--primary) flex items-center justify-center">
-                                    <i class="pi pi-file-plus"></i>
-                                </div>
-                            </NuxtLink>
-
-                            <NuxtLink to="" class="hidden-white">
-                                <div class="h-[25px] w-[25px] rounded-[2px] border border-(--white) text-(--primary) flex items-center justify-center">
-                                    <i class="pi pi-history"></i>
                                 </div>
                             </NuxtLink>
                         </div>
@@ -73,6 +59,22 @@
                 <Button type="button" label="Attribuer" @click="visible = false"></Button>
             </div>
         </Dialog>
+
+        <ConfirmDialog group="headless">
+            <template #container="{ message, acceptCallback, rejectCallback }">
+                <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
+                    <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20">
+                        <i class="pi pi-question text-5xl"></i>
+                    </div>
+                    <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
+                    <p class="mb-0">{{ message.message }}</p>
+                    <div class="flex items-center gap-2 mt-6">
+                        <Button label="Save" @click="acceptCallback" class="w-32"></Button>
+                        <Button label="Cancel" outlined @click="rejectCallback" class="w-32"></Button>
+                    </div>
+                </div>
+            </template>
+        </ConfirmDialog>
     </div>
 </template>
 
@@ -83,6 +85,25 @@
     import Column from 'primevue/column';
     import ColumnGroup from 'primevue/columngroup';   // optional
     import Row from 'primevue/row'; 
+    import { useConfirm } from "primevue/useconfirm";
+    import { useToast } from "primevue/usetoast";
+
+    const confirm = useConfirm();
+    const toast = useToast();
+
+    const requireConfirmation = () => {
+        confirm.require({
+            group: 'headless',
+            header: 'Are you sure?',
+            message: 'Please confirm to proceed.',
+            accept: () => {
+                toast.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+            },
+            reject: () => {
+                toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+            }
+        });
+    };
     
     const props = defineProps(
         {

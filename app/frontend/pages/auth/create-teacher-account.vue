@@ -23,7 +23,6 @@
                             <InputText class="w-full rounded-[4px]" name="username" type="text" placeholder="Prénom" />
                         </div>
                     </div>
-
                 </div>
 
                 <div class="flex flex-col justify-start gap-[10px]">

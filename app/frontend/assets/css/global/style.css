@@ -4,7 +4,7 @@
     --stroke: #E2E8F0;
     --white: #FFFFFF;
     --black: #000000;
-    --primary: #3C50E0;
+    --primary: rgb(60, 80, 224);
     --secondary: #80CAEE;
     --text-color: #64748B;
     --green: #10B981;
@@ -149,7 +149,7 @@ body {
 }
 
 .p-datatable-table thead tr {
-    background-color: var(--white);
+    background-color: transparent;
 }
 
 .p-datatable-table thead tr th{
@@ -161,14 +161,16 @@ body {
     flex-grow: 1;
 } */
 
-.p-datatable-tbody tr:hover {
-    background-color: var(--primary) !important;
-    color: var(--white) !important;
-}
 
 .p-datatable-tbody tr:hover {
     background-color: var(--primary) !important;
     color: var(--white) !important;
+    box-shadow: 0 0 10px 1px #3C50E0;
+}
+
+.p-datatable-tbody tr {
+    background-color: transparent !important;
+    height: 7vh;
 }
 
 .p-datatable-tbody tr:hover .white-hover{
@@ -195,4 +197,12 @@ body {
 .p-dialog-header-actions button {
     background-color: var(--white) !important;
     color: var(--primary) !important;
+}
+
+.p-dialog-header {
+    border-bottom: .1px solid var(--primary);
+}
+
+.p-dialog-header-actions {
+    display: none !important;
 }

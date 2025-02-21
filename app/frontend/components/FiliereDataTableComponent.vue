@@ -4,15 +4,13 @@
         <div class="card shadow-sm rounded-[10px] bg-(--white)">
             <DataTable :value="products" tableStyle="min-width: 50rem rounded-[10px]">
                 <Column :field="'id'" :header="'M'"></Column>
-                <Column :field="'name'" :header="'Nom enseignants'"></Column>
-                <Column :field="'email'" :header="'Email'"></Column>
-                <Column :field="'hoursAssigned'" :header="'Nbre d\'heure affectuées'"></Column>
-                <Column :field="'hoursAbsent'" :header="'Nbre d\'heure d\'absences'"></Column>
+                <Column :field="'name'" :header="'Nom de filière'"></Column>
+                <Column :field="'niveau'" :header="'Niveau (LMD)'"></Column>
                 <Column :field="'createdAt'" :header="'Date de création'"></Column>
                 <Column :field="'action'" :header="'Actions'">
                     <template #body="slotProps">
                         <div class="flex gap-[5px]">
-                            <NuxtLink :to="`/admin/enseignants/${slotProps.data.id}`">
+                            <NuxtLink :to="`/admin/modules-filieres/filieres/${slotProps.data.id}`">
                                 <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
                                     <i class="pi pi-eye"></i>
                                 </div>
@@ -35,12 +33,6 @@
                                     <i class="pi pi-file-plus"></i>
                                 </div>
                             </NuxtLink>
-
-                            <NuxtLink to="" class="hidden-white">
-                                <div class="h-[25px] w-[25px] rounded-[2px] border border-(--white) text-(--primary) flex items-center justify-center">
-                                    <i class="pi pi-history"></i>
-                                </div>
-                            </NuxtLink>
                         </div>
                     </template>
                 </Column>
@@ -54,7 +46,7 @@
         <Dialog v-model:visible="visible" modal :style="{ width: '25rem'}">
             <template #header>
                 <div class="inline-flex items-center justify-center gap-2 text-(--primary) text-[1.2rem]">
-                    Attributions des modules
+                    Association de module(s) à une filière
                 </div>
             </template>
             <div class="w-full pt-[10px]">
