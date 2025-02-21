@@ -4,7 +4,7 @@
     --stroke: #E2E8F0;
     --white: #FFFFFF;
     --black: #000000;
-    --primary: #3C50E0;
+    --primary: rgb(60, 80, 224);
     --secondary: #80CAEE;
     --text-color: #64748B;
     --green: #10B981;
@@ -29,7 +29,7 @@
 body {
     width: 100%;
     height: auto;
-    background-color: var(--white);
+    /* background-color: var(--white); */
 }
 
 #__nuxt, .app {
@@ -47,7 +47,7 @@ body {
 }
 
 .p-toggleswitch-input:hover {
-    background-color: var(--dark-text-color-1) !important;
+    /* background-color: var(--dark-text-color-1) !important; */
 }
 
 .router-link-active.router-link-exact-active {
@@ -60,13 +60,13 @@ body {
 }
 
 .p-inputtext.p-variant-filled {
-    background: var(--white) !important;
+    /* background: var(--white) !important; */
 }
 .p-inputtext {
     font-family: inherit;
     font-feature-settings: inherit;
     font-size: 1rem;
-    color: var(--dark-text-color-2) !important;
+    /* color: var(--dark-text-color-2) !important; */
     /* background: var(--p-inputtext-background); */
     /* padding-block: var(--p-inputtext-padding-y);
     padding-inline: var(--p-inputtext-padding-x); */
@@ -106,4 +106,103 @@ body {
     border-radius: 4px !important;
     outline-color: transparent;
     gap: var(--p-button-gap);
+}
+
+.active-sub-link {
+    background-color:  var(--stroke)!important;
+}
+
+.sub-link .router-link-active.router-link-exact-active {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: var(--primary) !important;
+    font-weight: 600;
+}
+
+.sub-link li {
+    color: var(--text-grey) !important;
+}
+
+/* ------------------------------datatable */
+
+.p-datatable-header-cell {
+    padding: var(--p-datatable-header-cell-padding);
+    background: var(--white) !important;
+    border-color: var(--p-datatable-header-cell-border-color);
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    color: var(--black) !important;
+    font-weight: normal;
+    text-align: start;
+    transition: background var(--p-datatable-transition-duration), color var(--p-datatable-transition-duration), border-color var(--p-datatable-transition-duration), outline-color var(--p-datatable-transition-duration), box-shadow var(--p-datatable-transition-duration);
+}
+
+.p-datatable-tbody > tr {
+    outline-color: transparent;
+    background: var(--white) !important;
+    color: var(--black) !important;
+    transition: background var(--p-datatable-transition-duration), color var(--p-datatable-transition-duration), border-color var(--p-datatable-transition-duration), outline-color var(--p-datatable-transition-duration), box-shadow var(--p-datatable-transition-duration);
+}
+
+.p-datatable-table thead {
+    border-radius: 10px 10px 0 0;
+}
+
+.p-datatable-table thead tr {
+    background-color: transparent;
+}
+
+.p-datatable-table thead tr th{
+    background-color: transparent !important;
+}
+
+/* .p-datatable-thead tr {
+    width: 100%;
+    flex-grow: 1;
+} */
+
+
+.p-datatable-tbody tr:hover {
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+    box-shadow: 0 0 10px 1px #3C50E0;
+}
+
+.p-datatable-tbody tr {
+    background-color: transparent !important;
+    height: 7vh;
+}
+
+.p-datatable-tbody tr:hover .white-hover{
+    color: var(--white) !important;
+    border-color: var(--white) !important;
+}
+
+.p-paginator-page.p-paginator-page-selected {
+    background: var(--primary) !important;
+    color: var(--white) !important;
+}
+
+.hidden-white {
+    background-color: var(--white);
+    color: var(--primary);
+    border-radius: 2px;
+    display: none;
+}
+
+.p-datatable-tbody tr:hover .hidden-white{
+    display: block;
+}
+
+.p-dialog-header-actions button {
+    background-color: var(--white) !important;
+    color: var(--primary) !important;
+}
+
+.p-dialog-header {
+    border-bottom: .1px solid var(--primary);
+}
+
+.p-dialog-header-actions {
+    display: none !important;
 }
