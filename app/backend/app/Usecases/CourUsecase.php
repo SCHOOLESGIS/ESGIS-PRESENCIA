@@ -21,12 +21,31 @@ class CourUsecase implements CourInterface {
 
     public function createCour(CreateCourRequest $createCourRequest): Cour
     {
-        return Cour::create($createCourRequest->validated());
+        $courData = $createCourRequest->validated();
+        $cour = new Cour();
+        $cour->module_id = $courData['module_id'];
+        $cour->enseignant_id = $courData['enseignant_id'];
+        $cour->filiere_id = $courData['filiere_id'];
+        $cour->cour_date = $courData['cour_date'];
+        $cour->begin_hour = $courData['begin_hour'];
+        $cour->end_hour = $courData['end_hour'];
+        $cour->save();
+
+        return $cour;
     }
 
     public function updateCourByID(UpdateCourRequest $updateCourRequest, Cour $cour): Cour
     {
-        $cour->update($updateCourRequest->validated());
+        $courData = $updateCourRequest->validated();
+        $cour->module_id = $courData['module_id'];
+        $cour->enseignant_id = $courData['enseignant_id'];
+        $cour->filiere_id = $courData['filiere_id'];
+        $cour->cour_date = $courData['cour_date'];
+        $cour->begin_hour = $courData['begin_hour'];
+        $cour->end_hour = $courData['end_hour'];
+        $cour->status = $courData['status'];
+        $cour->save();
+
         return $cour;
     }
 

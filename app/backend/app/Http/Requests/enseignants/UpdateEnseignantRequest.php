@@ -22,7 +22,7 @@ class UpdateEnseignantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'matricule' => 'nullable|string|unique:enseignants,matricule,' . $this->route('enseignant') . '|max:255',
+            'matricule' => 'nullable|string|unique:enseignants,matricule|max:255',
             'speciality' => 'nullable|string|max:255',
         ];
     }

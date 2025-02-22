@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('enseignant_id');
             $table->unsignedBigInteger('module_id');
             $table->date('absence_date');
-            $table->enum('status', ['JUSTIFIE', 'NON_JUSTIFIE']);
+            $table->enum('status', ['JUSTIFIE', 'NON_JUSTIFIE'])->default('NON_JUSTIFIE');
             $table->softDeletes();
             $table->timestamps();
         });

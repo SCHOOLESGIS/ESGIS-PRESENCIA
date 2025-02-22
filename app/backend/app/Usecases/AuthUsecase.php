@@ -2,7 +2,7 @@
 
 namespace App\Usecases;
 
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\auth\LoginRequest;
 use App\Interfaces\AuthInterface;
 use App\Models\User;
 use Exception;
@@ -37,7 +37,7 @@ class AuthUsecase implements AuthInterface {
         $request->user()->currentAccessToken()->delete();
         return [
             "user" => $userLogout,
-          "message"=>"logged out"
+            "message"=>"logged out"
         ];
     }
 }

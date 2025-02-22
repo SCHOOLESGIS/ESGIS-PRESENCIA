@@ -21,12 +21,26 @@ class RapportUsecase implements RapportInterface{
 
     public function createRapport(CreateRapportRequest $createRapportRequest): Rapport
     {
-        return Rapport::create($createRapportRequest->validated());
+        $rapportData = $createRapportRequest->validated();
+        $rapport = new Rapport();
+        $rapport->enseignant_id = $rapportData['enseignant_id'];
+        $rapport->hour_number = $rapportData['hour_number'];
+        $rapport->absence_number = $rapportData['absence_number'];
+        $rapport->justification_number = $rapportData['justification_number'];
+        $rapport->save();
+
+        return $rapport;
     }
 
     public function updateRapportByID(UpdateRapportRequest $updateRapportRequest, Rapport $rapport): Rapport
     {
-        $rapport->update($updateRapportRequest->validated());
+        $rapportData = $updateRapportRequest->validated();
+        $rapport->enseignant_id = $rapportData['enseignant_id']??$rapport->enseignant_id;
+        $rapport->hour_number = $rapportData['hour_number']??$rapport->hour_number;
+        $rapport->absence_number = $rapportData['absence_number']??$rapport->absence_number;
+        $rapport->justification_number = $rapportData['justification_number']??$rapport->justification_number;
+        $rapport->save();
+
         return $rapport;
     }
 

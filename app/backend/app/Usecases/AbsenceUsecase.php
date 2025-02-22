@@ -21,12 +21,25 @@ class AbsenceUsecase implements AbsenceInterface {
 
     public function createAbsence(CreateAbsenceRequest $createAbsenceRequest): Absence
     {
-        return Absence::create($createAbsenceRequest->validated());
+        $absenceData = $createAbsenceRequest->validated();
+        $absence = new Absence();
+        $absence->enseignant_id = $absenceData['enseignant_id'];
+        $absence->module_id = $absenceData['module_id'];
+        $absence->absence_date = $absenceData['absence_date'];
+        $absence->save();
+
+        return $absence;
     }
 
     public function updateAbsenceByID(UpdateAbsenceRequest $updateAbsenceRequest, Absence $absence): Absence
     {
-        $absence->update($updateAbsenceRequest->validated());
+        $absenceData = $updateAbsenceRequest->validated();
+        $absence->enseignant_id = $absenceData['enseignant_id']??$absence->enseignant_id;
+        $absence->module_id = $absenceData['module_id']??$absence->module_id;
+        $absence->absence_date = $absenceData['absence_date']??$absence->absence_date;
+        $absence->status = $absenceData['status']??$absence->status;
+        $absence->save();
+
         return $absence;
     }
 

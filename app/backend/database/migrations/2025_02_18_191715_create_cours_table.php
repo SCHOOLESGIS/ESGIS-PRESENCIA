@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('cour_date');
             $table->time('begin_hour');
             $table->time('end_hour');
-            $table->enum('status', ['VALIDE', 'NON_VALIDE']);
+            $table->enum('status', ['VALIDE', 'NON_VALIDE'])->default('NON_VALIDE');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -44,11 +44,20 @@ class UserUsecase implements UserInterface {
 
     public function updateUserByID(UpdateUserRequest $updateUserRequest, User $user): User
     {
+        $userData = $updateUserRequest->validated();
+        $user->name = $userData['name']??$user->name;
+        $user->surname = $userData['surname']??$user->surname;
+        $user->save();
 
+        return $user;
     }
 
     public function deleteUserByID(int $userId): User
     {
+        $userToDelete = User::all()->findOrFail($userId);
+        $userToShow = $userToDelete;
+        $userToDelete->delete();
 
+        return $userToShow;
     }
 }

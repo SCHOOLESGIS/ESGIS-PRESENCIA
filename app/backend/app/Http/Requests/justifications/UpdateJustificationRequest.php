@@ -22,7 +22,7 @@ class UpdateJustificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'absence_id' => 'nullable|exists:absences,id',
+            'absence_id' => 'nullable|exists:absences,absence_id',
             'type' => 'nullable|string|max:255',
             'doc' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
         ];

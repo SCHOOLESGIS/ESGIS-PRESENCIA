@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\auth\LoginRequest;
 use App\Usecases\AuthUsecase;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

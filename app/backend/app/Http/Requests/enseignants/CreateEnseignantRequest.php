@@ -22,7 +22,7 @@ class CreateEnseignantRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,user_id',
             'matricule' => 'required|string|unique:enseignants,matricule|max:255',
             'speciality' => 'required|string|max:255',
         ];

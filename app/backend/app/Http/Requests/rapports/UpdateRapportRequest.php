@@ -22,7 +22,9 @@ class UpdateRapportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'hour_number' => 'nullable|integer|min:0',
+            'absence_number' => 'nullable|integer|min:0',
+            'justification_number' => 'nullable|integer|min:0',
         ];
     }
 }

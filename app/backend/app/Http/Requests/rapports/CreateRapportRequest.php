@@ -22,7 +22,7 @@ class CreateRapportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'enseignant_id' => 'required|exists:enseignants,id',
+            'enseignant_id' => 'required|exists:enseignants,enseignant_id',
             'hour_number' => 'required|integer|min:0',
             'absence_number' => 'required|integer|min:0',
             'justification_number' => 'required|integer|min:0',

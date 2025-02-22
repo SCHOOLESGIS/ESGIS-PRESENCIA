@@ -21,12 +21,26 @@ class ModuleUsecase implements ModuleInterface {
 
     public function createModule(CreateModuleRequest $createModuleRequest): Module
     {
-        return Module::create($createModuleRequest->validated());
+        $moduleData = $createModuleRequest->validated();
+        $module = new Module();
+        $module->module_name = $moduleData['module_name'];
+        $module->module_code = $moduleData['module_code'];
+        $module->description = $moduleData['description'];
+        $module->filiere_id = $moduleData['filiere_id'];
+        $module->save();
+
+        return $module;
     }
 
     public function updateModuleByID(UpdateModuleRequest $updateModuleRequest, Module $module): Module
     {
-        $module->update($updateModuleRequest->validated());
+        $moduleData = $updateModuleRequest->validated();
+        $module->module_name = $moduleData['module_name']??$module->module_name;
+        $module->module_code = $moduleData['module_code']??$module->module_code;
+        $module->description = $moduleData['description']??$module->description;
+        $module->filiere_id = $moduleData['filiere_id']??$module->filiere_id;
+        $module->save();
+
         return $module;
     }
 

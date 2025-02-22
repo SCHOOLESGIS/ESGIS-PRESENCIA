@@ -22,7 +22,7 @@ class CreateJustificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'absence_id' => 'required|exists:absences,id',
+            'absence_id' => 'required|exists:absences,absence_id',
             'type' => 'required|string|max:255',
             'doc' => 'nullable|file|mimes:pdf,jpg,png|max:2048',
         ];
