@@ -21,12 +21,24 @@ class JustificationUsecase implements JustificationInterface {
 
     public function createJustification(CreateJustificationRequest $createJustificationRequest): Justification
     {
-        return Justification::create($createJustificationRequest->validated());
+        $justificationData = $createJustificationRequest->validated();
+        $justification = new Justification();
+        $justification->absence_id = $justificationData['absence_id'];
+        $justification->type = $justificationData['type'];
+        $justification->doc = $justificationData['doc'];
+        $justification->save();
+
+        return $justification;
     }
 
     public function updateJustificationByID(UpdateJustificationRequest $updateJustificationRequest, Justification $justification): Justification
     {
-        $justification->update($updateJustificationRequest->validated());
+        $justificationData = $updateJustificationRequest->validated();
+        $justification->absence_id = $justificationData['absence_id']??$justification->absence_id;
+        $justification->type = $justificationData['type']??$justification->type;
+        $justification->doc = $justificationData['doc']??$justification->doc;
+        $justification->save();
+
         return $justification;
     }
 

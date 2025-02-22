@@ -25,7 +25,7 @@ class CreateModuleRequest extends FormRequest
             'module_name' => 'required|string|max:255',
             'module_code' => 'required|string|max:50|unique:modules,module_code',
             'description' => 'nullable|string',
-            'filiere_id' => 'required|exists:filieres,id',
+            'filiere_id' => 'required|exists:filieres,filiere_id',
         ];
     }
 }

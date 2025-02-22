@@ -22,8 +22,8 @@ class UpdateEmargementRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cour_id' => 'nullable|exists:cours,id',
-            'enseignant_id' => 'nullable|exists:users,id',
+            'cour_id' => 'nullable|exists:cours,cour_id',
+            'enseignant_id' => 'nullable|exists:enseignants,enseignant_id',
             'begin_hour' => 'nullable|date_format:H:i:s',
             'end_hour' => 'nullable|date_format:H:i:s|after:begin_hour',
             'status' => 'nullable|in:COCHE,DECOCHE',

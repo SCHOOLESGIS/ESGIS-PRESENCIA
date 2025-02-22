@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 

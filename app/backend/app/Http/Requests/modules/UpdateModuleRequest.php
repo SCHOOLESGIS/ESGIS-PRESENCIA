@@ -25,7 +25,7 @@ class UpdateModuleRequest extends FormRequest
             'module_name' => 'nullable|string|max:255',
             'module_code' => 'nullable|string|max:50|unique:modules,module_code',
             'description' => 'nullable|string',
-            'filiere_id' => 'nullable|exists:filieres,id'
+            'filiere_id' => 'nullable|exists:filieres,filiere_id'
         ];
     }
 }

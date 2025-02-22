@@ -21,12 +21,22 @@ class EnseignantUsecase implements EnseignantInterface{
 
     public function createEnseignant(CreateEnseignantRequest $createEnseignantRequest): Enseignant
     {
-        return Enseignant::create($createEnseignantRequest->validated());
+        $enseignantData = $createEnseignantRequest->validated();
+        $enseignant = new Enseignant();
+        $enseignant->user_id = $enseignantData['user_id'];
+        $enseignant->speciality = $enseignantData['speciality'];
+        $enseignant->save();
+
+        return $enseignant;
     }
 
     public function updateEnseignantByID(UpdateEnseignantRequest $updateEnseignantRequest, Enseignant $enseignant): Enseignant
     {
-        $enseignant->update($updateEnseignantRequest->validated());
+        $enseignantData = $updateEnseignantRequest->validated();
+        $enseignant->user_id = $enseignantData['user_id']??$enseignant->user_id;
+        $enseignant->speciality = $enseignantData['speciality']??$enseignant->speciality;
+        $enseignant->save();
+        
         return $enseignant;
     }
 

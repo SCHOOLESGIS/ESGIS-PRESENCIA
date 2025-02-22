@@ -21,12 +21,22 @@ class FiliererUsecase implements FiliereInterface{
 
     public function createFiliere(CreateFiliereRequest $createFiliereRequest): Filiere
     {
-        return Filiere::create($createFiliereRequest->validated());
+        $filiereData = $createFiliereRequest->validated();
+        $filiere = new Filiere();
+        $filiere->filiere_name = $filiereData['filiere_name'];
+        $filiere->filiere_level = $filiereData['filiere_level'];
+        $filiere->save();
+
+        return $filiere;
     }
 
     public function updateFiliereByID(UpdateFiliereRequest $updateFiliereRequest, Filiere $filiere): Filiere
     {
-        $filiere->update($updateFiliereRequest->validated());
+        $filiereData = $updateFiliereRequest->validated();
+        $filiere->filiere_name = $filiereData['filiere_name']??$filiere->filiere_name;
+        $filiere->filiere_level = $filiereData['filiere_level']??$filiere->filiere_level;
+        $filiere->save();
+
         return $filiere;
     }
 
