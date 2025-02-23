@@ -4,7 +4,7 @@
             <div class="h-[70px] flex items-center justify-center">
                 <img src="../assets/images/logo/logo.svg" alt="">
             </div>
-            <div class="w-[100%] h-[calc(100vh-90px)] pt-[40px]">
+            <div class="w-[100%] h-[calc(100vh-150px)] pt-[40px]">
                 <ul class="flex flex-col gap-[15px]">
                     <li v-for="navigation in navigations" :key="navigation.icon">
                         <NuxtLink :to="`${navigation.link}`" class="rounded-[4px] w-[100%] text-start flex items-center gap-3 px-[20px] py-[15px] cursor-pointer" :class="{'active' : route.includes(navigation.link)}">
@@ -13,6 +13,12 @@
                         </NuxtLink>
                     </li>
                 </ul>
+            </div>
+            <div class="w-full">
+                <div class="rounded-[4px] w-[100%] text-start flex items-center gap-3 px-[20px] py-[15px] border border-(--red) border-[2px] cursor-pointer" @click="logoutUser">
+                    <Icon name="uiw:appstore-o" style="color: black" />
+                    <span class="font-medium text-(--red)">Se déconnecter</span>
+                </div>
             </div>
         </div>
 
@@ -46,40 +52,31 @@
         </div>
     </div>
 </template>
-<script setup>
-    const route = useRouter().currentRoute.value.fullPath
-    const name = ref("John DOE")
-    const role = ref("Enseignant")
 
+<script setup>
+    import navigations from '@/data/navigations';
+    import { useUser } from '@/composables/useUser';
+    const { logout } = useUser()
+    console.log(navigations);
+    definePageMeta(
+        {
+            middleware: 'auth'
+        }
+    )
+    const route = useRouter().currentRoute.value.fullPath
+    const cookie = useCookie('auth')
+    const name = ref("")
+    const role = ref("")
+    if (cookie.value) {
+        name.value = cookie.value.user.name + " " + cookie.value.user.surname
+        role.value = cookie.value.user.role
+    }
     const iconSrc = "";
 
-    const navigations = [
-        {
-            icon: "overviews.svg",
-            link: '/admin',
-            libel: "Vue d'ensemble"
-        },
-        {
-            icon: "Teacher.svg",
-            link: '/admin/enseignants',
-            libel: "Enseignants"
-        },
-        {
-            icon: "module.svg",
-            link: '/admin/modules-filieres',
-            libel: "Modules & Filières"
-        },
-        {
-            icon: "pen.svg",
-            link: '/admin/emargements',
-            libel: "Emargements"
-        },
-        {
-            icon: "report.svg",
-            link: '/admin/rapports',
-            libel: "Rapports"
-        }
-    ];
+    const logoutUser = () => {
+        console.log("ooooooo");
+        logout()
+    }
 </script>
 
 <style scoped>

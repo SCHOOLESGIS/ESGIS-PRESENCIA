@@ -119,9 +119,10 @@
 
     definePageMeta(
         {
-            layout: 'dashboard'
+            layout: 'dashboard',
+            middleware: ['auth', 'admin']
         }
-    )   
+    )
     
     const route = useRouter().currentRoute.value.fullPath
 

@@ -3,7 +3,7 @@
     <div class="w-full flex flex-col gap-[20px]">
         <div class="card shadow-sm rounded-[10px] bg-(--white)">
             <DataTable :value="products" tableStyle="min-width: 50rem rounded-[10px]">
-                <Column :field="'id'" :header="'M'"></Column>
+                <Column :field="'enseignant_id'" :header="'M'"></Column>
                 <Column :field="'name'" :header="'Nom enseignants'"></Column>
                 <Column :field="'email'" :header="'Email'"></Column>
                 <Column :field="'hoursAssigned'" :header="'Nbre d\'heure affectuées'"></Column>
@@ -46,9 +46,9 @@
                 </Column>
             </DataTable>
         </div>
-
         <div class="card shadow-sm">
-            <Paginator :rows="10" :totalRecords="120"></Paginator>
+            {{ first }}
+            <Paginator v-model:first="first" :rows="links[1]" :totalRecords="links[0]"></Paginator>
         </div>
 
         <Dialog v-model:visible="visible" modal :style="{ width: '25rem'}">
@@ -83,20 +83,19 @@
     import Column from 'primevue/column';
     import ColumnGroup from 'primevue/columngroup';   // optional
     import Row from 'primevue/row'; 
-    
-    const props = defineProps(
-        {
-            columns: Array,
-            data: Array
-        }
-    )
+    const data = useState("enseignantData")
+    const links = useState("enseignantLinks")
 
+    const first = ref(0);
+    const number_per_page = 10
     const products = ref();
     const visible = ref(false)
 
+    
+
     onMounted(() => {
-        products.value = props.data
-        console.log(props.data);
+        products.value = data.value
+        console.log(links);
     });
 
 

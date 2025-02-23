@@ -1,20 +1,19 @@
 <template>
-    <div class="w-full min-h-[100vh] flex flex-col gap-[20px]">
-        
+    <div>
+        hhhh
     </div>
 </template>
 
 <script setup>
     definePageMeta(
         {
-            layout: 'dashboard'
+            layout: 'dashboard',
+            middleware: ['auth', 'admin']
         }
-    )   
-    
-    const route = useRouter().currentRoute.value.fullPath
+    )
 </script>
 
 
-<style scoped>
+<style>
     
 </style>

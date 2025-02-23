@@ -53,9 +53,10 @@
     import BarHorizontalFiliereChartComponent from '~/components/BarHorizontalFiliereChartComponent.vue';
     definePageMeta(
         {
-            layout: 'dashboard'
+            layout: 'dashboard',
+            middleware: ['auth', 'admin']
         }
-    )   
+    )  
     
     const route = useRouter().currentRoute.value.fullPath
 </script>
