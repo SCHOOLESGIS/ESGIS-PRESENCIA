@@ -10,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class ModuleUsecase implements ModuleInterface {
     public function getAllModules(): LengthAwarePaginator
     {
-        return Module::paginate(10);
+        return Module::latest()->paginate(10);
     }
 
     public function getModuleByID(int $moduleId): Module
@@ -25,6 +25,7 @@ class ModuleUsecase implements ModuleInterface {
         $module = new Module();
         $module->module_name = $moduleData['module_name'];
         $module->module_code = $moduleData['module_code'];
+        $module->module_hours = $moduleData['module_hours'];
         $module->description = $moduleData['description'];
         $module->filiere_id = $moduleData['filiere_id'];
         $module->save();

@@ -4,7 +4,7 @@
             <div class="logo w-[100%] h-[35px]">
                 <img src="../assets/images/logo/logo.svg" alt="">
             </div>
-            <div class="w-[100%] h-[calc(100%-35px)] flex items-center justify-center p-[0px] sm:p-[10px] border">
+            <div class="w-[100%] h-[calc(100%-35px)] flex items-center justify-center p-[0px] sm:p-[10px]">
                 <slot/>
             </div>
         </div>

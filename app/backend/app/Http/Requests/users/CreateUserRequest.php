@@ -27,7 +27,7 @@ class CreateUserRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'nullable|string|min:6|confirmed',
             'role' => 'required|in:admin,enseignant',
-            'specialite' => 'nullable|in:admin,enseignant'
+            'specialite' => 'nullable|string'
         ];
     }
 }

@@ -57,7 +57,7 @@
     import navigations from '@/data/navigations';
     import { useUser } from '@/composables/useUser';
     const { logout } = useUser()
-    console.log(navigations);
+    
     definePageMeta(
         {
             middleware: 'auth'
@@ -74,7 +74,6 @@
     const iconSrc = "";
 
     const logoutUser = () => {
-        console.log("ooooooo");
         logout()
     }
 </script>

@@ -24,9 +24,9 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => 'nullable|string|max:255',
             'surname' => 'nullable|string|max:255',
-            'email' => 'nullable|email|unique:users,email,' . $this->route('user'),
+            'email' => 'nullable|email|unique:users,email',
             'password' => 'nullable|string|min:6|confirmed',
-            'role' => 'nullable|in:admin,user,moderator',
+            'role' => 'nullable|in:admin,enseingant',
         ];
     }
 }

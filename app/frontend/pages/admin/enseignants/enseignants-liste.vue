@@ -6,8 +6,13 @@
                 <li><NuxtLink to="/admin/enseignants/enseignants-liste/">Liste des enseignants</NuxtLink></li>
             </ul>
 
-            <div class="px-[20px] bg-(--white)">
-                Nuxt
+            <div class="">
+                <NuxtLink to="/admin/enseignants/create-enseignant" class="flex gap-2">
+                    <div class="flex items-center justify-center w-[25px] h-[25px] rounded-[2px] bg-(--primary) text-(--white)">
+                        <i class="pi pi-plus"></i>
+                    </div>
+                    Ajouter
+                </NuxtLink>
             </div>
         </div>
 
@@ -19,6 +24,8 @@
 
 <script setup>
     import DataTableComponent from '~/components/EnseignantDataTableComponent.vue';
+    import { useTeacher } from '@/composables/useTeacher';
+    const {getAllTeachers} = useTeacher()
 
     definePageMeta(
         {
@@ -26,12 +33,9 @@
             middleware: 'auth'
         }
     )   
-    
-    const route = useRouter().currentRoute.value.fullPath
-    const cookie = useCookie("auth")
 
     onMounted(() => {
-        teacherList()
+        getAllTeachers()
     })
 
 </script>

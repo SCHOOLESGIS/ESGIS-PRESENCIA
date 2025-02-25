@@ -2,21 +2,21 @@
 <template>
     <div class="w-full flex flex-col gap-[20px]">
         <div class="card shadow-sm rounded-[10px] bg-(--white)">
-            <DataTable :value="products" tableStyle="min-width: 50rem rounded-[10px]">
-                <Column :field="'id'" :header="'M'"></Column>
-                <Column :field="'libel'" :header="'Libéllé'"></Column>
-                <Column :field="'code'" :header="'Code module'"></Column>
+            <DataTable :value="data" tableStyle="min-width: 50rem rounded-[10px]">
+                <Column :field="'module_id'" :header="'M'"></Column>
+                <Column :field="'module_name'" :header="'Libéllé'"></Column>
+                <Column :field="'module_code'" :header="'Code module'"></Column>
                 <Column :field="'createdAt'" :header="'Date de création'"></Column>
                 <Column :field="'action'" :header="'Actions'">
                     <template #body="slotProps">
                         <div class="flex gap-[5px]">
-                            <NuxtLink :to="`/admin/modules-filieres/modules/${slotProps.data.id}`">
+                            <NuxtLink :to="`/admin/modules-filieres/modules/${slotProps.data.module_id}`">
                                 <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
                                     <i class="pi pi-eye"></i>
                                 </div>
                             </NuxtLink>
 
-                            <NuxtLink to="">
+                            <NuxtLink :to="`/admin/modules-filieres/modules/${slotProps.data.module_id}/edit`">
                                 <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--yellow) text-(--yellow) flex items-center justify-center">
                                     <i class="pi pi-pencil"></i>
                                 </div>
@@ -83,10 +83,11 @@
     // import { ProductService } from '@/service/ProductService';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column';
-    import ColumnGroup from 'primevue/columngroup';   // optional
-    import Row from 'primevue/row'; 
     import { useConfirm } from "primevue/useconfirm";
     import { useToast } from "primevue/usetoast";
+    import { useModule } from '@/composables/useModule';
+    const { getAllModules } = useModule()
+    const data = useState("modulesData")
 
     const confirm = useConfirm();
     const toast = useToast();
@@ -115,10 +116,6 @@
     const products = ref();
     const visible = ref(false)
 
-    onMounted(() => {
-        products.value = props.data
-        console.log(props.data);
-    });
 
 
 </script>

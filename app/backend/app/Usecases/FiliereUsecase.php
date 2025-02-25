@@ -10,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class FiliererUsecase implements FiliereInterface{
     public function getAllFilieres(): LengthAwarePaginator
     {
-        return Filiere::paginate(10);
+        return Filiere::latest()->paginate(10);
     }
 
     public function getFiliereByID(int $filiereId): Filiere

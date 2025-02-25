@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class UserUsecase implements UserInterface {
     public function getAllUsers(): LengthAwarePaginator
     {
-        return User::paginate(10);
+        return User::latest()->paginate(10);
     }
 
     public function getUserByID(int $userId): User
@@ -47,6 +47,7 @@ class UserUsecase implements UserInterface {
         $userData = $updateUserRequest->validated();
         $user->name = $userData['name']??$user->name;
         $user->surname = $userData['surname']??$user->surname;
+        $user->role = $userData['role']??$user->role;
         $user->save();
 
         return $user;

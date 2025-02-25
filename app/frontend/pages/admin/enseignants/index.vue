@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="p-[10px] h-[150px] w-[150px] sm:flex-col flex grow rounded-[4px] backdrop-blur-[10px] gap-[10px] border">
-                        <div class="text-[1.2rem]">Nombre d'enseignants</div>
+                        <div class="text-[1.2rem]">Enseignants</div>
                         <div class="flex justify-end items-end">
                             <div class="text-[3rem] font-semibold">
                                 27
@@ -35,7 +35,7 @@
                     </div>  
 
                     <div class="p-[10px] sm:h-[150px] h-[75px] w-[150px] sm:flex-col flex grow rounded-[4px] backdrop-blur-[10px] gap-[10px] border border-white">
-                        <div class="text-[1.2rem]">Total (heure)</div>
+                        <div class="text-[1.2rem]">Total (heures)</div>
                         <div class="flex justify-end items-end">
                             <div class="text-[3rem] font-semibold text-center flex sm:flex-col sm:items-center flex text-shadow">
                                 <div>143</div>
@@ -44,7 +44,7 @@
                     </div>  
 
                     <div class="p-[10px] sm:h-[150px] h-[75px] w-[150px] sm:flex-col flex grow rounded-[4px] backdrop-blur-[10px] gap-[10px] border">
-                        <div class="text-[1.2rem]">Effectuées (heure)</div>
+                        <div class="text-[1.2rem]">Effectuées (heures)</div>
                         <div class="flex justify-end items-end">
                             <div class="text-[3rem] font-semibold text-center flex sm:flex-col sm:items-center flex text-shadow">
                                 <div>120</div>
@@ -53,7 +53,7 @@
                     </div>  
 
                     <div class="p-[10px] sm:h-[150px] h-[75px] w-[150px] sm:flex-col flex grow rounded-[4px] backdrop-blur-[10px] gap-[10px] border">
-                        <div class="text-[1.2rem]">Absences (heure)</div>
+                        <div class="text-[1.2rem]">Absences (heures)</div>
                         <div class="flex justify-end items-end">
                             <div class="text-[3rem] font-semibold text-center flex sm:flex-col sm:items-center flex text-shadow">
                                 <div>23</div>

@@ -23,7 +23,7 @@
                             </div>
                         </NuxtLink>
 
-                        <NuxtLink to="" class="cursor-pointer" @click="visible = true">
+                        <NuxtLink to="/module" class="cursor-pointer" @click="visible = true">
                             <div class="h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--white) bg-(--primary) flex items-center justify-center">
                                 <i class="pi pi-file-plus"></i>
                             </div>
@@ -33,14 +33,14 @@
 
                 <div class="mt-[20px] px-[40px]">
                     <table class="w-full border-spacing-y-[2rem]" border="0">
-                        <tbody>
+                        <tbody v-if="teacher && teacher.length">
                             <tr class="py-">
-                                <td>Nom : BENJI</td>
-                                <td>Prénom : Raoul</td>
+                                <td>Nom : {{ teacher[0].name }}</td>
+                                <td>Prénom : {{ teacher[0].surname }}</td>
                             </tr>
                             <tr>
-                                <td>Email : br@gmail.com</td>
-                                <td>Crée le : 10-01-1000</td>
+                                <td>Email : {{ teacher[0].email }}</td>
+                                <td>Crée le : {{ teacher[0].created_at }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -52,60 +52,11 @@
                 </div>
 
                 <div class="mt-[20px] px-[40px] overflow-y-scroll">
-                    <div class="w-full flex flex-col gap-2">
-                        <div class="p-[20px] bg-(--stroke) rounded-[4px] shadow-md flex items-center justify-between">
-                            <div>#001</div>
-                            <div>Génie Logiciel</div>
-                            <div>GL</div>
-                            <div>10-01-2024</div>
-                            <div>
-                                <NuxtLink to="">
-                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
-                                        <i class="pi pi-eye"></i>
-                                    </div>
-                                </NuxtLink>
-                            </div>
-                        </div>
-
-                        <div class="p-[20px] bg-(--stroke) rounded-[4px] shadow-md flex items-center justify-between">
-                            <div>#001</div>
-                            <div>Génie Logiciel</div>
-                            <div>GL</div>
-                            <div>10-01-2024</div>
-                            <div>
-                                <NuxtLink to="">
-                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
-                                        <i class="pi pi-eye"></i>
-                                    </div>
-                                </NuxtLink>
-                            </div>
-                        </div>
-                        <div class="p-[20px] bg-(--stroke) rounded-[4px] shadow-md flex items-center justify-between">
-                            <div>#001</div>
-                            <div>Génie Logiciel</div>
-                            <div>GL</div>
-                            <div>10-01-2024</div>
-                            <div>
-                                <NuxtLink to="">
-                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
-                                        <i class="pi pi-eye"></i>
-                                    </div>
-                                </NuxtLink>
-                            </div>
-                        </div>
-
-                        <div class="p-[20px] bg-(--stroke) rounded-[4px] shadow-md flex items-center justify-between">
-                            <div>#001</div>
-                            <div>Génie Logiciel</div>
-                            <div>GL</div>
-                            <div>10-01-2024</div>
-                            <div>
-                                <NuxtLink to="">
-                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
-                                        <i class="pi pi-eye"></i>
-                                    </div>
-                                </NuxtLink>
-                            </div>
+                    <div v-if="teacher && teacher.length" class="w-full flex flex-col gap-2">
+                        <div v-for="module in teacher[0].modules" v-key="module.module_id" class="p-[20px] bg-(--stroke) rounded-[4px]shadow-xs flex items-center justify-between">
+                            <div>{{ module.module_id }}</div>
+                            <div>{{ module.module_code }}</div>
+                            <div>{{ module.module_name }}</div>
                         </div>
                     </div>
                 </div>
@@ -116,6 +67,9 @@
 
 <script setup>
     import DataTableComponent from '~/components/EnseignantDataTableComponent.vue';
+    import { useTeacher } from '@/composables/useTeacher';
+    const {getTeacher} = useTeacher()
+    const teacher = useState("enseignantData")
 
     definePageMeta(
         {
@@ -124,18 +78,12 @@
         }
     )   
     
-    const route = useRouter().currentRoute.value.fullPath
+    const enseignantId = useRoute().params.enseignantId
+    console.log(enseignantId);
 
-    const data = [
-        {
-            id: "1000",
-            name: "Bamboo Watch",
-            email: "teacher1@example.com",
-            hoursAssigned: 20,
-            hoursAbsent: 2,
-            createdAt: "2024-02-20"
-        }
-    ];
+    onMounted(async () => {
+        await getTeacher(enseignantId)
+    })
 </script>
 
 

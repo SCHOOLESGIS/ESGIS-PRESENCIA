@@ -165,7 +165,17 @@ body {
 .p-datatable-tbody tr:hover {
     background-color: var(--primary) !important;
     color: var(--white) !important;
-    box-shadow: 0 0 10px 1px #3C50E0;
+    box-shadow: 0 0 10px 1px rgba(60, 79, 224, 0.5);
+}
+
+.p-row-even, .p-row-odd {
+    border-radius: 4px !important;
+    border: 1px solid red !important;
+}
+
+.p-datatable-tbody > tr > td {
+    background-color: transparent;
+
 }
 
 .p-datatable-tbody tr {

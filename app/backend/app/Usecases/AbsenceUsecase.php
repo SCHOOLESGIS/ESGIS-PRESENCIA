@@ -10,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class AbsenceUsecase implements AbsenceInterface {
     public function getAllAbsences(): LengthAwarePaginator
     {
-        return Absence::with(['justification', 'enseignant', 'cour'])->paginate(10);
+        return Absence::with(['justification', 'enseignant', 'cour'])->latest()->paginate(10);
     }
 
     public function getAbsenceByID(int $absenceId): Absence

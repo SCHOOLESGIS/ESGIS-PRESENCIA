@@ -10,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class EmargementUsecase implements EmargementInterface {
     public function getAllEmargements(): LengthAwarePaginator
     {
-        return Emargement::paginate(10);
+        return Emargement::latest()->paginate(10);
     }
 
     public function getEmargementByID(int $emargementId): Emargement

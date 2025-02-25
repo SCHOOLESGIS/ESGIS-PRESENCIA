@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 export function useUser () {
     async function login (email, password) {
         const cookie = useCookie('auth')

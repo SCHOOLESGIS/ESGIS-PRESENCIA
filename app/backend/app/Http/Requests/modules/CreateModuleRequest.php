@@ -24,6 +24,7 @@ class CreateModuleRequest extends FormRequest
         return [
             'module_name' => 'required|string|max:255',
             'module_code' => 'required|string|max:50|unique:modules,module_code',
+            'module_hours' => 'required|integer',
             'description' => 'nullable|string',
             'filiere_id' => 'required|exists:filieres,filiere_id',
         ];
