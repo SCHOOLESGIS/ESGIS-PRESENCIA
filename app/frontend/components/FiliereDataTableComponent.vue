@@ -1,6 +1,6 @@
 
 <template>
-    <div class="w-full flex flex-col gap-[20px]">
+    <div class="w-full flex flex-col gap-[10px]">
         <div class="card shadow-sm rounded-[10px] bg-(--white)">
             <DataTable :value="products" tableStyle="min-width: 50rem rounded-[10px]">
                 <Column :field="'id'" :header="'M'"></Column>
@@ -39,7 +39,7 @@
             </DataTable>
         </div>
 
-        <div class="card shadow-sm">
+        <div class="card">
             <Paginator :rows="10" :totalRecords="120"></Paginator>
         </div>
 

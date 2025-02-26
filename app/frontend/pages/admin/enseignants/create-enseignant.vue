@@ -1,15 +1,15 @@
 <template>
-    <div class="w-full min-h-[80vh] flex flex-col items-center justify-center gap-[20px]">
+    <div class="w-full min-h-[80vh] flex flex-col items-center justify-center gap-[10px]">
         <div class="w-[100%]">
-            <NuxtLink to="/admin/enseignants/enseignants-liste" class="w-[100px] px-[20px] py-[5px] bg-(--primary) text-(--white) flex items-center justify-center gap-3 rounded-[4px]">
+            <NuxtLink to="/admin/enseignants/enseignants-liste" class="shadow-lg w-[100px] px-[20px] py-[5px] bg-(--primary) text-(--white) flex items-center justify-center gap-3 rounded-[4px]">
                 <i class="pi pi-chevron-circle-left"></i> 
                 retour               
             </NuxtLink>
         </div>
-        <div class="bg-(--white) w-[100%] min-h-[80vh] flex rounded-[10px]">
+        <div class="bg-(--white) w-[100%] min-h-[80vh] flex rounded-[10px] shadow-lg">
             <div class="w-[100%] flex p-[10px] sm:py-[10px] sm:px-[10px] gap-[20px]">
-                <div class="w-[100%] sm:w-[100%] lg:w-[50%]">
-                    <div class="logo w-[100%] h-[35px]">
+                <div class="w-[100%] sm:w-[100%] lg:w-[50%] min-h-[80vh] pb-2">
+                    <div class="logo w-[100%] min-h-[35px]">
                         <div class="text-(--primary) text-[1.25rem] font-semibold">Créer un compte enseignant</div>
                     </div>
                     <div class="w-[100%] min-h-[calc(100%-35px)] flex items-center justify-center p-[0px] sm:p-[10px]">
@@ -139,5 +139,11 @@
 
 
 <style scoped>
-
+    .p-button {
+        color: var(--white) !important;
+        background: var(--primary) !important;
+        border: 1px solid var(--primary) !important;
+        padding: 10px 20px !important;
+        border-radius: 4px !important;
+    }
 </style>

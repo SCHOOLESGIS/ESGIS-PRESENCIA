@@ -7,7 +7,7 @@
             </ul>
 
             <div class="">
-                <NuxtLink to="/admin/enseignants/create-enseignant" class="flex gap-2">
+                <NuxtLink to="/admin/enseignants/create-enseignant" class="flex gap-2 p-1 bg-(--white) rounded-[4px] shadow-md">
                     <div class="flex items-center justify-center w-[25px] h-[25px] rounded-[2px] bg-(--primary) text-(--white)">
                         <i class="pi pi-plus"></i>
                     </div>
@@ -17,13 +17,13 @@
         </div>
 
         <div class="w-full flex flex-col gap-[20px]">
-            <DataTableComponent :data="data" :columns="columns" :links="links"/>
+            <EnseignantDataTableComponent/>
         </div>
     </div>
 </template>
 
 <script setup>
-    import DataTableComponent from '~/components/EnseignantDataTableComponent.vue';
+    import EnseignantDataTableComponent from '~/components/EnseignantDataTableComponent.vue';
     import { useTeacher } from '@/composables/useTeacher';
     const {getAllTeachers} = useTeacher()
 

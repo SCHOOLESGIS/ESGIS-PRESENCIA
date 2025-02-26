@@ -15,9 +15,15 @@ onMounted(() => {
 
 const chartData = ref();
 const chartOptions = ref();
-        
+
+
 const setChartData = () => {
     const documentStyle = getComputedStyle(document.documentElement);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgb(60, 80, 224)');
+    gradient.addColorStop(1, 'rgba(60, 80, 224, 0)'); 
 
     return {
         labels: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'vendredi', 'Samedi'],
@@ -26,7 +32,7 @@ const setChartData = () => {
                 type: 'line',
                 label: 'Dataset 1',
                 borderColor: documentStyle.getPropertyValue('--primary'),
-                backgroundColor: 'rgb(60, 80, 224, 0.4)',
+                backgroundColor: gradient,
                 borderWidth: 2,
                 fill: true,
                 tension: 0,

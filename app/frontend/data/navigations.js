@@ -1,26 +1,26 @@
 const navigations = [
     {
-        icon: "overviews.svg",
+        icon: "uiw:appstore-o",
         link: '/admin',
         libel: "Vue d'ensemble"
     },
     {
-        icon: "Teacher.svg",
+        icon: "uiw:user",
         link: '/admin/enseignants',
         libel: "Enseignants"
     },
     {
-        icon: "module.svg",
+        icon: "uiw:table",
         link: '/admin/modules-filieres',
         libel: "Modules & Filières"
     },
     {
-        icon: "pen.svg",
+        icon: "uiw:edit",
         link: '/admin/emargements',
         libel: "Emargements"
     },
     {
-        icon: "report.svg",
+        icon: "uiw:document",
         link: '/admin/rapports',
         libel: "Rapports"
     }

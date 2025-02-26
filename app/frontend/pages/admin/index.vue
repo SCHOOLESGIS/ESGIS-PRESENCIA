@@ -1,6 +1,6 @@
 <template>
     <div>
-        hhhh
+        <div if="data" class="text-xl">Welcome <span class="font-bold text-(--primary)">{{ data.user.name + ' ' + data.user.surname }}</span> !</div>
     </div>
 </template>
 
@@ -11,6 +11,7 @@
             middleware: ['auth', 'admin']
         }
     )
+    const data = useCookie('auth')
 </script>
 
 

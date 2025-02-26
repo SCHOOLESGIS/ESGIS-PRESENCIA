@@ -23,7 +23,7 @@ const setChartData = () => {
         labels: ['Génie logiciel', 'Gestion Projet', 'Audit Informatique', 'Statistiques', 'Laravel'],
         datasets: [
             {
-                label: '',
+                label: 'modules',
                 backgroundColor: documentStyle.getPropertyValue('--stroke'),
                 borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
                 data: [80, 69, 50, 41, 36]

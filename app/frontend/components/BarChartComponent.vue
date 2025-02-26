@@ -24,9 +24,9 @@ const setChartData = () => {
         datasets: [
             {
                 type: 'line',
-                label: 'Dataset 1',
+                label: 'heures cumulées des modules',
                 borderColor: documentStyle.getPropertyValue('--primary'),
-                borderWidth: 2,
+                borderWidth: 4,
                 fill: false,
                 tension: 0.4,
                 data: [50, 25, 12, 48, 56, 4]

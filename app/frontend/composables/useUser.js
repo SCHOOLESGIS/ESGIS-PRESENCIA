@@ -45,8 +45,20 @@ export function useUser () {
         return navigateTo("/auth")
     }
 
+    async function deleteUser(userId) {
+        const cookie = useCookie('auth')
+        const response = await $fetch(`http://localhost:8000/api/v1/users/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`,
+                'Accept': 'application/json'
+            }
+        })
+    }
+
     return {
         login,
-        logout
+        logout,
+        deleteUser
     }
 }

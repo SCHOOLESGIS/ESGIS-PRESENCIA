@@ -1,12 +1,12 @@
 <template>
     <div class="w-full min-h-[80vh] flex flex-col items-center justify-center gap-[20px]">
         <div class="md:w-[75%] w-[100%]">
-            <NuxtLink to="/admin/modules-filieres/modules" class="w-[100px] px-[20px] py-[5px] bg-(--primary) text-(--white) flex items-center justify-center gap-3 rounded-[4px]">
+            <NuxtLink to="/admin/modules-filieres/modules" class="shadow-lg w-[100px] px-[20px] py-[5px] bg-(--primary) text-(--white) flex items-center justify-center gap-3 rounded-[4px]">
                 <i class="pi pi-chevron-circle-left"></i> 
                 retour               
             </NuxtLink>
         </div>
-        <div class="h-[25] md:w-[75%] w-[100%] min-h-[70vh] flex rounded-[10px]">
+        <div class="h-[25] md:w-[75%] w-[100%] min-h-[70vh] flex shadow-lg">
             <div class="w-[30%] min-h-[70hv] bg-[url(/patterns/Mash_19.png)] bg-cover flex flex-col items-start justify-between px-[10px]">
                 <div class="text-[1.2rem] font-semibold text-(--white)">Informations d'un module</div>
                 <div>
@@ -58,7 +58,7 @@
 
                 <div class="mt-[20px] px-[40px] overflow-y-scroll">
                     <div  v-if="data && data.length" class="w-full flex flex-col gap-2">
-                        <div v-for="cour in data[0].cours" v-key="cour.cour_id" class="p-[20px] bg-(--stroke) rounded-[4px] shadow-md flex items-center justify-between">
+                        <div v-for="cour in data[0].cours" v-key="cour.cour_id" class="shadow-lg p-[20px] bg-(--stroke) rounded-[4px] shadow-md flex items-center justify-between">
                             <div>Cour {{ cour.cour_id }}</div>
                             <div>{{ cour.begin_hour }}</div>
                             <div>{{ cour.end_hour }}</div>

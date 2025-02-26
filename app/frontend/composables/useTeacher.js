@@ -1,4 +1,6 @@
 import dayjs from 'dayjs';
+import { useUser } from '@/composables/useUser';
+const { deleteUser } = useUser()
 
 export function useTeacher () {
     const cookie = useCookie("auth")
@@ -6,7 +8,6 @@ export function useTeacher () {
     const links = useState("enseignantLinks", () => [])
     const teacher = useState("enseignantData", () => [])
     const enseignantEnum = "enseignant"
-
 
     async function getAllTeachers (page) {
         data.value = []
@@ -18,7 +19,6 @@ export function useTeacher () {
             }
         })
 
-        console.log(response);
         response.data.forEach(element => {
             const enseignant = {
                 enseignant_id: "",
@@ -52,6 +52,7 @@ export function useTeacher () {
         const enseignant = {
             user_id: "",
             enseignant_id: "",
+            specialite: "",
             name: "",
             surname: "",
             email: "",
@@ -69,6 +70,7 @@ export function useTeacher () {
 
         enseignant.user_id = response.user_id
         enseignant.enseignant_id = response.enseignant_id
+        enseignant.specialite = response.speciality
         enseignant.name = response.user.name
         enseignant.surname = response.user.surname
         enseignant.email = response.user.email
@@ -98,7 +100,6 @@ export function useTeacher () {
         await getTeacher(teacherId);
 
         const teacherFound = teacher.value[0];
-        console.log("teacher ", teacherFound)
         if (!teacherFound) {
             console.error("Enseignant non trouvé");
             return;
@@ -156,8 +157,10 @@ export function useTeacher () {
     }
 
     async function deleteTeacher (teacherId) {
-
-        const responseA = await $fetch(`http://localhost:8000/api/v1/users/${teacherId}`, {
+        await getTeacher(teacherId)
+        const teacher = useState('enseignantData')
+        await deleteUser(teacher.value[0].user_id)
+        const responseA = await $fetch(`http://localhost:8000/api/v1/enseignants/${teacherId}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${cookie.value.access_token}`,
@@ -165,7 +168,9 @@ export function useTeacher () {
             }
         })
 
+
         getAllTeachers(1)
+        return navigateTo('/admin/enseignants/enseignants-liste')
     }
 
     return {
