@@ -38,6 +38,7 @@ class ModuleUsecase implements ModuleInterface {
         $moduleData = $updateModuleRequest->validated();
         $module->module_name = $moduleData['module_name']??$module->module_name;
         $module->module_code = $moduleData['module_code']??$module->module_code;
+        $module->module_hours = $moduleData['module_hours']??$module->module_hours;
         $module->description = $moduleData['description']??$module->description;
         $module->filiere_id = $moduleData['filiere_id']??$module->filiere_id;
         $module->save();

@@ -32,6 +32,7 @@ Route::prefix('/v1/')->group(function () {
                 Route::apiResource('emargements', EmargementController::class),
                 Route::apiResource('enseignants', EnseignantController::class),
                 Route::apiResource('filieres', FiliereController::class),
+                Route::get('/all-filieres', [FiliereController::class, 'all']),
                 Route::apiResource('justifications', JustificationController::class),
                 Route::apiResource('modules', ModuleController::class),
                 Route::apiResource('rapports', RapportController::class),
