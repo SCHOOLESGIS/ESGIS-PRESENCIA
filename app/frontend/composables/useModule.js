@@ -27,7 +27,7 @@ export function useModule () {
                 createdAt: ""
             }
             module.module_id = element.module_id
-            module.module_name = element.module_name + " " + element.module_name
+            module.module_name = element.module_name
             module.module_code = element.module_code
             module.hoursAssigned = element.module_id
             module.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
@@ -79,6 +79,7 @@ export function useModule () {
         module.filiere.filiere_name = response.filiere.filiere_name,
         module.filiere.filiere_level = response.filiere.filiere_level,
 
+        // module.cours = []
         response.cours.forEach(cour => {
             module.cours.push(cour)
         })
@@ -89,30 +90,27 @@ export function useModule () {
 
     async function updateModule (moduleData, moduleId) {
 
-        await getModule(moduleId);
+        getModule(moduleId);
 
-        const moduleFound = module.value[0];
-        console.log("module ", moduleFound)
-        if (!moduleFound) {
-            console.error("module non trouvé");
-            return;
-        }
+        console.log(moduleData.module_name);
 
-        const responseA = await $fetch(`http://localhost:8000/api/v1/modules/${moduleFound.user_id}`, {
+        const responseA = await $fetch(`http://localhost:8000/api/v1/modules/${parseInt(moduleId)}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${cookie.value.access_token}`,
                 'Accept': 'application/json'
             },
             body: {
-                name: moduleData.name,
-                surname: moduleData.surname,
-                email: moduleData.email,
+                module_name: moduleData.module_name,
+                module_code: moduleData.module_code,
+                module_hours: moduleData.module_hours,
+                description: moduleData.description,
+                filiere_id: moduleData.filiere.code
             }
         })
 
         getAllModules(1)
-        return navigateTo('/admin/modules/modules-liste')
+        return navigateTo('/admin/modules-filieres/modules')
     }
 
     async function createModule (moduleData) {
@@ -124,18 +122,16 @@ export function useModule () {
                 'Accept': 'application/json'
             },
             body: {
-                name: moduleData.name,
-                surname: moduleData.surname,
-                email: moduleData.email,
-                password: moduleData.password,
-                password_confirmation: moduleData.password_confirmation,
-                role: moduleEnum,
-                specialite: moduleData.specialite,
+                module_name: moduleData.module_name,
+                module_code: moduleData.module_code,
+                module_hours: moduleData.module_hours,
+                description: moduleData.description,
+                filiere_id: moduleData.filiere_id.code
             }
         })
 
         getAllModules(1)
-        return navigateTo('/admin/modules/modules-liste')
+        return navigateTo('/admin/modules-filieres/modules')
     }
 
     async function deleteModule (moduleId) {
@@ -148,7 +144,7 @@ export function useModule () {
             }
         })
 
-        getAllmodules(1)
+        getAllModules(1)
     }
 
     return {

@@ -5,6 +5,7 @@
     --white: #FFFFFF;
     --black: #000000;
     --primary: rgb(60, 80, 224);
+    --primary-light: rgba(60, 79, 224, 0.281);
     --secondary: #80CAEE;
     --text-color: #64748B;
     --green: #10B981;
@@ -99,7 +100,7 @@ body {
     box-shadow: none !important;
     color: var(--white) !important;
     font-weight: 600;
-    border-radius: 4px;
+    border-radius: 2px;
     padding: 2.5px 5px;
 }
 
@@ -218,4 +219,13 @@ body {
     border: 2px solid var(--primary) !important;
     color: var(--primary) !important;
     border-radius: 4px !important;
+}
+
+.p-select:not(.p-disabled).p-focus {
+    border-color: var(--primary) !important;
+}
+
+.p-select-option.p-select-option-selected {
+    background: var(--primary-light) !important;
+    color: var(--primary) !important;
 }

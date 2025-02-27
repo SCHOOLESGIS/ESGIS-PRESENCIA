@@ -13,6 +13,19 @@
                         </NuxtLink>
                     </li>
                 </ul>
+
+                <div class="my-4 w-full border-b border-(--stroke)">
+                    Autres
+                </div>
+
+                <ul class="flex flex-col gap-[15px]">
+                    <li v-for="navigation in secondNavigations" :key="navigation.icon">
+                        <NuxtLink :to="`${navigation.link}`" class="rounded-[4px] w-[100%] text-start flex items-center gap-3 px-[20px] py-[10px] cursor-pointer" :class="{'active' : route.includes(navigation.link)}">
+                            <Icon :icon="`${navigation.icon}`" :ssr="true" class="text-(--dark-text-color-2)"/>
+                            <span class="font-normal text-(--dark-text-color-2)">{{navigation.libel}}</span>
+                        </NuxtLink>
+                    </li>
+                </ul>
             </div>
             <div class="w-full px-[10px]">
                 <div class="rounded-[4px] w-[100%] text-start flex items-center gap-3 px-[20px] py-[5px] bg-(--stroke) border border-[var(--dark-text-color-1)] shadow-md cursor-pointer" @click="logoutUser">
@@ -50,6 +63,7 @@
 
 <script setup>
     import navigations from '@/data/navigations';
+    import secondNavigations from '@/data/secondaryNavigations';
     import { useUser } from '@/composables/useUser';
     import { Icon } from "@iconify/vue";
     const { logout } = useUser()

@@ -16,7 +16,7 @@
                         <div class="w-[100%] sm:w-[100%] lg:w-[500px] min-h-[200px] sm:w-[100%] flex justify-center items-start">
                             <form class="flex flex-col gap-[20px]" action.preventDefault="">
                                 <div class="text-(--text-grey) font-semibold text-center text-[.75rem] sm:text-[1rem] pt-3">
-                                    Entrer les informations requis ci dessous pour mettre à jour un module
+                                    Entrer les informations requis ci dessous
                                 </div>
                                 <div class="flex flex-col gap-[10px] w-full">
                                     <div class="flex flex-col justify-start gap-[10px]">
@@ -39,10 +39,10 @@
                                         </div>
                                         <div class="flex flex-col justify-start gap-[10px] w-[50%]">
                                             <div class="text-(--black-mate) font-semibold">
-                                                Durée du module (heures)
+                                                Durée (heures)
                                             </div>
                                             <div >
-                                                <InputNumber v-model="module.module_hours" class="w-full rounded-[4px]" inputId="minmax" :min="0" :max="100" fluid showButtons/>
+                                                <InputNumber v-model="module.module_hours"  class="w-full rounded-[4px]" inputId="minmax" :min="0" :max="100" fluid showButtons/>
                                             </div>
                                         </div>
                                     </div>
@@ -52,7 +52,7 @@
                                             Filière(s)
                                         </div>
                                         <div >
-                                            <Select  v-model="module.filiere.filiere_id" name="city" :options="cities" optionLabel="name" placeholder="Selectionnez un ou des filières" fluid />
+                                            <Select  v-model="module.filiere" name="city" :options="allFilieres" optionLabel="name" placeholder="Selectionnez un ou des filières" fluid />
                                         </div>
                                     </div>
 
@@ -66,7 +66,7 @@
                                     </div>
 
                                     <div class="w-full">
-                                        <Button label="Mettre à jour un module" class="bg-black w-full"/>
+                                        <Button @click="validateModuleUpdate()" label="Mettre à jour un module" class="bg-black w-full"/>
                                     </div>
                                 </div>
                             </form>
@@ -88,17 +88,24 @@
     import { useModule } from '@/composables/useModule';
     const { getModule, updateModule } = useModule()
     const data = useState("moduleData")
+    import { useFiliere } from '@/composables/useFiliere';
+    const { getAllFiliereWithoutPaginate } = useFiliere();
+    const allFilieres = useState('allFilieres')
     const module = reactive({
         module_id: "",
         module_name: "",
         module_code: "",
         module_hours: "",
-        filiere: "",
-        description: "",
+        filiere: {
+            code: '',
+            name: ''
+        },
+        description: ""
     })
 
-
-
+    function validateModuleUpdate() {
+        updateModule(module, moduleId)
+    }
 
     definePageMeta(
         {
@@ -110,12 +117,14 @@
     const moduleId = useRoute().params.moduleId
 
     onMounted(async () => {
+        await getAllFiliereWithoutPaginate()
         await getModule(moduleId)
         module.module_id = data.value[0].module_id,
         module.module_name = data.value[0].module_name,
         module.module_code = data.value[0].module_code,
         module.module_hours = data.value[0].module_hours,
-        module.filiere = data.value[0].filiere,
+        module.filiere.code = data.value[0].filiere.filiere_id,
+        module.filiere.name = data.value[0].filiere.filiere_name + ' - ' + data.value[0].filiere.filiere_level,
         module.description = data.value[0].description
     })
 </script>

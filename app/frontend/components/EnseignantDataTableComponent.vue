@@ -60,8 +60,6 @@
 
     const first = ref(0);
     const number_per_page = 10
-    const products = ref();
-    const visible = ref(false)
     
 
     watch(first, function() {

@@ -1,14 +1,36 @@
 import dayjs from 'dayjs';
 
-export function usefiliere () {
+export function useFiliere () {
     const cookie = useCookie("auth")
     const data = useState("filieresData", () => [])
+    const allFilieres = useState("allFilieres", () => [])
     const links = useState("filiereLinks", () => [])
-    const onefiliere = useState("filiereData", () => [])
+    const oneFiliere = useState("filiereData", () => [])
     const filiereEnum = "filiere"
 
+    async function getAllFiliereWithoutPaginate() {
+        const response = await $fetch('http://localhost:8000/api/v1/all-filieres', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`,
+                'Accept': 'application/json'
+            }
+        })
 
-    async function getAllfilieres (page) {
+        console.log(response);
+        allFilieres.value = []
+        response.forEach(element => {
+            const filiere = {
+                code: '',
+                name: ''
+            }
+            filiere.code = element.filiere_id,
+            filiere.name = element.filiere_name + " - " + element.filiere_level
+            allFilieres.value.push(filiere)
+        });
+    }
+
+    async function getAllFilieres (page) {
         data.value = []
 
         const response = await $fetch(`http://localhost:8000/api/v1/filieres?page=${page}`, {
@@ -18,19 +40,17 @@ export function usefiliere () {
             }
         })
 
-        console.log(response);
         response.data.forEach(element => {
             const filiere = {
                 filiere_id: "",
                 filiere_name: "",
-                filiere_code: "",
+                filiere_level: "",
                 createdAt: ""
             }
             filiere.filiere_id = element.filiere_id
-            filiere.filiere_name = element.filiere_name + " " + element.filiere_name
-            filiere.filiere_code = element.filiere_code
-            filiere.hoursAssigned = element.filiere_id
-            filiere.createdAt = element.created_at
+            filiere.filiere_name = element.filiere_name
+            filiere.filiere_level = element.filiere_level
+            filiere.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
 
             if (data.value.length < 10) {
                 data.value.push(filiere)
@@ -45,18 +65,13 @@ export function usefiliere () {
 
     }
 
-    async function getfiliere (filiereId) {
+    async function getFiliere (filiereId) {
         const filiere = {
             filiere_id: "",
             filiere_name: "",
-            filiere_code: "",
-            description: "",
-            createdAt: "",
-            filiere: {
-                filiere_name: "",
-                filiere_level: "",
-            },
-            cours: []
+            filiere_level: "",
+            modules: [],
+            createdAt: ""
         }
 
         const response = await $fetch(`http://localhost:8000/api/v1/filieres/${filiereId}`, {
@@ -69,49 +84,33 @@ export function usefiliere () {
 
         filiere.filiere_id = response.filiere_id
         filiere.filiere_name = response.filiere_name
-        filiere.filiere_code = response.filiere_code
-        filiere.description = response.description
-        filiere.createdAt = response.createdAt
-        filiere.filiere.filiere_name = response.filiere.filiere_name,
-        filiere.filiere.filiere_level = response.filiere.filiere_level,
-        // console.log(response.cours[0]);
-        response.cours.forEach(cour => {
-            filiere.cours.push(cour)
-        })
+        filiere.filiere_level = response.filiere_level
+        filiere.modules = response.modules
+        filiere.createdAt = dayjs(response.created_at).format("ddd, MMM D YYYY")
 
-        onefiliere.value = []
-        onefiliere.value.push(filiere)
+        oneFiliere.value = []
+        oneFiliere.value.push(filiere)
     }
 
-    async function updatefiliere (filiereData, filiereId) {
+    async function updateFiliere (filiereData, filiereId) {
 
-        await getfiliere(filiereId);
-
-        const filiereFound = filiere.value[0];
-        console.log("filiere ", filiereFound)
-        if (!filiereFound) {
-            console.error("filiere non trouvé");
-            return;
-        }
-
-        const responseA = await $fetch(`http://localhost:8000/api/v1/filieres/${filiereFound.user_id}`, {
+        const responseA = await $fetch(`http://localhost:8000/api/v1/filieres/${filiereId}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${cookie.value.access_token}`,
                 'Accept': 'application/json'
             },
             body: {
-                name: filiereData.name,
-                surname: filiereData.surname,
-                email: filiereData.email,
+                filiere_name: filiereData.filiere_name,
+                filiere_level: filiereData.filiere_level,
             }
         })
 
-        getAllfilieres(1)
-        return navigateTo('/admin/filieres/filieres-liste')
+        getAllFilieres(1)
+        return navigateTo('/admin/modules-filieres/filieres')
     }
 
-    async function createfiliere (filiereData) {
+    async function createFiliere (filiereData) {
 
         const responseA = await $fetch(`http://localhost:8000/api/v1/filieres`, {
             method: 'POST',
@@ -120,21 +119,16 @@ export function usefiliere () {
                 'Accept': 'application/json'
             },
             body: {
-                name: filiereData.name,
-                surname: filiereData.surname,
-                email: filiereData.email,
-                password: filiereData.password,
-                password_confirmation: filiereData.password_confirmation,
-                role: filiereEnum,
-                specialite: filiereData.specialite,
+                filiere_name: filiereData.filiere_name,
+                filiere_level: filiereData.filiere_level.name,
             }
         })
 
-        getAllfilieres(1)
-        return navigateTo('/admin/filieres/filieres-liste')
+        getAllFilieres(1)
+        return navigateTo('/admin/modules-filieres/filieres')
     }
 
-    async function deletefiliere (filiereId) {
+    async function deleteFiliere (filiereId) {
 
         const responseA = await $fetch(`http://localhost:8000/api/v1/filieres/${filiereId}`, {
             method: 'DELETE',
@@ -144,14 +138,15 @@ export function usefiliere () {
             }
         })
 
-        getAllfilieres(1)
+        getAllFilieres(1)
     }
 
     return {
-        getAllfilieres,
-        getfiliere,
-        updatefiliere,
-        createfiliere,
-        deletefiliere
+        getAllFilieres,
+        getFiliere,
+        updateFiliere,
+        createFiliere,
+        deleteFiliere,
+        getAllFiliereWithoutPaginate
     }
 }
