@@ -3,28 +3,29 @@
     <div class="w-full flex flex-col gap-[10px]">
         <div class="card shadow-sm rounded-[10px] bg-(--white)">
             <DataTable :value="data" tableStyle="min-width: 50rem rounded-[10px]">
-                <Column :field="'enseignant_id'" :header="'M'"></Column>
-                <Column :field="'name'" :header="'Nom enseignants'"></Column>
-                <Column :field="'email'" :header="'Email'"></Column>
-                <Column :field="'hoursAssigned'" :header="'Nbre d\'heure affectuées'"></Column>
-                <Column :field="'hoursAbsent'" :header="'Nbre d\'heure d\'absences'"></Column>
+                <Column :field="'emargement_id'" :header="'M'"></Column>
+                <Column :field="'enseignants'" :header="'Nom enseignants'"></Column>
+                <Column :field="'cours'" :header="'Libellé cours'"></Column>
+                <Column :field="'beginHour'" :header="'Heure de début'"></Column>
+                <Column :field="'endHour'" :header="'Heure de fin'"></Column>
+                <Column :field="'status'" :header="'Statuts'"></Column>
                 <Column :field="'createdAt'" :header="'Date de création'"></Column>
                 <Column :field="'action'" :header="'Actions'">
                     <template #body="slotProps">
                         <div class="flex gap-[5px]">
-                            <NuxtLink :to="`/admin/enseignants/${slotProps.data.enseignant_id}`">
+                            <NuxtLink :to="`/admin/emargements/${slotProps.data.emargement_id}`">
                                 <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
                                     <i class="pi pi-eye"></i>
                                 </div>
                             </NuxtLink>
 
-                            <NuxtLink :to="`/admin/enseignants/${slotProps.data.enseignant_id}/edit`">
+                            <NuxtLink :to="`/admin/emargements/${slotProps.data.emargement_id}/edit`">
                                 <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--yellow) text-(--yellow) flex items-center justify-center">
                                     <i class="pi pi-pencil"></i>
                                 </div>
                             </NuxtLink>
 
-                            <NuxtLink to="" class="cursor-pointer" @click="confirmDelete(slotProps.data.enseignant_id)">
+                            <NuxtLink to="" class="cursor-pointer" @click="confirmDelete(slotProps.data.emargement_id)">
                                 <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--red) text-(--red) flex items-center justify-center">
                                     <i class="pi pi-trash"></i>
                                 </div>
@@ -48,15 +49,15 @@
     // import { ProductService } from '@/service/ProductService';
     import DataTable from 'primevue/datatable';
     import Column from 'primevue/column'; 
-    import { useTeacher } from '@/composables/useTeacher';
+    import { useEmargement } from '@/composables/useEmargement';
     import { useConfirm } from "primevue/useconfirm";
     import { useToast } from "primevue/usetoast";
 
     const confirm = useConfirm();
     const toast = useToast();
-    const {getAllTeachers, deleteTeacher} = useTeacher()
-    const data = useState("enseignantsData")
-    const links = useState("enseignantLinks")
+    const {getAllEmargements, deleteEmargement} = useEmargement()
+    const data = useState("emargementsData")
+    const links = useState("emargementLinks")
 
     const first = ref(0);
     const number_per_page = 10
@@ -64,19 +65,19 @@
 
     watch(first, function() {
         const page = ((first.value)/(number_per_page)) + 1
-        getAllTeachers(page)
+        getAllEmargements(page)
     })
 
 
 
     onMounted(() => {
-        getAllTeachers(0)
+        getAllEmargements(0)
     });
 
-    const confirmDelete = (enseignantId) => {
+    const confirmDelete = (emargementId) => {
         confirm.require({
-            message: 'Êtes-vous sur de supprimer l\'enseignant ?',
-            header: 'Suppression d\'un enseignant',
+            message: 'Êtes-vous sur de supprimer l\'emargement ?',
+            header: 'Suppression d\'un emargement',
             icon: 'pi pi-question-circle',
             rejectLabel: 'Cancel',
             rejectProps: {
@@ -89,8 +90,8 @@
                 severity: 'danger'
             },
             accept: async () => {
-                await deleteTeacher(enseignantId)
-                toast.add({ severity: 'info', summary: 'Confirmé', detail: 'Enseignant supprimé', life: 3000 });
+                await deleteTeacher(emargementId)
+                toast.add({ severity: 'info', summary: 'Confirmé', detail: 'Emargement supprimé', life: 3000 });
             },
             reject: () => {
                 toast.add({ severity: 'error', summary: 'Rejeté', detail: 'Action rejetée', life: 3000 });

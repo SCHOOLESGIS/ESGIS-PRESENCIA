@@ -150,27 +150,54 @@ class DatabaseSeeder extends Seeder
             DB::table('rapports')->insert($rapport);
         }
 
+        $cours = [
+            ['module_id' => 1, 'enseignant_id' => 1, 'filiere_id' => 1, 'cour_date' => '2025-02-01', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 2, 'enseignant_id' => 2, 'filiere_id' => 1, 'cour_date' => '2025-02-02', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 3, 'enseignant_id' => 3, 'filiere_id' => 2, 'cour_date' => '2025-02-03', 'begin_hour' => '14:00:00', 'end_hour' => '16:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 4, 'enseignant_id' => 4, 'filiere_id' => 2, 'cour_date' => '2025-02-04', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 5, 'enseignant_id' => 5, 'filiere_id' => 3, 'cour_date' => '2025-02-05', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 6, 'enseignant_id' => 6, 'filiere_id' => 3, 'cour_date' => '2025-02-06', 'begin_hour' => '14:00:00', 'end_hour' => '16:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 7, 'enseignant_id' => 7, 'filiere_id' => 4, 'cour_date' => '2025-02-07', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 8, 'enseignant_id' => 8, 'filiere_id' => 4, 'cour_date' => '2025-02-08', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 9, 'enseignant_id' => 9, 'filiere_id' => 5, 'cour_date' => '2025-02-09', 'begin_hour' => '14:00:00', 'end_hour' => '16:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 10, 'enseignant_id' => 10, 'filiere_id' => 5, 'cour_date' => '2025-02-10', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 11, 'enseignant_id' => 11, 'filiere_id' => 6, 'cour_date' => '2025-02-11', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 12, 'enseignant_id' => 12, 'filiere_id' => 6, 'cour_date' => '2025-02-12', 'begin_hour' => '14:00:00', 'end_hour' => '16:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 13, 'enseignant_id' => 13, 'filiere_id' => 7, 'cour_date' => '2025-02-13', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 14, 'enseignant_id' => 14, 'filiere_id' => 7, 'cour_date' => '2025-02-14', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 15, 'enseignant_id' => 15, 'filiere_id' => 8, 'cour_date' => '2025-02-15', 'begin_hour' => '14:00:00', 'end_hour' => '16:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 16, 'enseignant_id' => 16, 'filiere_id' => 8, 'cour_date' => '2025-02-16', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 17, 'enseignant_id' => 17, 'filiere_id' => 9, 'cour_date' => '2025-02-17', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 18, 'enseignant_id' => 18, 'filiere_id' => 9, 'cour_date' => '2025-02-18', 'begin_hour' => '14:00:00', 'end_hour' => '16:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 19, 'enseignant_id' => 19, 'filiere_id' => 10, 'cour_date' => '2025-02-19', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['module_id' => 3, 'enseignant_id' => 20, 'filiere_id' => 10, 'cour_date' => '2025-02-20', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+        ];
+
+        foreach ($cours as $cour) {
+            DB::table('cours')->insert($cour);
+        }
+
         $absences = [
-            ['enseignant_id' => 1, 'module_id' => 1, 'absence_date' => '2025-02-01', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 2, 'module_id' => 2, 'absence_date' => '2025-02-02', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 3, 'module_id' => 3, 'absence_date' => '2025-02-03', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 4, 'module_id' => 4, 'absence_date' => '2025-02-04', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 5, 'module_id' => 5, 'absence_date' => '2025-02-05', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 6, 'module_id' => 6, 'absence_date' => '2025-02-06', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 7, 'module_id' => 7, 'absence_date' => '2025-02-07', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 8, 'module_id' => 8, 'absence_date' => '2025-02-08', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 9, 'module_id' => 9, 'absence_date' => '2025-02-09', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 10, 'module_id' => 10, 'absence_date' => '2025-02-10', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 11, 'module_id' => 11, 'absence_date' => '2025-02-11', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 12, 'module_id' => 12, 'absence_date' => '2025-02-12', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 13, 'module_id' => 13, 'absence_date' => '2025-02-13', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 14, 'module_id' => 14, 'absence_date' => '2025-02-14', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 15, 'module_id' => 15, 'absence_date' => '2025-02-15', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 16, 'module_id' => 16, 'absence_date' => '2025-02-16', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 17, 'module_id' => 17, 'absence_date' => '2025-02-17', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 18, 'module_id' => 18, 'absence_date' => '2025-02-18', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 19, 'module_id' => 19, 'absence_date' => '2025-02-19', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['enseignant_id' => 20, 'module_id' => 4, 'absence_date' => '2025-02-20', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 1, 'absence_date' => '2025-02-01', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 2, 'absence_date' => '2025-02-02', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 3, 'absence_date' => '2025-02-03', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 4, 'absence_date' => '2025-02-04', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 5, 'absence_date' => '2025-02-05', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 6, 'absence_date' => '2025-02-06', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 7, 'absence_date' => '2025-02-07', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 8, 'absence_date' => '2025-02-08', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 9, 'absence_date' => '2025-02-09', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 10, 'absence_date' => '2025-02-10', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 11, 'absence_date' => '2025-02-11', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 12, 'absence_date' => '2025-02-12', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 13, 'absence_date' => '2025-02-13', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 14, 'absence_date' => '2025-02-14', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 15, 'absence_date' => '2025-02-15', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 16, 'absence_date' => '2025-02-16', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 17, 'absence_date' => '2025-02-17', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 18, 'absence_date' => '2025-02-18', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 19, 'absence_date' => '2025-02-19', 'status' => 'JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            ['cour_id' => 4, 'absence_date' => '2025-02-20', 'status' => 'NON_JUSTIFIE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
         ];
 
         foreach ($absences as $absence) {
@@ -202,33 +229,6 @@ class DatabaseSeeder extends Seeder
 
         foreach ($justifications as $justification) {
             DB::table('justifications')->insert($justification);
-        }
-
-        $cours = [
-            ['module_id' => 1, 'enseignant_id' => 1, 'filiere_id' => 1, 'cour_date' => '2025-02-01', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 2, 'enseignant_id' => 2, 'filiere_id' => 1, 'cour_date' => '2025-02-02', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 3, 'enseignant_id' => 3, 'filiere_id' => 2, 'cour_date' => '2025-02-03', 'begin_hour' => '14:00:00', 'end_hour' => '16:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 4, 'enseignant_id' => 4, 'filiere_id' => 2, 'cour_date' => '2025-02-04', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 5, 'enseignant_id' => 5, 'filiere_id' => 3, 'cour_date' => '2025-02-05', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 6, 'enseignant_id' => 6, 'filiere_id' => 3, 'cour_date' => '2025-02-06', 'begin_hour' => '14:00:00', 'end_hour' => '16:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 7, 'enseignant_id' => 7, 'filiere_id' => 4, 'cour_date' => '2025-02-07', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 8, 'enseignant_id' => 8, 'filiere_id' => 4, 'cour_date' => '2025-02-08', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 9, 'enseignant_id' => 9, 'filiere_id' => 5, 'cour_date' => '2025-02-09', 'begin_hour' => '14:00:00', 'end_hour' => '16:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 10, 'enseignant_id' => 10, 'filiere_id' => 5, 'cour_date' => '2025-02-10', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 11, 'enseignant_id' => 11, 'filiere_id' => 6, 'cour_date' => '2025-02-11', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 12, 'enseignant_id' => 12, 'filiere_id' => 6, 'cour_date' => '2025-02-12', 'begin_hour' => '14:00:00', 'end_hour' => '16:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 13, 'enseignant_id' => 13, 'filiere_id' => 7, 'cour_date' => '2025-02-13', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 14, 'enseignant_id' => 14, 'filiere_id' => 7, 'cour_date' => '2025-02-14', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 15, 'enseignant_id' => 15, 'filiere_id' => 8, 'cour_date' => '2025-02-15', 'begin_hour' => '14:00:00', 'end_hour' => '16:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 16, 'enseignant_id' => 16, 'filiere_id' => 8, 'cour_date' => '2025-02-16', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 17, 'enseignant_id' => 17, 'filiere_id' => 9, 'cour_date' => '2025-02-17', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 18, 'enseignant_id' => 18, 'filiere_id' => 9, 'cour_date' => '2025-02-18', 'begin_hour' => '14:00:00', 'end_hour' => '16:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 19, 'enseignant_id' => 19, 'filiere_id' => 10, 'cour_date' => '2025-02-19', 'begin_hour' => '08:00:00', 'end_hour' => '10:00:00', 'status' => 'VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['module_id' => 3, 'enseignant_id' => 20, 'filiere_id' => 10, 'cour_date' => '2025-02-20', 'begin_hour' => '10:00:00', 'end_hour' => '12:00:00', 'status' => 'NON_VALIDE', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-        ];
-
-        foreach ($cours as $cour) {
-            DB::table('cours')->insert($cour);
         }
 
         $emargements = [

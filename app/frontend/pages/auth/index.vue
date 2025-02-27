@@ -33,10 +33,16 @@
                 </div>
             </div>
         </form>
+        <Toast />
+        <ConfirmDialog></ConfirmDialog>
     </div>
 </template>
 <script setup>
     import { useUser } from '@/composables/useUser';
+    import { useToast } from "primevue/usetoast";
+    const toast = useToast();
+
+    const errors = useState("errors")
     const {login} = useUser()
     definePageMeta({
         layout: "auth",
@@ -48,6 +54,9 @@
 
     function loginUser () {
         login(email.value, password.value)
+        if(errors.value.length === 1) {
+            toast.add({ severity: 'error', summary: 'Rejeté', detail: errors, life: 3000 });
+        }
     }
 
     

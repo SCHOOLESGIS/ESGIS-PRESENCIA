@@ -25,7 +25,7 @@ class Enseignant extends Model
 
     public function absences () : HasMany
     {
-        return $this->hasMany(Absence::class, 'enseignant_id', 'enseignant_id');
+        return $this->hasMany(Absence::class, 'absence_id', 'absence_id');
     }
 
     public function emargements () : HasMany

@@ -22,10 +22,9 @@ class UpdateAbsenceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date' => 'nullable|date',
-            'start_time' => 'nullable|date_format:H:i',
-            'end_time' => 'nullable|date_format:H:i|after:start_time',
-            'reason' => 'nullable|string|max:500'
+            'cour_id' => 'required|exists:cours,cour_id',
+            'absence_date' => 'required|date',
+            'status' => 'required|string|in:NON_JUSTIFIE,JUSTIFIE',
         ];
     }
 }

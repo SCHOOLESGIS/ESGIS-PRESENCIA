@@ -22,11 +22,8 @@ class CreateAbsenceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|exists:users,cour_id',
-            'date' => 'required|date',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i|after:start_time',
-            'reason' => 'nullable|string|max:500'
+            'cour_id' => 'required|exists:cours,cour_id',
+            'absence_date' => 'required|date',
         ];
     }
 }

@@ -1,12 +1,12 @@
 const secondaryNavigations = [
     {
         icon: "uiw:usergroup-add",
-        link: '/users',
+        link: '/admin/users',
         libel: "utilisateurs"
     },
     {
         icon: "uiw:inbox",
-        link: '/archives',
+        link: '/admin/archives',
         libel: "archives"
     }
 ];

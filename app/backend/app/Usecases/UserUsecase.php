@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\Hash;
 class UserUsecase implements UserInterface {
     public function getAllUsers(): LengthAwarePaginator
     {
-        return User::latest()->paginate(10);
+        return User::with(['enseignant'])->latest()->paginate(10);
     }
 
     public function getUserByID(int $userId): User
     {
-        return User::all()->findOrFail($userId);
+        return User::with(['enseignant'])->all()->findOrFail($userId);
     }
 
     public function createUser(CreateUserRequest $createUserRequest): User
