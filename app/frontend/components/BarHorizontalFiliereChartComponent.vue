@@ -23,9 +23,9 @@ const setChartData = () => {
         labels: ['AL', 'SRS', 'MC', 'LT', 'MI'],
         datasets: [
             {
-                label: '',
+                label: 'filières',
                 backgroundColor: documentStyle.getPropertyValue('--stroke'),
-                borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                borderColor: documentStyle.getPropertyValue('--primary'),
                 data: [80, 69, 50, 41, 36]
             }
         ]

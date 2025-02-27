@@ -16,7 +16,7 @@
                         <div class="w-[100%] sm:w-[100%] lg:w-[500px] min-h-[200px] sm:w-[100%] flex justify-center items-start">
                             <form class="flex flex-col gap-[20px]" action.preventDefault="">
                                 <div class="text-(--text-grey) font-semibold text-center text-[.75rem] sm:text-[1rem] pt-3">
-                                    Entrer les informations requis ci dessous pour créer un module
+                                    Entrer les informations requis ci dessous
                                 </div>
                                 <div class="flex flex-col gap-[10px] w-full">
                                     <div class="flex flex-col justify-start gap-[10px]">
@@ -24,7 +24,7 @@
                                             Libellé du module
                                         </div>
                                         <div >
-                                            <InputText class="w-full rounded-[4px]" name="username" type="text" placeholder="Entrer le nom de la filiere" />
+                                            <InputText v-model="module.module_name" class="w-full rounded-[4px]" name="username" type="text" placeholder="Entrer le nom de la filiere" />
                                         </div>
                                     </div>
 
@@ -34,15 +34,15 @@
                                                 Code du module
                                             </div>
                                             <div >
-                                                <InputText class="w-full rounded-[4px]" name="username" type="text" placeholder="Saisissez le code du module" />
+                                                <InputText v-model="module.module_code" class="w-full rounded-[4px]" name="username" type="text" placeholder="Saisissez le code du module" />
                                             </div>
                                         </div>
                                         <div class="flex flex-col justify-start gap-[10px] w-[50%]">
                                             <div class="text-(--black-mate) font-semibold">
-                                                Prénom
+                                                Durée du module (heures)
                                             </div>
                                             <div >
-                                                <InputNumber class="w-full rounded-[4px]" v-model="value4" inputId="minmax" :min="0" :max="100" fluid showButtons/>
+                                                <InputNumber v-model="module.module_hours" class="w-full rounded-[4px]" inputId="minmax" value="0" :min="0" :max="100" fluid showButtons/>
                                             </div>
                                         </div>
                                     </div>
@@ -52,7 +52,7 @@
                                             Filière(s)
                                         </div>
                                         <div >
-                                            <Select name="city" :options="cities" optionLabel="name" placeholder="Selectionnez un ou des filières" fluid />
+                                            <Select v-if="allFilieres" v-model="module.filiere_id" name="filiere" :options="allFilieres" optionLabel="name" placeholder="Selectionnez un ou des filières" fluid />
                                         </div>
                                     </div>
 
@@ -61,12 +61,12 @@
                                             Desription (facultatif)
                                         </div>
                                         <div>
-                                            <Textarea class="w-full" v-model="value3" size="large" placeholder="Ecrire..." rows="2" />
+                                            <Textarea v-model="module.description" class="w-full" size="large" placeholder="Ecrire..." rows="2" />
                                         </div>
                                     </div>
 
                                     <div class="w-full">
-                                        <Button label="Créer un module" class="bg-black w-full"/>
+                                        <Button @click="validateModuleCreation" label="Créer un module" class="bg-black w-full"/>
                                     </div>
                                 </div>
                             </form>
@@ -85,12 +85,31 @@
 
 <script setup>
     import DataTableComponent from '~/components/EnseignantDataTableComponent.vue';
+    import { useModule } from '@/composables/useModule';
+    import { useFiliere } from '@/composables/useFiliere';
+    const { createModule } = useModule();
+    const { getAllFiliereWithoutPaginate } = useFiliere();
+    const allFilieres = useState('allFilieres')
+    const module = reactive(
+        {
+            module_name: "",
+            module_code: "",
+            module_hours: "",
+            description: "",
+            filiere_id: ""
+        }
+    )
+    
+    async function validateModuleCreation () {
+        await createModule(module)
+    }
 
     definePageMeta(
         {
-            layout: 'dashboard'
+            layout: 'dashboard',
+            middleware: ['auth', 'admin']
         }
-    )   
+    ) 
     
     const route = useRouter().currentRoute.value.fullPath
 
@@ -104,9 +123,19 @@
             createdAt: "2024-02-20"
         }
     ];
+
+    onMounted(async () => {
+        await getAllFiliereWithoutPaginate()
+    })
 </script>
 
 
 <style scoped>
-
+    .p-button {
+        color: var(--white) !important;
+        background: var(--primary) !important;
+        border: 1px solid var(--primary) !important;
+        padding: 10px 20px !important;
+        border-radius: 4px !important;
+    }
 </style>

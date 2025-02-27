@@ -11,7 +11,7 @@
                         Email
                     </div>
                     <div >
-                        <InputText class="w-full rounded-[4px]" name="username" type="text" placeholder="Entrer votre email" />
+                        <InputText v-model="email" class="w-full rounded-[4px]" name="username" type="text" placeholder="Entrer votre email" />
                     </div>
                 </div>
 
@@ -20,7 +20,7 @@
                         Mot de passe
                     </div>
                     <div >
-                        <InputText class="w-full rounded-[4px]" name="username" type="text" placeholder="Entrer votre mot de passe" />
+                        <InputText v-model="password" class="w-full rounded-[4px]" name="username" type="text" placeholder="Entrer votre mot de passe" />
                     </div>
                 </div>
 
@@ -29,17 +29,35 @@
                 </div>
 
                 <div class="w-full">
-                    <Button label="Se connecter" class="bg-black w-full"/>
+                    <Button label="Se connecter" @click="loginUser" class="bg-black w-full"/>
                 </div>
             </div>
         </form>
     </div>
 </template>
 <script setup>
+    import { useUser } from '@/composables/useUser';
+    const {login} = useUser()
     definePageMeta({
-        layout: "auth"
+        layout: "auth",
+        middleware: 'connected'
     })
+
+    const email = ref("")
+    const password = ref("")
+
+    function loginUser () {
+        login(email.value, password.value)
+    }
+
+    
 </script>
 <style scoped>
-    
+    .p-button {
+        color: var(--white) !important;
+        background: var(--primary) !important;
+        border: 1px solid var(--primary) !important;
+        padding: 10px 20px !important;
+        border-radius: 4px !important;
+    }
 </style>

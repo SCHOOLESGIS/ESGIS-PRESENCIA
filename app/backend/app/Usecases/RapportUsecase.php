@@ -10,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class RapportUsecase implements RapportInterface{
     public function getAllRapports(): LengthAwarePaginator
     {
-        return Rapport::paginate(10);
+        return Rapport::latest()->paginate(10);
     }
 
     public function getRapportByID(int $rapportId): Rapport

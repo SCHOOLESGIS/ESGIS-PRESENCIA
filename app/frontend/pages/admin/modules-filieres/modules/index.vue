@@ -1,6 +1,6 @@
 <template>
     <div class="w-full min-h-[80vh] flex flex-col gap-[20px]">
-        <div class="w-full h-[20px] flex justify-between">
+        <div class="w-full flex justify-between">
             <ul class="flex gap-[20px] sub-link">
                 <li><NuxtLink to="/admin/modules-filieres" class="active-sub-link">Vue d'ensemble</NuxtLink></li>
                 <li><NuxtLink to="/admin/modules-filieres/modules/">Liste des modules</NuxtLink></li>
@@ -8,102 +8,37 @@
             </ul>
 
             <div class="px-[20px] flex gap-[10px]">
-                <NuxtLink to="/admin/modules-filieres/modules/create-module/">
+                <NuxtLink to="/admin/modules-filieres/modules/create-module/" class="flex gap-2 p-1 bg-(--white) rounded-[4px] shadow-md">
                     <div class="flex items-center justify-center w-[25px] h-[25px] rounded-[2px] bg-(--primary) text-(--white)">
                         <i class="pi pi-plus"></i>
                     </div>
+                    Ajouter
                 </NuxtLink>
-
-                <div class="rounded-[2px] shadow-md h-[25px] px-[10px] flex items-center justify-center bg-(--white) gap-[20px]">
-                    Exportation
-                    <i class="pi pi-plus"></i>
-                </div>
-
-                <div class="rounded-[2px] shadow-md h-[25px] px-[10px] flex items-center justify-center bg-(--white) gap-[20px]">
-                    Filter
-                    <i class="pi pi-filter"></i>
-                </div>
             </div>
         </div>
 
         <div class="w-full flex flex-col gap-[20px]">
-            <ModuleDataTableComponent :data="data" :columns="columns"/>
+            <ModuleDataTableComponent/>
         </div>
     </div>
 </template>
 
 <script setup>
     import ModuleDataTableComponent from '~/components/ModuleDataTableComponent.vue';
+    import { useModule } from '@/composables/useModule';
+    const { getAllModules } = useModule()
+
     definePageMeta(
         {
-            layout: 'dashboard'
+            layout: 'dashboard',
+            middleware: ['auth', 'admin']
         }
-    )   
+    )
     
-    const route = useRouter().currentRoute.value.fullPath
+    onMounted(() => {
+        getAllModules()
+    })
 
-    const data = [
-        {
-            id: "1000",
-            libel: "Bamboo Watch",
-            code: "teacher1@example.com",
-            createdAt: "2024-02-20"
-        },
-
-        {
-            id: "1000",
-            libel: "Bamboo Watch",
-            code: "teacher1@example.com",
-            createdAt: "2024-02-20"
-        },
-
-        {
-            id: "1000",
-            libel: "Bamboo Watch",
-            code: "teacher1@example.com",
-            createdAt: "2024-02-20"
-        },
-        {
-            id: "1000",
-            libel: "Bamboo Watch",
-            code: "teacher1@example.com",
-            createdAt: "2024-02-20"
-        },
-        {
-            id: "1000",
-            libel: "Bamboo Watch",
-            code: "teacher1@example.com",
-            createdAt: "2024-02-20"
-        },
-        {
-            id: "1000",
-            libel: "Bamboo Watch",
-            code: "teacher1@example.com",
-            createdAt: "2024-02-20"
-        },
-        {
-            id: "1000",
-            libel: "Bamboo Watch",
-            code: "teacher1@example.com",
-            createdAt: "2024-02-20"
-        },
-        {
-            id: "1000",
-            libel: "Bamboo Watch",
-            code: "teacher1@example.com",
-            createdAt: "2024-02-20"
-        }
-    ];
-
-    const columns = [
-        'id',
-        'Noms enseignants',
-        'Email',
-        'Nbre d\'heure affectuées',
-        'Nbre d\'heure d\'absences',
-        'Date de création',
-        'Actions'
-    ];
 </script>
 
 

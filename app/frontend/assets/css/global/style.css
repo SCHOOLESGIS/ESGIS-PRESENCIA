@@ -5,6 +5,7 @@
     --white: #FFFFFF;
     --black: #000000;
     --primary: rgb(60, 80, 224);
+    --primary-light: rgba(60, 79, 224, 0.281);
     --secondary: #80CAEE;
     --text-color: #64748B;
     --green: #10B981;
@@ -52,7 +53,11 @@ body {
 
 .router-link-active.router-link-exact-active {
     background-color: var(--primary) !important;
-    box-shadow: 0 2px 10px 1px #3C50E0;
+    box-shadow: 0 2px 10px 1px #ffffff;
+}
+
+.router-link-active.router-link-exact-active svg{
+    color: var(--white) !important;
 }
 
 .router-link-active.router-link-exact-active span{
@@ -86,37 +91,17 @@ body {
     outline-offset: var(--p-inputtext-focus-ring-offset);
 }
 
-.p-button {
-    display: inline-flex
-;
-    cursor: pointer;
-    user-select: none;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    color: var(--white) !important;
-    background: var(--primary) !important;
-    border: 1px solid var(--primary) !important;
-    padding: 10px 20px !important;
-    font-size: 1rem;
-    font-family: inherit;
-    font-feature-settings: inherit;
-    transition: background var(--p-button-transition-duration), color var(--p-button-transition-duration), border-color var(--p-button-transition-duration), outline-color var(--p-button-transition-duration), box-shadow var(--p-button-transition-duration);
-    border-radius: 4px !important;
-    outline-color: transparent;
-    gap: var(--p-button-gap);
-}
-
 .active-sub-link {
     background-color:  var(--stroke)!important;
 }
 
 .sub-link .router-link-active.router-link-exact-active {
-    background-color: transparent !important;
+    background-color: var(--primary) !important;
     box-shadow: none !important;
-    color: var(--primary) !important;
+    color: var(--white) !important;
     font-weight: 600;
+    border-radius: 2px;
+    padding: 2.5px 5px;
 }
 
 .sub-link li {
@@ -165,7 +150,17 @@ body {
 .p-datatable-tbody tr:hover {
     background-color: var(--primary) !important;
     color: var(--white) !important;
-    box-shadow: 0 0 10px 1px #3C50E0;
+    box-shadow: 0 0 10px 1px rgba(60, 79, 224, 0.5);
+}
+
+.p-row-even, .p-row-odd {
+    border-radius: 4px !important;
+    border: 1px solid red !important;
+}
+
+.p-datatable-tbody > tr > td {
+    background-color: transparent;
+
 }
 
 .p-datatable-tbody tr {
@@ -199,10 +194,38 @@ body {
     color: var(--primary) !important;
 }
 
-.p-dialog-header {
+/* .p-dialog-header {
     border-bottom: .1px solid var(--primary);
+} */
+
+/* .p-dialog-header-actions {
+    display: none !important;
+} */
+
+.p-paginator {
+    justify-content: end !important;
+    background: transparent !important;
 }
 
-.p-dialog-header-actions {
-    display: none !important;
+.p-paginator-content {
+    padding: 5px;
+    background-color: var(--white);
+    border-radius: 4px;
+    box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.p-paginator-page, .p-paginator-next, .p-paginator-last, .p-paginator-first, .p-paginator-prev {
+    background: var(--white) !important;
+    border: 2px solid var(--primary) !important;
+    color: var(--primary) !important;
+    border-radius: 4px !important;
+}
+
+.p-select:not(.p-disabled).p-focus {
+    border-color: var(--primary) !important;
+}
+
+.p-select-option.p-select-option-selected {
+    background: var(--primary-light) !important;
+    color: var(--primary) !important;
 }

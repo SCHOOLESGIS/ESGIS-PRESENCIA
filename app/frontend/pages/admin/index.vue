@@ -1,20 +1,20 @@
 <template>
-    <div class="w-full min-h-[100vh] flex flex-col gap-[20px]">
-        
+    <div>
+        <div if="data" class="text-xl">Welcome <span class="font-bold text-(--primary)">{{ data.user.name + ' ' + data.user.surname }}</span> !</div>
     </div>
 </template>
 
 <script setup>
     definePageMeta(
         {
-            layout: 'dashboard'
+            layout: 'dashboard',
+            middleware: ['auth', 'admin']
         }
-    )   
-    
-    const route = useRouter().currentRoute.value.fullPath
+    )
+    const data = useCookie('auth')
 </script>
 
 
-<style scoped>
+<style>
     
 </style>

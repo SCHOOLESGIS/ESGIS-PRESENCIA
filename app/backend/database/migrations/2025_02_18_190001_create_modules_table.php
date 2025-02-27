@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('module_id');
             $table->string('module_name');
             $table->string('module_code');
+            $table->integer('module_hours');
             $table->string('description');
             $table->unsignedBigInteger('filiere_id');
             $table->softDeletes();

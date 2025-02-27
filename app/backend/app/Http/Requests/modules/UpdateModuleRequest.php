@@ -23,7 +23,8 @@ class UpdateModuleRequest extends FormRequest
     {
         return [
             'module_name' => 'nullable|string|max:255',
-            'module_code' => 'nullable|string|max:50|unique:modules,module_code',
+            'module_code' => 'nullable|string|max:50',
+            'module_hours' => 'nullable|integer',
             'description' => 'nullable|string',
             'filiere_id' => 'nullable|exists:filieres,filiere_id'
         ];

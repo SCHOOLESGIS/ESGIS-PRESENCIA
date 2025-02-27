@@ -5,12 +5,18 @@ use App\Http\Requests\filieres\CreateFiliereRequest;
 use App\Http\Requests\filieres\UpdateFiliereRequest;
 use App\Interfaces\FiliereInterface;
 use App\Models\Filiere;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class FiliererUsecase implements FiliereInterface{
+class FiliereUsecase implements FiliereInterface{
     public function getAllFilieres(): LengthAwarePaginator
     {
-        return Filiere::paginate(10);
+        return Filiere::latest()->paginate(10);
+    }
+
+    public function getAllFilieresWithoutPaginate(): Collection
+    {
+        return Filiere::all();
     }
 
     public function getFiliereByID(int $filiereId): Filiere

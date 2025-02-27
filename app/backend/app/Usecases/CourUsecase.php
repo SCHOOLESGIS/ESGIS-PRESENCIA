@@ -10,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class CourUsecase implements CourInterface {
     public function getAllCours(): LengthAwarePaginator
     {
-        return Cour::paginate(10);
+        return Cour::latest()->paginate(10);
     }
 
     public function getCourByID(int $courId): Cour

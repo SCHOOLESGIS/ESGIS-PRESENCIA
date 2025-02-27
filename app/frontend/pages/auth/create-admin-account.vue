@@ -57,5 +57,11 @@
     })
 </script>
 <style scoped>
-    
+    .p-button {
+        color: var(--white) !important;
+        background: var(--primary) !important;
+        border: 1px solid var(--primary) !important;
+        padding: 10px 20px !important;
+        border-radius: 4px !important;
+    }
 </style>

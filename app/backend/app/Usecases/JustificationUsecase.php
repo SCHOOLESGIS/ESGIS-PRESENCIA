@@ -10,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class JustificationUsecase implements JustificationInterface {
     public function getAllJustifications(): LengthAwarePaginator
     {
-        return Justification::paginate(10);
+        return Justification::latest()->paginate(10);
     }
 
     public function getJustificationByID(int $justificationId): Justification
