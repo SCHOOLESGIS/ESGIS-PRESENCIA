@@ -10,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class AbsenceUsecase implements AbsenceInterface {
     public function getAllAbsences(): LengthAwarePaginator
     {
-        return Absence::with(['justification', 'enseignant', 'cour'])->latest()->paginate(10);
+        return Absence::with(['justification', 'enseignant.user', 'cour'])->latest()->paginate(10);
     }
 
     public function getAbsenceByID(int $absenceId): Absence
@@ -23,8 +23,7 @@ class AbsenceUsecase implements AbsenceInterface {
     {
         $absenceData = $createAbsenceRequest->validated();
         $absence = new Absence();
-        $absence->enseignant_id = $absenceData['enseignant_id'];
-        $absence->module_id = $absenceData['module_id'];
+        $absence->cour_id = $absenceData['cour_id'];
         $absence->absence_date = $absenceData['absence_date'];
         $absence->save();
 
@@ -34,9 +33,8 @@ class AbsenceUsecase implements AbsenceInterface {
     public function updateAbsenceByID(UpdateAbsenceRequest $updateAbsenceRequest, Absence $absence): Absence
     {
         $absenceData = $updateAbsenceRequest->validated();
-        $absence->enseignant_id = $absenceData['enseignant_id']??$absence->enseignant_id;
+        $absence->enseignant_id = $absenceData['cour_id']??$absence->cour_id;
         $absence->module_id = $absenceData['module_id']??$absence->module_id;
-        $absence->absence_date = $absenceData['absence_date']??$absence->absence_date;
         $absence->status = $absenceData['status']??$absence->status;
         $absence->save();
 

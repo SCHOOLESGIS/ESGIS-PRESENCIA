@@ -21,6 +21,6 @@ class Rapport extends Model
 
     public function enseignant () : HasOne
     {
-        return $this->hasOne(Enseignant::class, 'rapport_id', 'rapport_id');
+        return $this->hasOne(Enseignant::class, 'enseignant_id', 'enseignant_id');
     }
 }

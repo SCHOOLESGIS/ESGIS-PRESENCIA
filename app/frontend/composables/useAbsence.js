@@ -22,18 +22,15 @@ export function useAbsence () {
         response.data.forEach(element => {
             const absence = {
                 absence_id: "",
-                name: "",
-                email: "",
-                hoursAssigned: "",
-                hoursAbsent: "",
+                cour: "",
+                absenceDate: "",
                 createdAt: ""
             }
             absence.absence_id = element.absence_id
-            absence.name = element.user.name + " " + element.user.surname
-            absence.email = element.user.email
-            absence.hoursAssigned = element.absence_id
-            absence.hoursAbsent = element.absence_id
-            absence.createdAt = element.created_at
+            absence.cour = 'cour - ' + element.cour_id
+            absence.absenceDate = element.absence_date
+            absence.status = element.status
+            absence.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
 
             if (data.value.length < 10) {
                 data.value.push(absence)
@@ -111,9 +108,9 @@ export function useAbsence () {
                 'Accept': 'application/json'
             },
             body: {
-                name: absenceData.name,
-                surname: absenceData.surname,
-                email: absenceData.email,
+                cour_id: absenceData.cour_id,
+                absence_date: absenceData.absence_date,
+                status: absenceData.status,
             }
         })
 
@@ -121,7 +118,7 @@ export function useAbsence () {
         return navigateTo('/admin/absences/absences-liste')
     }
 
-    async function createAbsence (AbsenceData) {
+    async function createAbsence (absenceData) {
 
         const responseA = await $fetch(`http://localhost:8000/api/v1/absences`, {
             method: 'POST',
@@ -130,13 +127,9 @@ export function useAbsence () {
                 'Accept': 'application/json'
             },
             body: {
-                name: AbsenceData.name,
-                surname: AbsenceData.surname,
-                email: AbsenceData.email,
-                password: AbsenceData.password,
-                password_confirmation: AbsenceData.password_confirmation,
-                role: absenceEnum,
-                specialite: AbsenceData.specialite,
+                cour_id: absenceData.cour_id,
+                absence_date: absenceData.absence_date,
+                status: absenceData.status,
             }
         })
 

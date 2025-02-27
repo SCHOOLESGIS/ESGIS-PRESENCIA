@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('absences', function (Blueprint $table) {
             $table->id('absence_id');
-            $table->unsignedBigInteger('enseignant_id');
-            $table->unsignedBigInteger('module_id');
+            $table->unsignedBigInteger('cour_id');
             $table->date('absence_date');
             $table->enum('status', ['JUSTIFIE', 'NON_JUSTIFIE'])->default('NON_JUSTIFIE');
             $table->softDeletes();
@@ -22,8 +21,7 @@ return new class extends Migration
         });
 
         Schema::table('absences', function (Blueprint $table) {
-            $table->foreign('module_id')->references('module_id')->on('modules')->onUpdate('cascade');
-            $table->foreign('enseignant_id')->references('enseignant_id')->on('enseignants')->onUpdate('cascade');
+            $table->foreign('cour_id')->references('cour_id')->on('cours')->onUpdate('cascade');
         });
     }
 

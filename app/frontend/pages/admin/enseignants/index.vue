@@ -60,15 +60,15 @@
                 </div>
             </div>
 
-            <div class="flex gap-[20px] min-h-[calc(100vh-255px)] flex-wrap">
-                <div class="sm:min-w-[350px] w-[200px] h-[calc(100vh-255px)] grow shadow-md rounded-[10px] bg-(--white)">
+            <div class="flex gap-[20px] min-h-[calc(90vh-255px)] flex-wrap">
+                <div class="sm:min-w-[350px] w-[200px] h-[calc(90vh-255px)] grow shadow-md rounded-[10px] bg-(--white)">
 
                 </div>
-                <div class="sm:min-w-[350px] w-[200px] h-[calc(100vh-255px)] grow shadow-md rounded-[10px] bg-(--white)">
+                <div class="sm:min-w-[350px] w-[200px] h-[calc(90vh-255px)] grow shadow-md rounded-[10px] bg-(--white)">
                     <DoughnutChartComponent/>
                 </div>
 
-                <div class="sm:w-[200px] w-full min-h-[calc(100vh-255px)] grow shadow-md rounded-[10px] bg-(--white)">
+                <div class="sm:w-[200px] w-full min-h-[calc(90vh-255px)] grow shadow-md rounded-[10px] bg-(--white)">
                     <div class="h-[15%] text-(--black-mate) text-[1.5rem] p-[20px] border-b-[0.5px] border-(--dark-text-color-1)">
                         Top Enseignants
                     </div>

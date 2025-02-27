@@ -5,10 +5,10 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
   const allRoutes = router.getRoutes()
 
-  const routeExists = allRoutes.some(route => route.path === to.path)
+  const routeExists = allRoutes.filter(route => route.path === to.path)
   console.log(allRoutes);
   console.log(routeExists);
-  // if (!routeExists) {
-  //   return navigateTo('/404')
-  // }
+  if (routeExists.length === 0) {
+    // return navigateTo('/404')
+  }
 })

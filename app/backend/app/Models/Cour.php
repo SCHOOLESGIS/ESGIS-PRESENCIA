@@ -34,4 +34,9 @@ class Cour extends Model
     {
         return $this->belongsTo(Module::class, 'module_id', 'module_id');
     }
+
+    public function filiere() : BelongsTo
+    {
+        return $this->belongsTo(Filiere::class, 'filiere_id', 'filiere_id');
+    }
 }

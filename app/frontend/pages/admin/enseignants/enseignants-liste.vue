@@ -35,7 +35,7 @@
     )   
 
     onMounted(() => {
-        getAllTeachers()
+        getAllTeachers(0)
     })
 
 </script>

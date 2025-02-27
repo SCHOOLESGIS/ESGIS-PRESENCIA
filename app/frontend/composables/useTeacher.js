@@ -1,8 +1,8 @@
 import dayjs from 'dayjs';
 import { useUser } from '@/composables/useUser';
-const { deleteUser } = useUser()
 
 export function useTeacher () {
+    const { deleteUser } = useUser()
     const cookie = useCookie("auth")
     const data = useState("enseignantsData", () => [])
     const links = useState("enseignantLinks", () => [])
@@ -19,6 +19,7 @@ export function useTeacher () {
             }
         })
 
+        console.log(response);
         response.data.forEach(element => {
             const enseignant = {
                 enseignant_id: "",
