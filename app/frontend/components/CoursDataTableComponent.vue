@@ -1,45 +1,50 @@
 
 <template>
     <div class="w-full flex flex-col gap-[10px]">
-        <div class="card shadow-sm rounded-[10px] bg-(--white)">
-            <DataTable :value="data" tableStyle="min-width: 50rem rounded-[10px]">
-                <Column :field="'cour_id'" :header="'M'"></Column>
-                <Column :field="'module'" :header="'Module'"></Column>
-                <Column :field="'enseignant'" :header="'Enseignant'"></Column>
-                <Column :field="'filiere'" :header="'Filiere'"></Column>
-                <Column :field="'cour_date'" :header="'Date de cour'"></Column>
-                <Column :field="'begin_hour'" :header="'Heure de début'"></Column>
-                <Column :field="'end_hour'" :header="'Heure de fin'"></Column>
-                <Column :field="'status'" :header="'Status'"></Column>
-                <Column :field="'createdAt'" :header="'Date de création'"></Column>
-                <Column :field="'action'" :header="'Actions'">
-                    <template #body="slotProps">
-                        <div class="flex gap-[5px]">
-                            <NuxtLink :to="`/admin/emargements/${slotProps.data.cour_id}`">
-                                <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
-                                    <i class="pi pi-eye"></i>
-                                </div>
-                            </NuxtLink>
+        <template v-if="data && data.length">
+            <div class="card shadow-sm rounded-[10px] bg-(--white)">
+                <DataTable :value="data" tableStyle="min-width: 50rem rounded-[10px]">
+                    <Column :field="'cour_id'" :header="'M'"></Column>
+                    <Column :field="'module'" :header="'Module'"></Column>
+                    <Column :field="'enseignant'" :header="'Enseignant'"></Column>
+                    <Column :field="'filiere'" :header="'Filiere'"></Column>
+                    <Column :field="'cour_date'" :header="'Date de cour'"></Column>
+                    <Column :field="'begin_hour'" :header="'Heure de début'"></Column>
+                    <Column :field="'end_hour'" :header="'Heure de fin'"></Column>
+                    <Column :field="'status'" :header="'Status'"></Column>
+                    <Column :field="'createdAt'" :header="'Date de création'"></Column>
+                    <Column :field="'action'" :header="'Actions'">
+                        <template #body="slotProps">
+                            <div class="flex gap-[5px]">
+                                <NuxtLink :to="`/admin/emargements/${slotProps.data.cour_id}`">
+                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
+                                        <i class="pi pi-eye"></i>
+                                    </div>
+                                </NuxtLink>
 
-                            <NuxtLink :to="`/admin/emargements/${slotProps.data.cour_id}/edit`">
-                                <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--yellow) text-(--yellow) flex items-center justify-center">
-                                    <i class="pi pi-pencil"></i>
-                                </div>
-                            </NuxtLink>
+                                <NuxtLink :to="`/admin/emargements/${slotProps.data.cour_id}/edit`">
+                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--yellow) text-(--yellow) flex items-center justify-center">
+                                        <i class="pi pi-pencil"></i>
+                                    </div>
+                                </NuxtLink>
 
-                            <NuxtLink to="" class="cursor-pointer" @click="confirmDelete(slotProps.data.cour_id)">
-                                <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--red) text-(--red) flex items-center justify-center">
-                                    <i class="pi pi-trash"></i>
-                                </div>
-                            </NuxtLink>
-                        </div>
-                    </template>
-                </Column>
-            </DataTable>
-        </div>
-        <div class="card">
-            <Paginator v-model:first="first" :rows="links[1]" :totalRecords="links[0]"></Paginator>
-        </div>
+                                <NuxtLink to="" class="cursor-pointer" @click="confirmDelete(slotProps.data.cour_id)">
+                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--red) text-(--red) flex items-center justify-center">
+                                        <i class="pi pi-trash"></i>
+                                    </div>
+                                </NuxtLink>
+                            </div>
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
+            <div class="card">
+                <Paginator v-model:first="first" :rows="links[1]" :totalRecords="links[0]"></Paginator>
+            </div>
+        </template>
+        <template v-else>
+            <SkeletonLoaderComponent/>
+        </template>
         <Toast />
         <ConfirmDialog></ConfirmDialog>
  
@@ -54,6 +59,7 @@
     import { useCour } from '@/composables/useCour';
     import { useConfirm } from "primevue/useconfirm";
     import { useToast } from "primevue/usetoast";
+import SkeletonLoaderComponent from './SkeletonLoaderComponent.vue';
 
     const confirm = useConfirm();
     const toast = useToast();

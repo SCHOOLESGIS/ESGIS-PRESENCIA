@@ -3,8 +3,10 @@ import dayjs from 'dayjs';
 export function useCour () {
     const cookie = useCookie("auth")
     const data = useState("coursData", () => [])
+    const dataArchived = useState("coursDataArchive", () => [])
     const allCours = useState("allCours", () => [])
     const links = useState("courLinks", () => [])
+    const linksArchived = useState("courLinksArchive", () => [])
     const oneCour = useState("courData", () => [])
     const courEnum = "cour"
 
@@ -49,7 +51,8 @@ export function useCour () {
                 begin_hour: "",
                 end_hour: "",
                 status: "",
-                createdAt: ""
+                createdAt: "",
+                deletedAt: "",
             }
             cour.cour_id = element.cour_id
             cour.module = element.module.module_name
@@ -59,9 +62,10 @@ export function useCour () {
             cour.begin_hour = element.begin_hour
             cour.end_hour = element.end_hour
             cour.status = element.status
+            cour.deletedAt = element.deleted_at
             cour.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
 
-            if (data.value.length < 10) {
+            if (data.value.length < 10 && cour.deletedAt === null) {
                 data.value.push(cour)
             }
         });
@@ -70,6 +74,52 @@ export function useCour () {
         if (links.value.length === 0) {
             links.value.push(response.total)
             links.value.push(response.per_page)
+        }
+
+    }
+
+    async function getAllCoursArchived (page) {
+        dataArchived.value = []
+
+        const response = await $fetch(`http://localhost:8000/api/v1/cours?page=${page}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`
+            }
+        })
+        response.data.forEach(element => {
+            const cour = {
+                cour_id: "",
+                module: "",
+                enseignant: "",
+                filiere: "",
+                cour_date: "",
+                begin_hour: "",
+                end_hour: "",
+                status: "",
+                createdAt: "",
+                deletedAt: "",
+            }
+            cour.cour_id = element.cour_id
+            cour.module = element.module.module_name
+            cour.enseignant = element.enseignant?.user?.name + " " + element.enseignant?.user?.surname
+            cour.filiere = element.filiere.filiere_name + ' - ' + element.filiere.filiere_level
+            cour.cour_date = element.cour_date
+            cour.begin_hour = element.begin_hour
+            cour.end_hour = element.end_hour
+            cour.status = element.status
+            cour.deletedAt = element.deleted_at
+            cour.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
+
+            if (dataArchived.value.length < 10 && cour.deletedAt !== null) {
+                dataArchived.value.push(cour)
+            }
+        });
+
+        linksArchived.value = []
+        if (linksArchived.value.length === 0) {
+            linksArchived.value.push(response.total)
+            linksArchived.value.push(response.per_page)
         }
 
     }
@@ -170,6 +220,7 @@ export function useCour () {
         getCour,
         updateCour,
         createCour,
-        deleteCour
+        deleteCour,
+        getAllCoursArchived
     }
 }

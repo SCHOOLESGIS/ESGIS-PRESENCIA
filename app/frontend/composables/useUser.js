@@ -2,6 +2,8 @@ import dayjs from 'dayjs';
 
 export function useUser () {
     const data = useState('usersData', () => [])
+    const dataArchived = useState('usersDataArchived', () => [])
+    const linksArchived = useState('userLinksArchived', () => [])
     const links = useState('userLinks', () => [])
 
     async function login (email, password) {
@@ -60,6 +62,7 @@ export function useUser () {
                 'Accept': 'application/json'
             }
         })
+        getAllUsers(0)
     }
 
     async function getAllUsers (page) {
@@ -80,6 +83,7 @@ export function useUser () {
                 surname: "",
                 email: "",
                 role: "",
+                deleted_at: "",
                 createdAt: ""
             }
             user.user_id = element.user_id
@@ -87,9 +91,10 @@ export function useUser () {
             user.surname = element.surname
             user.email = element.email
             user.role = element.role
+            user.deleted_at = element.deleted_at
             user.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
 
-            if (data.value.length < 10) {
+            if (data.value.length < 10 < 10 && user.deleted_at === null) {
                 data.value.push(user)
             }
         });
@@ -102,10 +107,53 @@ export function useUser () {
 
     }
 
+    async function getAllUsersArchived (page) {
+        dataArchived.value = []
+        const cookie = useCookie('auth')
+        const response = await $fetch(`http://localhost:8000/api/v1/users?page=${page}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`
+            }
+        })
+
+        console.log(response);
+        response.data.forEach(element => {
+            const user = {
+                user_id: "",
+                name: "",
+                surname: "",
+                email: "",
+                role: "",
+                deleted_at: "",
+                createdAt: ""
+            }
+            user.user_id = element.user_id
+            user.name = element.name
+            user.surname = element.surname
+            user.email = element.email
+            user.role = element.role
+            user.deleted_at = element.deleted_at
+            user.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
+
+            if (dataArchived.value.length < 10 && user.deleted_at !== null) {
+                dataArchived.value.push(user)
+            }
+        });
+        console.log("Data archived ",dataArchived);
+        linksArchived.value = []
+        if (linksArchived.value.length === 0) {
+            linksArchived.value.push(response.total)
+            linksArchived.value.push(response.per_page)
+        }
+
+    }
+
     return {
         login,
         logout,
         deleteUser,
-        getAllUsers
+        getAllUsers,
+        getAllUsersArchived
     }
 }

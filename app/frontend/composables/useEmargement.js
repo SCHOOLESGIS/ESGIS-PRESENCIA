@@ -3,8 +3,10 @@ import dayjs from 'dayjs';
 export function useEmargement () {
     const cookie = useCookie("auth")
     const data = useState("emargementsData", () => [])
+    const dataArchived = useState("emargementsDataArchived", () => [])
     const allEmargements = useState("allEmargements", () => [])
     const links = useState("emargementLinks", () => [])
+    const linksArchived = useState("emargementLinksArchived", () => [])
     const oneEmargement = useState("emargementData", () => [])
     const emargementEnum = "emargement"
 
@@ -48,7 +50,8 @@ export function useEmargement () {
                 beginHour: "",
                 endHour: "",
                 status: "",
-                createdAt: ""
+                createdAt: "",
+                deletedAt: ""
             }
             emargement.emargement_id = element.emargement_id
             emargement.enseignants = element.enseignant?.user?.name + " " + element.enseignant?.user?.surname
@@ -56,9 +59,10 @@ export function useEmargement () {
             emargement.beginHour = element.begin_hour
             emargement.endHour = element.end_hour
             emargement.status = element.status
+            emargement.deletedAt = element.deleted_at
             emargement.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
 
-            if (data.value.length < 10) {
+            if (data.value.length < 10 && emargement.deletedAt === null) {
                 data.value.push(emargement)
             }
         });
@@ -67,6 +71,49 @@ export function useEmargement () {
         if (links.value.length === 0) {
             links.value.push(response.total)
             links.value.push(response.per_page)
+        }
+
+    }
+
+    async function getAllEmargementsArchived (page) {
+        dataArchived.value = []
+
+        const response = await $fetch(`http://localhost:8000/api/v1/emargements?page=${page}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`
+            }
+        })
+        console.log(response);
+        response.data.forEach(element => {
+            const emargement = {
+                emargement_id: "",
+                enseignants: "",
+                cours: "",
+                beginHour: "",
+                endHour: "",
+                status: "",
+                createdAt: "",
+                deletedAt: ""
+            }
+            emargement.emargement_id = element.emargement_id
+            emargement.enseignants = element.enseignant?.user?.name + " " + element.enseignant?.user?.surname
+            emargement.cours = "Cour #" + element.cour.cour_id
+            emargement.beginHour = element.begin_hour
+            emargement.endHour = element.end_hour
+            emargement.status = element.status
+            emargement.deletedAt = element.deleted_at
+            emargement.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
+
+            if (dataArchived.value.length < 10 && emargement.deletedAt !== null) {
+                dataArchived.value.push(emargement)
+            }
+        });
+
+        linksArchived.value = []
+        if (linksArchived.value.length === 0) {
+            linksArchived.value.push(response.total)
+            linksArchived.value.push(response.per_page)
         }
 
     }
@@ -152,6 +199,7 @@ export function useEmargement () {
         getEmargement,
         updateEmargement,
         createEmargement,
-        deleteEmargement
+        deleteEmargement,
+        getAllEmargementsArchived
     }
 }

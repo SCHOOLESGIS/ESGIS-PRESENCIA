@@ -5,7 +5,9 @@ export function useTeacher () {
     const { deleteUser } = useUser()
     const cookie = useCookie("auth")
     const data = useState("enseignantsData", () => [])
+    const dataArchived = useState("enseignantsDataArchive", () => [])
     const links = useState("enseignantLinks", () => [])
+    const linksArchived = useState("enseignantLinksArchive", () => [])
     const teacher = useState("enseignantData", () => [])
     const enseignantEnum = "enseignant"
 
@@ -27,16 +29,18 @@ export function useTeacher () {
                 email: "",
                 hoursAssigned: "",
                 hoursAbsent: "",
-                createdAt: ""
+                createdAt: "",
+                deletedAt: ""
             }
             enseignant.enseignant_id = element.enseignant_id
-            enseignant.name = element.user.name + " " + element.user.surname
-            enseignant.email = element.user.email
+            enseignant.name = element.user?.name + " " + element.user?.surname
+            enseignant.email = element.user?.email
             enseignant.hoursAssigned = element.enseignant_id
             enseignant.hoursAbsent = element.enseignant_id
+            enseignant.deletedAt = element.deleted_at
             enseignant.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
 
-            if (data.value.length < 10) {
+            if (data.value.length < 10 && enseignant.deletedAt === null) {
                 data.value.push(enseignant)
             }
         });
@@ -45,6 +49,48 @@ export function useTeacher () {
         if (links.value.length === 0) {
             links.value.push(response.total)
             links.value.push(response.per_page)
+        }
+
+    }
+
+    async function getAllTeachersArchived (page) {
+        dataArchived.value = []
+
+        const response = await $fetch(`http://localhost:8000/api/v1/enseignants?page=${page}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`
+            }
+        })
+
+        console.log(response);
+        response.data.forEach(element => {
+            const enseignant = {
+                enseignant_id: "",
+                name: "",
+                email: "",
+                hoursAssigned: "",
+                hoursAbsent: "",
+                createdAt: "",
+                deletedAt: ""
+            }
+            enseignant.enseignant_id = element.enseignant_id
+            enseignant.name = element.user?.name + " " + element.user?.surname
+            enseignant.email = element.user?.email
+            enseignant.hoursAssigned = element.enseignant_id
+            enseignant.hoursAbsent = element.enseignant_id
+            enseignant.deletedAt = element.deleted_at
+            enseignant.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
+
+            if (dataArchived.value.length < 10 && enseignant.deletedAt !== null) {
+                dataArchived.value.push(enseignant)
+            }
+        });
+
+        linksArchived.value = []
+        if (linksArchived.value.length === 0) {
+            linksArchived.value.push(response.total)
+            linksArchived.value.push(response.per_page)
         }
 
     }
@@ -179,6 +225,7 @@ export function useTeacher () {
         getTeacher,
         updateTeacher,
         createTeacher,
-        deleteTeacher
+        deleteTeacher,
+        getAllTeachersArchived
     }
 }

@@ -1,41 +1,46 @@
 
 <template>
     <div class="w-full flex flex-col gap-[10px]">
-        <div class="card shadow-sm rounded-[10px] bg-(--white)">
-            <DataTable :value="data" tableStyle="min-width: 50rem rounded-[10px]">
-                <Column :field="'absence_id'" :header="'M'"></Column>
-                <Column :field="'cour'" :header="'Identifiant des cours'"></Column>
-                <Column :field="'absenceDate'" :header="'Heure de début'"></Column>
-                <Column :field="'status'" :header="'Statuts'"></Column>
-                <Column :field="'createdAt'" :header="'Date de création'"></Column>
-                <Column :field="'action'" :header="'Actions'">
-                    <template #body="slotProps">
-                        <div class="flex gap-[5px]">
-                            <NuxtLink :to="`/admin/absences/${slotProps.data.absence_id}`">
-                                <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
-                                    <i class="pi pi-eye"></i>
-                                </div>
-                            </NuxtLink>
+        <template v-if="data && data.length">
+            <div class="card shadow-sm rounded-[10px] bg-(--white)">
+                <DataTable :value="data" tableStyle="min-width: 50rem rounded-[10px]">
+                    <Column :field="'absence_id'" :header="'M'"></Column>
+                    <Column :field="'cour'" :header="'Identifiant des cours'"></Column>
+                    <Column :field="'absenceDate'" :header="'Heure de début'"></Column>
+                    <Column :field="'status'" :header="'Statuts'"></Column>
+                    <Column :field="'createdAt'" :header="'Date de création'"></Column>
+                    <Column :field="'action'" :header="'Actions'">
+                        <template #body="slotProps">
+                            <div class="flex gap-[5px]">
+                                <NuxtLink :to="`/admin/absences/${slotProps.data.absence_id}`">
+                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
+                                        <i class="pi pi-eye"></i>
+                                    </div>
+                                </NuxtLink>
 
-                            <NuxtLink :to="`/admin/absences/${slotProps.data.absence_id}/edit`">
-                                <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--yellow) text-(--yellow) flex items-center justify-center">
-                                    <i class="pi pi-pencil"></i>
-                                </div>
-                            </NuxtLink>
+                                <NuxtLink :to="`/admin/absences/${slotProps.data.absence_id}/edit`">
+                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--yellow) text-(--yellow) flex items-center justify-center">
+                                        <i class="pi pi-pencil"></i>
+                                    </div>
+                                </NuxtLink>
 
-                            <NuxtLink to="" class="cursor-pointer" @click="confirmDelete(slotProps.data.absence_id)">
-                                <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--red) text-(--red) flex items-center justify-center">
-                                    <i class="pi pi-trash"></i>
-                                </div>
-                            </NuxtLink>
-                        </div>
-                    </template>
-                </Column>
-            </DataTable>
-        </div>
-        <div class="card">
-            <Paginator v-model:first="first" :rows="links[1]" :totalRecords="links[0]"></Paginator>
-        </div>
+                                <NuxtLink to="" class="cursor-pointer" @click="confirmDelete(slotProps.data.absence_id)">
+                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--red) text-(--red) flex items-center justify-center">
+                                        <i class="pi pi-trash"></i>
+                                    </div>
+                                </NuxtLink>
+                            </div>
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
+            <div class="card">
+                <Paginator v-model:first="first" :rows="links[1]" :totalRecords="links[0]"></Paginator>
+            </div>
+        </template>
+        <template v-else>
+            <SkeletonLoaderComponent/>
+        </template>
         <Toast />
         <ConfirmDialog></ConfirmDialog>
  
@@ -50,6 +55,7 @@
     import { useAbsence } from '@/composables/useAbsence';
     import { useConfirm } from "primevue/useconfirm";
     import { useToast } from "primevue/usetoast";
+    import SkeletonLoaderComponent from './SkeletonLoaderComponent.vue';
 
     const confirm = useConfirm();
     const toast = useToast();

@@ -11,7 +11,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class FiliereUsecase implements FiliereInterface{
     public function getAllFilieres(): LengthAwarePaginator
     {
-        return Filiere::latest()->paginate(10);
+        return Filiere::withTrashed()->latest()->paginate(10);
     }
 
     public function getAllFilieresWithoutPaginate(): Collection
@@ -21,7 +21,7 @@ class FiliereUsecase implements FiliereInterface{
 
     public function getFiliereByID(int $filiereId): Filiere
     {
-        $filiereToShow = Filiere::with(['modules'])->findOrFail($filiereId);
+        $filiereToShow = Filiere::withTrashed()->with(['modules'])->findOrFail($filiereId);
         return $filiereToShow;
     }
 

@@ -1,4 +1,5 @@
 
+
 <template>
     <div class="w-full flex flex-col gap-[10px]">
         <template v-if="data && data.length">
@@ -54,10 +55,11 @@
     import { useConfirm } from "primevue/useconfirm";
     import { useToast } from "primevue/usetoast";
     import { useFiliere } from '@/composables/useFiliere';
-import SkeletonLoaderComponent from './SkeletonLoaderComponent.vue';
-    const { getAllFilieres, deleteFiliere } = useFiliere();
-    const data = useState('filieresData')
-    const links = useState('filiereLinks')
+    import SkeletonLoaderComponent from './SkeletonLoaderComponent.vue';
+    
+    const { getAllFilieresArchived, deleteFiliere } = useFiliere();
+    const data = useState('filieresDataArchive')
+    const links = useState('filiereLinksArchive')
     
     const props = defineProps(
         {
@@ -73,11 +75,11 @@ import SkeletonLoaderComponent from './SkeletonLoaderComponent.vue';
 
     watch(first, function() {
         const page = ((first.value)/(number_per_page)) + 1
-        getAllFilieres(page)
+        getAllFilieresArchived(page)
     })
 
     onMounted( async () => {
-        await getAllFilieres()
+        await getAllFilieresArchived(0)
     });
 
     const confirmDelete = (filiereId) => {
