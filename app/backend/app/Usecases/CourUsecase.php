@@ -10,12 +10,12 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class CourUsecase implements CourInterface {
     public function getAllCours(): LengthAwarePaginator
     {
-        return Cour::with(['emargement', 'enseignant', 'module', 'filiere'])->latest()->paginate(10);
+        return Cour::withTrashed()->with(['emargement', 'enseignant', 'module', 'filiere'])->latest()->paginate(10);
     }
 
     public function getCourByID(int $courId): Cour
     {
-        $courToShow = Cour::with(['emargement', 'enseignant', 'module'])->findOrFail($courId);
+        $courToShow = Cour::withTrashed()->with(['emargement', 'enseignant', 'module'])->findOrFail($courId);
         return $courToShow;
     }
 

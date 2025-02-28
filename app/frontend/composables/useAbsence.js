@@ -3,6 +3,8 @@ import dayjs from 'dayjs';
 export function useAbsence () {
     const cookie = useCookie("auth")
     const data = useState("absencesData", () => [])
+    const dataArchived = useState("absencesDataArchive", () => [])
+    const linksArchived = useState("absenceLinksArchive", () => [])
     const links = useState("absenceLinks", () => [])
     const absence = useState("absenceData", () => [])
     const absenceEnum = "absence"
@@ -24,15 +26,17 @@ export function useAbsence () {
                 absence_id: "",
                 cour: "",
                 absenceDate: "",
-                createdAt: ""
+                createdAt: "",
+                deletedAt: ""
             }
             absence.absence_id = element.absence_id
             absence.cour = 'cour - ' + element.cour_id
             absence.absenceDate = element.absence_date
             absence.status = element.status
+            absence.deletedAt = element.deleted_at
             absence.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
 
-            if (data.value.length < 10) {
+            if (data.value.length < 10 && absence.deletedAt === null) {
                 data.value.push(absence)
             }
         });
@@ -41,6 +45,45 @@ export function useAbsence () {
         if (links.value.length === 0) {
             links.value.push(response.total)
             links.value.push(response.per_page)
+        }
+
+    }
+
+    async function getAllAbsencesArchived (page) {
+        dataArchived.value = []
+
+        const response = await $fetch(`http://localhost:8000/api/v1/absences?page=${page}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`
+            }
+        })
+
+        console.log(response);
+        response.data.forEach(element => {
+            const absence = {
+                absence_id: "",
+                cour: "",
+                absenceDate: "",
+                createdAt: "",
+                deletedAt: ""
+            }
+            absence.absence_id = element.absence_id
+            absence.cour = 'cour - ' + element.cour_id
+            absence.absenceDate = element.absence_date
+            absence.status = element.status
+            absence.deletedAt = element.deleted_at
+            absence.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
+
+            if (dataArchived.value.length < 10 && absence.deletedAt !== null) {
+                dataArchived.value.push(absence)
+            }
+        });
+
+        linksArchived.value = []
+        if (linksArchived.value.length === 0) {
+            linksArchived.value.push(response.total)
+            linksArchived.value.push(response.per_page)
         }
 
     }
@@ -155,6 +198,7 @@ export function useAbsence () {
         getAbsence,
         updateAbsence,
         createAbsence,
-        deleteAbsence
+        deleteAbsence,
+        getAllAbsencesArchived
     }
 }

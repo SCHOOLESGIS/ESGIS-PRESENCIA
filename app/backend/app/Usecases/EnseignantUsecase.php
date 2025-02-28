@@ -10,12 +10,12 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class EnseignantUsecase implements EnseignantInterface{
     public function getAllEnseignants(): LengthAwarePaginator
     {
-        return Enseignant::with(['emargements', 'absences', 'cours', 'rapports', 'user'])->join('users', 'users.user_id', '=', 'enseignants.user_id')->where('role', 'enseignant')->paginate(10);
+        return Enseignant::withTrashed()->with(['emargements', 'absences', 'cours', 'rapports', 'user'])->join('users', 'users.user_id', '=', 'enseignants.user_id')->where('role', 'enseignant')->paginate(10);
     }
 
     public function getEnseignantByID(int $enseignantId): Enseignant
     {
-        $enseignantToShow = Enseignant::with(['emargements', 'absences', 'cours.module', 'rapports', 'user'])->findOrFail($enseignantId);
+        $enseignantToShow = Enseignant::withTrashed()->with(['emargements', 'absences', 'cours.module', 'rapports', 'user'])->findOrFail($enseignantId);
         return $enseignantToShow;
     }
 

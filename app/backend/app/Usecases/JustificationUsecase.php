@@ -10,12 +10,12 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class JustificationUsecase implements JustificationInterface {
     public function getAllJustifications(): LengthAwarePaginator
     {
-        return Justification::latest()->paginate(10);
+        return Justification::withTrashed()->latest()->paginate(10);
     }
 
     public function getJustificationByID(int $justificationId): Justification
     {
-        $justificationToShow = Justification::with(['absence'])->findOrFail($justificationId);
+        $justificationToShow = Justification::withTrashed()->with(['absence'])->findOrFail($justificationId);
         return $justificationToShow;
     }
 

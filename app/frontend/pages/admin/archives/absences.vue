@@ -15,21 +15,18 @@
         </div>
 
         <div class="w-full flex flex-col gap-[20px]">
-            <ArchivedUserDataTableComponent/>
+            <ArchivedAbsenceDataTableComponent/>
         </div>
     </div>
 </template>
 
 <script setup>
-    import ArchivedUserDataTableComponent from '~/components/ArchivedUserDataTableComponent.vue';
-
+    import ArchivedAbsenceDataTableComponent from '~/components/ArchivedAbsenceDataTableComponent.vue';
     definePageMeta(
         {
             layout: 'dashboard'
         }
     )   
-    
-    const route = useRouter().currentRoute.value.fullPath
 </script>
 
 

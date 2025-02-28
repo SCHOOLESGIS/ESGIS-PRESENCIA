@@ -10,12 +10,12 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class ModuleUsecase implements ModuleInterface {
     public function getAllModules(): LengthAwarePaginator
     {
-        return Module::latest()->paginate(10);
+        return Module::withTrashed()->latest()->paginate(10);
     }
 
     public function getModuleByID(int $moduleId): Module
     {
-        $moduleToShow = Module::with(['filiere', 'cours'])->findOrFail($moduleId);
+        $moduleToShow = Module::withTrashed()->with(['filiere', 'cours'])->findOrFail($moduleId);
         return $moduleToShow;
     }
 

@@ -10,12 +10,12 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class EmargementUsecase implements EmargementInterface {
     public function getAllEmargements(): LengthAwarePaginator
     {
-        return Emargement::with(['cour', 'enseignant.user'])->latest()->paginate(10);
+        return Emargement::withTrashed()->with(['cour', 'enseignant.user'])->latest()->paginate(10);
     }
 
     public function getEmargementByID(int $emargementId): Emargement
     {
-        $emargementToShow = Emargement::with(['cour', 'enseignant'])->findOrFail($emargementId);
+        $emargementToShow = Emargement::withTrashed()->with(['cour', 'enseignant'])->findOrFail($emargementId);
         return $emargementToShow;
     }
 

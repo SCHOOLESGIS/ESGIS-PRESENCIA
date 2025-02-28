@@ -3,7 +3,9 @@ import dayjs from 'dayjs';
 export function useFiliere () {
     const cookie = useCookie("auth")
     const data = useState("filieresData", () => [])
+    const dataArchived = useState("filieresDataArchive", () => [])
     const allFilieres = useState("allFilieres", () => [])
+    const linksArchived = useState("filiereLinksArchive", () => [])
     const links = useState("filiereLinks", () => [])
     const oneFiliere = useState("filiereData", () => [])
     const filiereEnum = "filiere"
@@ -45,14 +47,16 @@ export function useFiliere () {
                 filiere_id: "",
                 filiere_name: "",
                 filiere_level: "",
-                createdAt: ""
+                createdAt: "",
+                deletedAt: ""
             }
             filiere.filiere_id = element.filiere_id
             filiere.filiere_name = element.filiere_name
             filiere.filiere_level = element.filiere_level
+            filiere.deletedAt = element.deleted_at
             filiere.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
 
-            if (data.value.length < 10) {
+            if (data.value.length < 10 && filiere.deletedAt === null) {
                 data.value.push(filiere)
             }
         });
@@ -61,6 +65,43 @@ export function useFiliere () {
         if (links.value.length === 0) {
             links.value.push(response.total)
             links.value.push(response.per_page)
+        }
+
+    }
+
+    async function getAllFilieresArchived (page) {
+        dataArchived.value = []
+
+        const response = await $fetch(`http://localhost:8000/api/v1/filieres?page=${page}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`
+            }
+        })
+
+        response.data.forEach(element => {
+            const filiere = {
+                filiere_id: "",
+                filiere_name: "",
+                filiere_level: "",
+                createdAt: "",
+                deletedAt: ""
+            }
+            filiere.filiere_id = element.filiere_id
+            filiere.filiere_name = element.filiere_name
+            filiere.filiere_level = element.filiere_level
+            filiere.deletedAt = element.deleted_at
+            filiere.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
+
+            if (dataArchived.value.length < 10 && filiere.deletedAt !== null) {
+                dataArchived.value.push(filiere)
+            }
+        });
+
+        linksArchived.value = []
+        if (linksArchived.value.length === 0) {
+            linksArchived.value.push(response.total)
+            linksArchived.value.push(response.per_page)
         }
 
     }
@@ -147,6 +188,7 @@ export function useFiliere () {
         updateFiliere,
         createFiliere,
         deleteFiliere,
-        getAllFiliereWithoutPaginate
+        getAllFiliereWithoutPaginate,
+        getAllFilieresArchived
     }
 }
