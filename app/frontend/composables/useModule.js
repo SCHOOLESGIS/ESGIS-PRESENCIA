@@ -52,8 +52,8 @@ export function useModule () {
     async function getAllModulesArchived (page) {
         dataArchived.value = []
 
-        const response = await $fetch(`http://localhost:8000/api/v1/modules?page=${page}`, {
-            method: 'GET',
+        const response = await $fetch(`http://localhost:8000/api/v1/modules-archived?page=${page}`, {
+            method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${cookie.value.access_token}`
             }
@@ -190,12 +190,26 @@ export function useModule () {
         getAllModules(1)
     }
 
+    async function restoreModule (moduleId) {
+
+        const responseA = await $fetch(`http://localhost:8000/api/v1/modules-restored/${moduleId}`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`,
+                'Accept': 'application/json'
+            }
+        })
+
+        getAllModules(1)
+    }
+
     return {
         getAllModules,
         getModule,
         updateModule,
         createModule,
         deleteModule,
-        getAllModulesArchived
+        getAllModulesArchived,
+        restoreModule
     }
 }

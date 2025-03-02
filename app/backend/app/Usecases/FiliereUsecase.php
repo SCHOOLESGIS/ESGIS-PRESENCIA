@@ -11,7 +11,12 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class FiliereUsecase implements FiliereInterface{
     public function getAllFilieres(): LengthAwarePaginator
     {
-        return Filiere::withTrashed()->latest()->paginate(10);
+        return Filiere::with(['modules'])->latest()->paginate(10);
+    }
+
+    public function getAllFilieresArchived(): LengthAwarePaginator
+    {
+        return Filiere::onlyTrashed()->with(['modules'])->latest()->paginate(10);
     }
 
     public function getAllFilieresWithoutPaginate(): Collection
@@ -51,6 +56,14 @@ class FiliereUsecase implements FiliereInterface{
         $filiereToDelete = Filiere::findOrFail($filiereId);
         $filiereToReturn = $filiereToDelete;
         $filiereToDelete->delete();
+        return $filiereToReturn;
+    }
+
+    public function restoreFiliereByID(int $filiereId): Filiere
+    {
+        $filiereToDelete = Filiere::withTrashed()->findOrFail($filiereId);
+        $filiereToReturn = $filiereToDelete;
+        $filiereToDelete->restore();
         return $filiereToReturn;
     }
 }

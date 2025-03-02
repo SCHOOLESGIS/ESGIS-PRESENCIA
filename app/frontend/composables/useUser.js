@@ -110,7 +110,7 @@ export function useUser () {
     async function getAllUsersArchived (page) {
         dataArchived.value = []
         const cookie = useCookie('auth')
-        const response = await $fetch(`http://localhost:8000/api/v1/users?page=${page}`, {
+        const response = await $fetch(`http://localhost:8000/api/v1/users-archived?page=${page}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${cookie.value.access_token}`
@@ -136,7 +136,7 @@ export function useUser () {
             user.deleted_at = element.deleted_at
             user.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
 
-            if (dataArchived.value.length < 10 && user.deleted_at !== null) {
+            if (dataArchived.value.length < 10) {
                 dataArchived.value.push(user)
             }
         });

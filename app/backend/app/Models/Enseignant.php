@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Enseignant extends Model
@@ -17,16 +18,6 @@ class Enseignant extends Model
         'matricule',
         'speciality'
     ];
-
-    public function cours () : HasMany
-    {
-        return $this->hasMany(Cour::class, 'enseignant_id', 'enseignant_id');
-    }
-
-    public function absences () : HasMany
-    {
-        return $this->hasMany(Absence::class, 'absence_id', 'absence_id');
-    }
 
     public function emargements () : HasMany
     {

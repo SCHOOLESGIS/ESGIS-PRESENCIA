@@ -6,7 +6,7 @@
                 <DataTable :value="data" tableStyle="min-width: 50rem rounded-[10px]">
                     <Column :field="'emargement_id'" :header="'M'"></Column>
                     <Column :field="'enseignants'" :header="'Nom enseignants'"></Column>
-                    <Column :field="'cours'" :header="'Libellé cours'"></Column>
+                    <Column :field="'modules'" :header="'Libellé cours'"></Column>
                     <Column :field="'beginHour'" :header="'Heure de début'"></Column>
                     <Column :field="'endHour'" :header="'Heure de fin'"></Column>
                     <Column :field="'status'" :header="'Statuts'"></Column>
@@ -17,18 +17,6 @@
                                 <NuxtLink :to="`/admin/emargements/${slotProps.data.emargement_id}`">
                                     <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
                                         <i class="pi pi-eye"></i>
-                                    </div>
-                                </NuxtLink>
-
-                                <NuxtLink :to="`/admin/emargements/${slotProps.data.emargement_id}/edit`">
-                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--yellow) text-(--yellow) flex items-center justify-center">
-                                        <i class="pi pi-pencil"></i>
-                                    </div>
-                                </NuxtLink>
-
-                                <NuxtLink to="" class="cursor-pointer" @click="confirmDelete(slotProps.data.emargement_id)">
-                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--red) text-(--red) flex items-center justify-center">
-                                        <i class="pi pi-trash"></i>
                                     </div>
                                 </NuxtLink>
                             </div>

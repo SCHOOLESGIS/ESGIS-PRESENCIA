@@ -7,8 +7,6 @@
                     <Column :field="'rapport_id'" :header="'Id'"></Column>
                     <Column :field="'enseignant'" :header="'Enseignant'"></Column>
                     <Column :field="'hour_number'" :header="'Nbre d\'heures effectuées'"></Column>
-                    <Column :field="'absence_number'" :header="'Nbre d\'heures d\'absences'"></Column>
-                    <Column :field="'justification_number'" :header="'Nbre de justifications'"></Column>
                     <Column :field="'createdAt'" :header="'Date de création'"></Column>
                     <Column :field="'action'" :header="'Actions'">
                         <template #body="slotProps">

@@ -72,7 +72,7 @@ export function useFiliere () {
     async function getAllFilieresArchived (page) {
         dataArchived.value = []
 
-        const response = await $fetch(`http://localhost:8000/api/v1/filieres?page=${page}`, {
+        const response = await $fetch(`http://localhost:8000/api/v1/filieres-archived?page=${page}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${cookie.value.access_token}`
@@ -182,6 +182,19 @@ export function useFiliere () {
         getAllFilieres(1)
     }
 
+    async function restoreFiliere (filiereId) {
+
+        const responseA = await $fetch(`http://localhost:8000/api/v1/filieres-restored/${filiereId}`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`,
+                'Accept': 'application/json'
+            }
+        })
+
+        getAllFilieres(1)
+    }
+
     return {
         getAllFilieres,
         getFiliere,
@@ -189,6 +202,7 @@ export function useFiliere () {
         createFiliere,
         deleteFiliere,
         getAllFiliereWithoutPaginate,
-        getAllFilieresArchived
+        getAllFilieresArchived,
+        restoreFiliere
     }
 }

@@ -26,6 +26,15 @@ class RapportController extends Controller
         );
     }
 
+    public function archive() : JsonResponse
+    {
+        $collection = $this->rapportUsecase->getAllRapportsArchived();
+        return new JsonResponse(
+            $collection,
+            Response::HTTP_OK
+        );
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -50,6 +59,15 @@ class RapportController extends Controller
         );
     }
 
+    public function showByEnseignantID(int $enseignantId) : JsonResponse
+    {
+        $rapportToShow = $this->rapportUsecase->getRapportByEnseignantID($enseignantId);
+        return new JsonResponse(
+            $rapportToShow,
+            Response::HTTP_OK
+        );
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -68,6 +86,15 @@ class RapportController extends Controller
     public function destroy(int $rapportId) : JsonResponse
     {
         $rapportToDelete = $this->rapportUsecase->deleteRapportByID($rapportId);
+        return new JsonResponse(
+            $rapportToDelete,
+            Response::HTTP_OK
+        );
+    }
+
+    public function restore(int $rapportId) : JsonResponse
+    {
+        $rapportToDelete = $this->rapportUsecase->restoreRapportByID($rapportId);
         return new JsonResponse(
             $rapportToDelete,
             Response::HTTP_OK

@@ -7,8 +7,6 @@
                     <Column :field="'rapport_id'" :header="'Id'"></Column>
                     <Column :field="'enseignant'" :header="'Enseignant'"></Column>
                     <Column :field="'hour_number'" :header="'Nbre d\'heures effectuées'"></Column>
-                    <Column :field="'absence_number'" :header="'Nbre d\'heures d\'absences'"></Column>
-                    <Column :field="'justification_number'" :header="'Nbre de justifications'"></Column>
                     <Column :field="'createdAt'" :header="'Date de création'"></Column>
                     <Column :field="'action'" :header="'Actions'">
                         <template #body="slotProps">
@@ -18,13 +16,7 @@
                                         <i class="pi pi-eye"></i>
                                     </div>
                                 </NuxtLink>
-
-                                <NuxtLink :to="`/admin/absences/${slotProps.data.rapport_id}/edit`">
-                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--yellow) text-(--yellow) flex items-center justify-center">
-                                        <i class="pi pi-pencil"></i>
-                                    </div>
-                                </NuxtLink>
-
+                                
                                 <NuxtLink to="" class="cursor-pointer" @click="confirmDelete(slotProps.data.rapport_id)">
                                     <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--red) text-(--red) flex items-center justify-center">
                                         <i class="pi pi-trash"></i>

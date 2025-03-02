@@ -18,9 +18,9 @@ class Emargement extends Model
         'status'
     ];
 
-    public function cour () : BelongsTo
+    public function module () : BelongsTo
     {
-        return $this->belongsTo(Cour::class, 'cour_id', 'cour_id');
+        return $this->belongsTo(Module::class, 'module_id', 'module_id');
     }
 
     public function enseignant () : BelongsTo

@@ -12,7 +12,12 @@ use Illuminate\Support\Facades\Hash;
 class UserUsecase implements UserInterface {
     public function getAllUsers(): LengthAwarePaginator
     {
-        return User::withTrashed()->with(['enseignant'])->latest()->paginate(10);
+        return User::with(['enseignant'])->latest()->paginate(10);
+    }
+
+    public function getAllUsersArchived(): LengthAwarePaginator
+    {
+        return User::onlyTrashed()->with(['enseignant'])->latest()->paginate(10);
     }
 
     public function getUserByID(int $userId): User
@@ -61,4 +66,14 @@ class UserUsecase implements UserInterface {
 
         return $userToShow;
     }
+
+    public function restoreUserByID(int $userId): User
+    {
+        $userToDelete = User::withTrashed()->findOrFail($userId);
+        $userToShow = $userToDelete;
+        $userToDelete->restore();
+
+        return $userToShow;
+    }
+
 }

@@ -26,6 +26,15 @@ class ModuleController extends Controller
         );
     }
 
+    public function archive() : JsonResponse
+    {
+        $collection = $this->moduleUsecase->getAllModulesArchived();
+        return new JsonResponse(
+            $collection,
+            Response::HTTP_OK
+        );
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -68,6 +77,15 @@ class ModuleController extends Controller
     public function destroy(int $moduleId) : JsonResponse
     {
         $moduleToDelete = $this->moduleUsecase->deleteModuleByID($moduleId);
+        return new JsonResponse(
+            $moduleToDelete,
+            Response::HTTP_OK
+        );
+    }
+
+    public function restore(int $moduleId) : JsonResponse
+    {
+        $moduleToDelete = $this->moduleUsecase->restoreModuleByID($moduleId);
         return new JsonResponse(
             $moduleToDelete,
             Response::HTTP_OK

@@ -56,7 +56,7 @@ export function useTeacher () {
     async function getAllTeachersArchived (page) {
         dataArchived.value = []
 
-        const response = await $fetch(`http://localhost:8000/api/v1/enseignants?page=${page}`, {
+        const response = await $fetch(`http://localhost:8000/api/v1/enseignants-archived?page=${page}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${cookie.value.access_token}`
@@ -69,16 +69,12 @@ export function useTeacher () {
                 enseignant_id: "",
                 name: "",
                 email: "",
-                hoursAssigned: "",
-                hoursAbsent: "",
                 createdAt: "",
                 deletedAt: ""
             }
             enseignant.enseignant_id = element.enseignant_id
             enseignant.name = element.user?.name + " " + element.user?.surname
             enseignant.email = element.user?.email
-            enseignant.hoursAssigned = element.enseignant_id
-            enseignant.hoursAbsent = element.enseignant_id
             enseignant.deletedAt = element.deleted_at
             enseignant.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
 
@@ -104,7 +100,11 @@ export function useTeacher () {
             surname: "",
             email: "",
             createdAt: "",
-            modules: []
+            rapports: [],
+            user: [],
+            modules: [],
+            emargements: [],
+            filieres: [],
         }
 
         const response = await $fetch(`http://localhost:8000/api/v1/enseignants/${teacherId}`, {
@@ -114,30 +114,26 @@ export function useTeacher () {
                 'Accept': 'application/json'
             }
         })
+        console.log(enseignant);
 
         enseignant.user_id = response.user_id
         enseignant.enseignant_id = response.enseignant_id
         enseignant.specialite = response.speciality
-        enseignant.name = response.user.name
-        enseignant.surname = response.user.surname
-        enseignant.email = response.user.email
+        enseignant.name = response.user?.name
+        enseignant.surname = response.user?.surname
+        enseignant.email = response.user?.email
+        enseignant.rapports = response.rapports
+        enseignant.user = response.user
+        enseignant.emargements = response.emargements
         enseignant.createdAt = dayjs(response.createdAt).format("ddd, MMM D YYYY")
-        // console.log(response.cours[0]);
-        response.cours.forEach(cour => {
-            const module = {
-                module_id: "",
-                module_name: "",
-                module_code: "",
-                created_at: "",
-            }
-
-            module.module_id = cour.module.module_id
-            module.module_name = cour.module.module_name
-            module.module_code = cour.module.module_code
-            module.created_at = dayjs(cour.module.created_at).format("ddd, MMM D YYYY")
-
-            enseignant.modules.push(module)
+        console.log(response);
+        response.emargements.forEach(emargement => {
+            enseignant.modules.push(emargement.module.module_name)
+            enseignant.modules = [...new Set(enseignant.modules)]
+            enseignant.filieres.push(emargement.module.filiere.filiere_name)
+            enseignant.filieres = [...new Set(enseignant.filieres)]
         })
+
         teacher.value = []
         teacher.value.push(enseignant);
     }
@@ -220,12 +216,30 @@ export function useTeacher () {
         return navigateTo('/admin/enseignants/enseignants-liste')
     }
 
+    async function restoreTeacher (teacherId) {
+        await getTeacher(teacherId)
+        const teacher = useState('enseignantData')
+        await deleteUser(teacher.value[0].user_id)
+        const responseA = await $fetch(`http://localhost:8000/api/v1/enseignants-restored/${teacherId}`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`,
+                'Accept': 'application/json'
+            }
+        })
+
+
+        getAllTeachers(1)
+        return navigateTo('/admin/enseignants/enseignants-liste')
+    }
+
     return {
         getAllTeachers,
         getTeacher,
         updateTeacher,
         createTeacher,
         deleteTeacher,
-        getAllTeachersArchived
+        getAllTeachersArchived,
+        restoreTeacher
     }
 }

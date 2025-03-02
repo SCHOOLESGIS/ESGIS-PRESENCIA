@@ -25,6 +25,15 @@ class EmargementController extends Controller
         );
     }
 
+    public function archive() : JsonResponse
+    {
+        $collection = $this->emargementUsecase->getAllEmargementsArchived();
+        return new JsonResponse(
+            $collection,
+            Response::HTTP_OK
+        );
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -67,6 +76,15 @@ class EmargementController extends Controller
     public function destroy(int $emargementId)
     {
         $emargementToDelete = $this->emargementUsecase->deleteEmargementByID($emargementId);
+        return new JsonResponse(
+            $emargementToDelete,
+            Response::HTTP_OK
+        );
+    }
+
+    public function restore(int $emargementId)
+    {
+        $emargementToDelete = $this->emargementUsecase->restoreEmargementByID($emargementId);
         return new JsonResponse(
             $emargementToDelete,
             Response::HTTP_OK

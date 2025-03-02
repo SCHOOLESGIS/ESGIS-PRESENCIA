@@ -116,9 +116,9 @@
     definePageMeta(
         {
             layout: 'dashboard',
-            middleware: 'auth'
+            middleware: ['auth', 'admin']
         }
-    )   
+    )
     
     const route = useRouter().currentRoute.value.fullPath
 </script>

@@ -4,8 +4,6 @@
             <ul class="flex gap-[20px] sub-link">
                 <li><NuxtLink to="/admin/archives" class="active-sub-link">Utilisateurs</NuxtLink></li>
                 <li><NuxtLink to="/admin/archives/enseignants" class="active-sub-link">Enseignants</NuxtLink></li>
-                <li><NuxtLink to="/admin/archives/cours" class="active-sub-link">Cours</NuxtLink></li>
-                <li><NuxtLink to="/admin/archives/absences" class="active-sub-link">Absences</NuxtLink></li>
                 <li><NuxtLink to="/admin/archives/emargements" class="active-sub-link">Emargements</NuxtLink></li>
                 <li><NuxtLink to="/admin/archives/rapports" class="active-sub-link">Rapports</NuxtLink></li>
                 <li><NuxtLink to="/admin/archives/modules" class="active-sub-link">Modules</NuxtLink></li>
@@ -25,9 +23,10 @@
 
     definePageMeta(
         {
-            layout: 'dashboard'
+            layout: 'dashboard',
+            middleware: ['auth', 'admin']
         }
-    )   
+    )
     
     const route = useRouter().currentRoute.value.fullPath
 </script>

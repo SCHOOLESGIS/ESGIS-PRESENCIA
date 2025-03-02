@@ -30,9 +30,9 @@
     definePageMeta(
         {
             layout: 'dashboard',
-            middleware: 'auth'
+            middleware: ['auth', 'admin']
         }
-    )   
+    )
 
     onMounted(() => {
         getAllTeachers(0)

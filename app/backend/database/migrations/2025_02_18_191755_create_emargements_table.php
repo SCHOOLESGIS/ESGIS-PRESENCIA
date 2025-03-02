@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('emargements', function (Blueprint $table) {
             $table->id('emargement_id');
-            $table->unsignedBigInteger('cour_id');
+            $table->unsignedBigInteger('module_id');
             $table->unsignedBigInteger('enseignant_id');
             $table->time('begin_hour');
             $table->time('end_hour');
@@ -23,7 +23,7 @@ return new class extends Migration
         });
 
         schema::table('emargements', function (Blueprint $table) {
-            $table->foreign('cour_id')->references('cour_id')->on('cours')->onUpdate('cascade');
+            $table->foreign('module_id')->references('module_id')->on('modules')->onUpdate('cascade');
             $table->foreign('enseignant_id')->references('enseignant_id')->on('enseignants')->onUpdate('cascade');
         });
     }

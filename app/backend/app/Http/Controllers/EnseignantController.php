@@ -26,6 +26,15 @@ class EnseignantController extends Controller
         );
     }
 
+    public function archive() : JsonResponse
+    {
+        $collection = $this->enseignantUsecase->getAllEnseignantsArchived();
+        return new JsonResponse(
+            $collection,
+            Response::HTTP_OK
+        );
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -68,6 +77,15 @@ class EnseignantController extends Controller
     public function destroy(int $enseignantId)
     {
         $enseignantToDelete = $this->enseignantUsecase->deleteEnseignantByID($enseignantId);
+        return new JsonResponse(
+            $enseignantToDelete,
+            Response::HTTP_OK
+        );
+    }
+
+    public function restore(int $enseignantId)
+    {
+        $enseignantToDelete = $this->enseignantUsecase->restoreEnseignantByID($enseignantId);
         return new JsonResponse(
             $enseignantToDelete,
             Response::HTTP_OK
