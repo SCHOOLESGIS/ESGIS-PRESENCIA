@@ -51,13 +51,6 @@
   import { ref } from 'vue'
 
   const date = new Date();
-
-  const navigation = [
-    { name: 'Product', href: '#' },
-    { name: 'Features', href: '#' },
-    { name: 'Marketplace', href: '#' },
-    { name: 'Company', href: '#' },
-  ]
   
   const mobileMenuOpen = ref(false)
   </script>
