@@ -21,7 +21,7 @@
       </header>
   
       <div class="relative isolate pt-14 flex flex-col items-center justify-start min-h-[100vh]">
-       <div class="h-[50vh] md:mt-[10rem] flex flex-col gap-[10px] items-center justify-start">
+       <div class="h-[400px] md:mt-[10rem] flex flex-col gap-[10px] items-center justify-start">
         <div class="bg-(--white) w-[25rem] border border-(--dark-text-color-1) text-center text-(--dark-text-color-2) px-10 py-1 rounded-full">Gérer éfficacement vos emargements </div>
         <div class="md:text-[4rem] text-[2rem]">
           <span class="poppins-medium">Modernisez <span class="text-(--primary)">l’émargement</span>.</span>
