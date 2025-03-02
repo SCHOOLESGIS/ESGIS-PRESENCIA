@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('module_id');
             $table->unsignedBigInteger('enseignant_id');
             $table->time('begin_hour');
-            $table->time('end_hour');
-            $table->enum('status', ['COCHE', 'DECOCHE']);
+            $table->time('end_hour')->nullable();
+            $table->enum('status', ['COCHE', 'DECOCHE'])->default("DECOCHE");
             $table->softDeletes();
             $table->timestamps();
         });

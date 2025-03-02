@@ -50,7 +50,7 @@ export function useUser () {
             }
         })
         cookie.value = null
-        return navigateTo("/auth")
+        return navigateTo("/")
     }
 
     async function deleteUser(userId) {

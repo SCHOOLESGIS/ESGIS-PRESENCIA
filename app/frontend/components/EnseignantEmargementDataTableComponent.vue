@@ -17,15 +17,9 @@
                                     </div>
                                 </NuxtLink>
 
-                                <NuxtLink :to="`/admin/emargements/${slotProps.data.emargement_id}/edit`">
+                                <NuxtLink :to="`/enseignants/emargements/${slotProps.data.emargement_id}/edit`">
                                     <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--yellow) text-(--yellow) flex items-center justify-center">
                                         <i class="pi pi-pencil"></i>
-                                    </div>
-                                </NuxtLink>
-
-                                <NuxtLink to="" class="cursor-pointer" @click="confirmDelete(slotProps.data.emargement_id)">
-                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--red) text-(--red) flex items-center justify-center">
-                                        <i class="pi pi-trash"></i>
                                     </div>
                                 </NuxtLink>
                             </div>
