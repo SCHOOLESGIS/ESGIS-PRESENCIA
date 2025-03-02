@@ -80,9 +80,9 @@
     definePageMeta(
         {
             layout: 'dashboard',
-            middleware: 'auth'
+            middleware: ['auth', 'admin']
         }
-    )   
+    )
     
     const moduleId = useRoute().params.moduleId
 

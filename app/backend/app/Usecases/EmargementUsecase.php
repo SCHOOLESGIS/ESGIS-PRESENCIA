@@ -10,12 +10,17 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class EmargementUsecase implements EmargementInterface {
     public function getAllEmargements(): LengthAwarePaginator
     {
-        return Emargement::withTrashed()->with(['cour', 'enseignant.user'])->latest()->paginate(10);
+        return Emargement::with(['module.filiere', 'enseignant.user'])->latest()->paginate(10);
+    }
+
+    public function getAllEmargementsArchived(): LengthAwarePaginator
+    {
+        return Emargement::onlyTrashed()->with(['module.filiere', 'enseignant.user'])->latest()->paginate(10);
     }
 
     public function getEmargementByID(int $emargementId): Emargement
     {
-        $emargementToShow = Emargement::withTrashed()->with(['cour', 'enseignant'])->findOrFail($emargementId);
+        $emargementToShow = Emargement::withTrashed()->with(['module.filiere', 'enseignant.user'])->findOrFail($emargementId);
         return $emargementToShow;
     }
 
@@ -51,6 +56,14 @@ class EmargementUsecase implements EmargementInterface {
         $emargementToDelete = Emargement::findOrFail($emargementId);
         $emargementToReturn = $emargementToDelete;
         $emargementToDelete->delete();
+        return $emargementToReturn;
+    }
+
+    public function restoreEmargementByID(int $emargementId): Emargement
+    {
+        $emargementToDelete = Emargement::withTrashed()->findOrFail($emargementId);
+        $emargementToReturn = $emargementToDelete;
+        $emargementToDelete->restore();
         return $emargementToReturn;
     }
 }

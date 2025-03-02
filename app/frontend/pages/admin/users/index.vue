@@ -17,9 +17,10 @@
     import UserDataTableComponent from '~/components/UserDataTableComponent.vue';
     definePageMeta(
         {
-            layout: 'dashboard'
+            layout: 'dashboard',
+            middleware: ['auth', 'admin']
         }
-    )   
+    ) 
     
 </script>
 

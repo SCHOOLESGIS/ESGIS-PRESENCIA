@@ -6,7 +6,9 @@ export function useRapport () {
     const dataArchived = useState("rapportsDataArchive", () => [])
     const links = useState("rapportLinks", () => [])
     const linksArchived = useState("rapportLinksArchive", () => [])
+    const rapportsByIDLinks = useState("rapportsByIDLinks", () => [])
     const rapport = useState("rapportData", () => [])
+    const rapportsByID = useState("rapportsByID", () => [])
     const rapportEnum = "rapport"
 
 
@@ -26,16 +28,12 @@ export function useRapport () {
                 rapport_id: "",
                 enseignant: "",
                 hour_number: "",
-                absence_number: "",
-                justification_number: "",
                 createdAt: "",
                 deletedAt: ""
             }
             rapport.rapport_id = element.rapport_id
             rapport.enseignant = element.enseignant?.user?.name + ' ' + element.enseignant?.user?.surname
             rapport.hour_number = element.hour_number
-            rapport.absence_number = element.absence_number
-            rapport.justification_number = element.justification_number
             rapport.deletedAt = element.deleted_at
             rapport.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
 
@@ -55,7 +53,7 @@ export function useRapport () {
     async function getAllRapportsArchived (page) {
         dataArchived.value = []
 
-        const response = await $fetch(`http://localhost:8000/api/v1/rapports?page=${page}`, {
+        const response = await $fetch(`http://localhost:8000/api/v1/rapports-archived?page=${page}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${cookie.value.access_token}`
@@ -68,16 +66,12 @@ export function useRapport () {
                 rapport_id: "",
                 enseignant: "",
                 hour_number: "",
-                absence_number: "",
-                justification_number: "",
                 createdAt: "",
                 deletedAt: ""
             }
             rapport.rapport_id = element.rapport_id
             rapport.enseignant = element.enseignant?.user?.name + ' ' + element.enseignant?.user?.surname
             rapport.hour_number = element.hour_number
-            rapport.absence_number = element.absence_number
-            rapport.justification_number = element.justification_number
             rapport.deletedAt = element.deleted_at
             rapport.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
 
@@ -199,12 +193,64 @@ export function useRapport () {
         getAllRapports(1)
     }
 
+    async function restoreRapport (rapportId) {
+
+        const responseA = await $fetch(`http://localhost:8000/api/v1/rapports-restored/${rapportId}`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`,
+                'Accept': 'application/json'
+            }
+        })
+
+        getAllRapports(1)
+    }
+
+    async function getAllRapportsByID (page, enseignantId) {
+        rapportsByID.value = []
+
+        const response = await $fetch(`http://localhost:8000/api/v1/rapports/${enseignantId}/all?page=${page}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`
+            }
+        })
+
+        response.data.forEach(element => {
+            const rapport = {
+                rapport_id: "",
+                enseignant: "",
+                hour_number: "",
+                createdAt: "",
+                deletedAt: ""
+            }
+            rapport.rapport_id = element.rapport_id
+            rapport.enseignant = element.enseignant?.user?.name + ' ' + element.enseignant?.user?.surname
+            rapport.hour_number = element.hour_number
+            rapport.deletedAt = element.deleted_at
+            rapport.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
+
+            if (rapportsByID.value.length < 10 && rapport.deletedAt === null) {
+                rapportsByID.value.push(rapport)
+            }
+        });
+
+        rapportsByIDLinks.value = []
+        if (rapportsByIDLinks.value.length === 0) {
+            rapportsByIDLinks.value.push(response.total)
+            rapportsByIDLinks.value.push(response.per_page)
+        }
+
+    }
+
     return {
         getAllRapports,
         getRapport,
         updateRapport,
         createRapport,
         deleteRapport,
-        getAllRapportsArchived
+        getAllRapportsArchived,
+        restoreRapport,
+        getAllRapportsByID
     }
 }

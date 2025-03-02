@@ -26,6 +26,15 @@ class UserController extends Controller
         );
     }
 
+    public function archive() : JsonResponse
+    {
+        $collection = $this->userUsecase->getAllUsersArchived();
+        return new JsonResponse(
+            $collection,
+            Response::HTTP_OK
+        );
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -68,6 +77,15 @@ class UserController extends Controller
     public function destroy(int $userId)
     {
         $userToDelete = $this->userUsecase->deleteUserByID($userId);
+        return new JsonResponse(
+            $userToDelete,
+            Response::HTTP_OK
+        );
+    }
+
+    public function restore(int $userId)
+    {
+        $userToDelete = $this->userUsecase->restoreUserByID($userId);
         return new JsonResponse(
             $userToDelete,
             Response::HTTP_OK

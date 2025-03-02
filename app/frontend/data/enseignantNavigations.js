@@ -5,11 +5,6 @@ const enseignantNavigations = [
         libel: "Vue d'ensemble"
     },
     {
-        icon: "uiw:table",
-        link: '/enseignants/cours',
-        libel: "Cours"
-    },
-    {
         icon: "uiw:edit",
         link: '/enseignants/emargements',
         libel: "Emargements"

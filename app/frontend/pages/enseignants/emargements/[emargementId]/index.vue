@@ -1,33 +1,28 @@
 <template>
     <div class="w-full min-h-[80vh] flex flex-col items-center justify-center gap-[20px]">
         <div class="md:w-[75%] w-[100%]">
-            <NuxtLink to="/admin/enseignants/enseignants-liste" class="shadow-lg w-[100px] px-[20px] py-[5px] bg-(--primary) text-(--white) flex items-center justify-center gap-3 rounded-[4px]">
+            <NuxtLink to="/admin/emargements/emargements-liste" class="shadow-lg w-[100px] px-[20px] py-[5px] bg-(--primary) text-(--white) flex items-center justify-center gap-3 rounded-[4px]">
                 <i class="pi pi-chevron-circle-left"></i> 
                 retour               
             </NuxtLink>
         </div>
         <div class="h-[25] md:w-[75%] w-[100%] h-[70vh] flex rounded-[10px] shadow-lg">
             <div class="w-[30%] h-full bg-[url(/patterns/Mash_19.png)] bg-cover flex flex-col items-start justify-between px-[10px]">
-                <div class="text-[1.2rem] font-semibold text-(--white)">Informations d'un enseignant</div>
+                <div class="text-[1.15rem] font-semibold text-(--white)">Informations d'un emargement</div>
                 <div>
                     <img src="/icons/form_logo.svg" alt="">
                 </div>
             </div>
             <div class="w-[70%] bg-(--white) p-[10px] flex flex-col gap-[20px]">
-                <div class="flex justify-between">
-                    <div>Informations personnelles</div>
+                <div  v-if="emargement && emargement.length" class="flex justify-between">
+                    <div>Informations (# {{ emargement[0].emargement_id }})</div>
                 </div>
 
                 <div class="mt-[20px] px-[40px]">
                     <table class="w-full border-spacing-y-[2rem]" border="0">
-                        <tbody v-if="teacher && teacher.length">
-                            <tr class="py-">
-                                <td><strong>Nom :</strong> {{ teacher[0].name }}</td>
-                                <td><strong>Prénom :</strong> {{ teacher[0].surname }}</td>
-                            </tr>
+                        <tbody v-if="emargement && emargement.length">
                             <tr>
-                                <td><strong>Email :</strong> {{ teacher[0].email }}</td>
-                                <td><strong>Crée le :</strong> {{ teacher[0].createdAt }}</td>
+                                <td><strong>Crée le :</strong> {{ emargement[0].createdAt }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -35,15 +30,29 @@
 
 
                 <div class="flex justify-start">
-                    <div>Modules</div>
+                    <div>Module</div>
                 </div>
 
                 <div class="mt-[20px] px-[40px] overflow-y-scroll">
-                    <div v-if="teacher && teacher.length" class="w-full flex flex-col gap-2">
-                        <div v-for="emargement in teacher[0].emargements" :key="emargement.emargement_id" class="p-[20px] bg-(--stroke) rounded-[4px]shadow-xs flex items-center justify-between">
-                            <div>Emarg N°{{ emargement.emargement_id }}</div>
-                            <div>{{ emargement.module.module_name }}</div>
-                            <div>{{ emargement.enseignant.user.name + " " +  emargement.enseignant.user.surname}}</div>
+                    <div v-if="emargement && emargement.length" class="w-full flex flex-col gap-2">
+                        <div class="p-[20px] bg-(--stroke) rounded-[4px]shadow-xs flex items-center justify-between">
+                            <div>{{ emargement[0].modules.module_id }}</div>
+                            <div>{{ emargement[0].modules.module_code }}</div>
+                            <div>{{ emargement[0].modules.module_name }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-start">
+                    <div>Filiere</div>
+                </div>
+
+                <div class="mt-[20px] px-[40px] overflow-y-scroll">
+                    <div v-if="emargement && emargement.length" class="w-full flex flex-col gap-2">
+                        <div class="p-[20px] bg-(--stroke) rounded-[4px]shadow-xs flex items-center justify-between">
+                            <div>{{ emargement[0].modules.filiere.filiere_id }}</div>
+                            <div>{{ emargement[0].modules.filiere.filiere_name }}</div>
+                            <div>{{ emargement[0].modules.filiere.filiere_level }}</div>
                         </div>
                     </div>
                 </div>
@@ -75,23 +84,21 @@
 </template>
 
 <script setup>
-    import DataTableComponent from '~/components/EnseignantDataTableComponent.vue';
-    import { useTeacher } from '@/composables/useTeacher';
-    const {getTeacher} = useTeacher()
-    const teacher = useState("enseignantData")
+    import { useEmargement } from '@/composables/useEmargement';
+    const {getEmargement} = useEmargement()
+    const emargement = useState("emargementData")
 
     definePageMeta(
         {
-            layout: 'dashboard',
-            middleware: ['auth', 'admin']
+            layout: 'enseignant-dashboard',
+            middleware: ['enseignant']
         }
     )
     
-    const enseignantId = useRoute().params.enseignantId
-    console.log(enseignantId);
+    const emargementId = useRoute().params.emargementId
 
     onMounted(() => {
-        getTeacher(enseignantId)
+        getEmargement(emargementId)
     })
 </script>
 

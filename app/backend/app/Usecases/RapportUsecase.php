@@ -10,12 +10,23 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class RapportUsecase implements RapportInterface{
     public function getAllRapports(): LengthAwarePaginator
     {
-        return Rapport::withTrashed()->with(['enseignant.user'])->latest()->paginate(10);
+        return Rapport::with(['enseignant.user'])->latest()->paginate(10);
+    }
+
+    public function getAllRapportsArchived(): LengthAwarePaginator
+    {
+        return Rapport::onlyTrashed()->with(['enseignant.user'])->latest()->paginate(10);
     }
 
     public function getRapportByID(int $rapportId): Rapport
     {
-        $rapportToShow = Rapport::withTrashed()->with(['enseignant'])->findOrFail($rapportId);
+        $rapportToShow = Rapport::withTrashed()->with(['enseignant.user'])->findOrFail($rapportId);
+        return $rapportToShow;
+    }
+
+    public function getRapportByEnseignantID(int $enseignantId): LengthAwarePaginator
+    {
+        $rapportToShow = Rapport::with(['enseignant.user'])->where('enseignant_id', $enseignantId)->latest()->paginate(10);
         return $rapportToShow;
     }
 
@@ -49,6 +60,14 @@ class RapportUsecase implements RapportInterface{
         $rapportToDelete = Rapport::findOrFail($rapportId);
         $rapportToReturn = $rapportToDelete;
         $rapportToDelete->delete();
+        return $rapportToReturn;
+    }
+
+    public function restoreRapportByID(int $rapportId): Rapport
+    {
+        $rapportToDelete = Rapport::withTrashed()->findOrFail($rapportId);
+        $rapportToReturn = $rapportToDelete;
+        $rapportToDelete->restore();
         return $rapportToReturn;
     }
 }

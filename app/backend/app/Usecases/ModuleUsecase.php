@@ -10,12 +10,17 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class ModuleUsecase implements ModuleInterface {
     public function getAllModules(): LengthAwarePaginator
     {
-        return Module::withTrashed()->latest()->paginate(10);
+        return Module::with(['filiere', 'emargements'])->latest()->paginate(10);
+    }
+
+    public function getAllModulesArchived(): LengthAwarePaginator
+    {
+        return Module::onlyTrashed()->with(['filiere', 'emargements'])->latest()->paginate(10);
     }
 
     public function getModuleByID(int $moduleId): Module
     {
-        $moduleToShow = Module::withTrashed()->with(['filiere', 'cours'])->findOrFail($moduleId);
+        $moduleToShow = Module::withTrashed()->with(['filiere', 'emargements'])->findOrFail($moduleId);
         return $moduleToShow;
     }
 
@@ -51,6 +56,14 @@ class ModuleUsecase implements ModuleInterface {
         $moduleToDelete = Module::findOrFail($moduleId);
         $moduleToReturn = $moduleToDelete;
         $moduleToDelete->delete();
+        return $moduleToReturn;
+    }
+
+    public function restoreModuleByID(int $moduleId): Module
+    {
+        $moduleToDelete = Module::withTrashed()->findOrFail($moduleId);
+        $moduleToReturn = $moduleToDelete;
+        $moduleToDelete->restore();
         return $moduleToReturn;
     }
 }

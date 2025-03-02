@@ -14,7 +14,7 @@ class AuthUsecase implements AuthInterface {
     public function login(LoginRequest $loginRequest): array
     {
         $credentials = $loginRequest->validated();
-        $user = User::where('email',$credentials['email'])->first();
+        $user = User::with(['enseignant'])->where('email',$credentials['email'])->first();
         if(!$user || !Hash::check($credentials['password'],$user->password)){
             throw new Exception("Crédentials invalide !");
         }

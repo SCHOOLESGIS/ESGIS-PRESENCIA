@@ -6,7 +6,6 @@
                 retour               
             </NuxtLink>
         </div>
-        {{ filiere }}
         <div class="bg-(--white) w-[100%] h-[75vh] flex rounded-[10px]">
             <div class="w-[100%] flex p-[10px] sm:py-[10px] sm:px-[10px] gap-[20px]">
                 <div class="w-[100%] sm:w-[100%] lg:w-[50%]">

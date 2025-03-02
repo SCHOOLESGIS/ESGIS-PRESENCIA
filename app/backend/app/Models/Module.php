@@ -24,8 +24,8 @@ class Module extends Model
         return $this->hasOne(Filiere::class, 'filiere_id', 'filiere_id');
     }
 
-    public function cours () : HasMany
+    public function emargements () : HasMany
     {
-        return $this->hasMany(Cour::class, 'module_id', 'module_id');
+        return $this->hasMany(Emargement::class, 'emargement_id', 'emargement_id');
     }
 }

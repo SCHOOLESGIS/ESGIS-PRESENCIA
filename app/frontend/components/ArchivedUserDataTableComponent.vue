@@ -54,7 +54,7 @@
 
     const confirm = useConfirm();
     const toast = useToast();
-    const {getAllUsersArchived, } = useUser()
+    const {getAllUsersArchived } = useUser()
     const data = useState("usersDataArchived")
     const links = useState("userLinksArchived")
 

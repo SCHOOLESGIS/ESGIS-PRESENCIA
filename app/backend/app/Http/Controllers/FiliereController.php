@@ -26,6 +26,15 @@ class FiliereController extends Controller
         );
     }
 
+    public function archive() : JsonResponse
+    {
+        $collection = $this->filiereUsecase->getAllFilieresArchived();
+        return new JsonResponse(
+            $collection,
+            Response::HTTP_OK
+        );
+    }
+
     public function all() : JsonResponse
     {
         $collection = $this->filiereUsecase->getAllFilieresWithoutPaginate();
@@ -77,6 +86,15 @@ class FiliereController extends Controller
     public function destroy(int $filiereId) : JsonResponse
     {
         $filiereToDelete = $this->filiereUsecase->deleteFiliereByID($filiereId);
+        return new JsonResponse(
+            $filiereToDelete,
+            Response::HTTP_OK
+        );
+    }
+
+    public function restore(int $filiereId) : JsonResponse
+    {
+        $filiereToDelete = $this->filiereUsecase->restoreFiliereByID($filiereId);
         return new JsonResponse(
             $filiereToDelete,
             Response::HTTP_OK
