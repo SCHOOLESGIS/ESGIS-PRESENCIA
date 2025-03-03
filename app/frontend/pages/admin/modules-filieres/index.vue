@@ -7,9 +7,6 @@
                 <li><NuxtLink to="/admin/modules-filieres/filieres/">Liste des filières</NuxtLink></li>
             </ul>
 
-            <div class="px-[20px] bg-(--white)">
-                Nuxt
-            </div>
         </div>
 
         <div class="w-full flex flex-col gap-[20px]">

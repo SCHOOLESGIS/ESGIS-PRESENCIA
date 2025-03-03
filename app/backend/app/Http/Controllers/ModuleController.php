@@ -26,6 +26,15 @@ class ModuleController extends Controller
         );
     }
 
+    public function all() : JsonResponse
+    {
+        $collection = $this->moduleUsecase->getAllModulesWithoutPagination();
+        return new JsonResponse(
+            $collection,
+            Response::HTTP_OK
+        );
+    }
+
     public function archive() : JsonResponse
     {
         $collection = $this->moduleUsecase->getAllModulesArchived();

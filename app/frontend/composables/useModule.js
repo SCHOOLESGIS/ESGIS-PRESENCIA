@@ -49,6 +49,30 @@ export function useModule () {
 
     }
 
+    async function getAllModulesWithoutPagination () {
+        data.value = []
+
+        const response = await $fetch(`http://localhost:8000/api/v1/modules/all`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`
+            }
+        })
+
+        console.log(response);
+        response.forEach(element => {
+            const module = {
+                code: "",
+                name: "",
+            }
+            module.code = element.module_id
+            module.name = element.module_name
+
+            data.value.push(module)
+        });
+
+    }
+
     async function getAllModulesArchived (page) {
         dataArchived.value = []
 
@@ -210,6 +234,7 @@ export function useModule () {
         createModule,
         deleteModule,
         getAllModulesArchived,
-        restoreModule
+        restoreModule,
+        getAllModulesWithoutPagination
     }
 }

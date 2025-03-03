@@ -5,6 +5,7 @@ namespace App\Interfaces;
 use App\Http\Requests\rapports\CreateRapportRequest;
 use App\Http\Requests\rapports\UpdateRapportRequest;
 use App\Models\Rapport;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 interface RapportInterface
@@ -12,6 +13,7 @@ interface RapportInterface
     public function getAllRapports () : LengthAwarePaginator;
     public function getRapportByID (int $rapportId) : Rapport;
     public function createRapport (CreateRapportRequest $createRapportRequest) : Rapport;
+    public function generateRapport (int $enseignantId) : Rapport;
     public function updateRapportByID (UpdateRapportRequest $updateRapportRequest, Rapport $rapport) : Rapport;
     public function deleteRapportByID (int $rapportId) : Rapport;
 }

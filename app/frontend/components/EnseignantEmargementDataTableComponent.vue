@@ -11,7 +11,7 @@
                     <Column :field="'action'" :header="'Actions'">
                         <template v-if="data[0].message !== null" #body="slotProps">
                             <div class="flex gap-[5px]">
-                                <NuxtLink :to="`/admin/emargements/${slotProps.data.emargement_id}`">
+                                <NuxtLink :to="`/enseignants/emargements/${slotProps.data.emargement_id}`">
                                     <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
                                         <i class="pi pi-eye"></i>
                                     </div>
@@ -27,7 +27,7 @@
                     </Column>
                 </DataTable>
             </div>
-            <div  v-if="data[0].message === null" class="card">
+            <div class="card">
                 <Paginator v-model:first="first" :rows="links[1]" :totalRecords="links[0]"></Paginator>
             </div>
         </template>
@@ -64,13 +64,13 @@
 
     watch(first, function() {
         const page = ((first.value)/(number_per_page)) + 1
-        getEnseignantEmargements(page)
+        getEnseignantEmargements(page, enseignantId)
     })
 
 
 
     onMounted(() => {
-        getEnseignantEmargements(enseignantId)
+        getEnseignantEmargements(0, enseignantId)
     });
 
     const confirmDelete = (emargementId) => {

@@ -5,12 +5,18 @@ use App\Http\Requests\modules\CreateModuleRequest;
 use App\Http\Requests\modules\UpdateModuleRequest;
 use App\Interfaces\ModuleInterface;
 use App\Models\Module;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ModuleUsecase implements ModuleInterface {
     public function getAllModules(): LengthAwarePaginator
     {
         return Module::with(['filiere', 'emargements'])->latest()->paginate(10);
+    }
+
+    public function getAllModulesWithoutPagination(): Collection
+    {
+        return Module::all();
     }
 
     public function getAllModulesArchived(): LengthAwarePaginator

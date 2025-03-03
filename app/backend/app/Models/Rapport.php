@@ -14,9 +14,11 @@ class Rapport extends Model
     protected $table = 'rapports';
 
     protected $fillable = [
-        'hour_number',
-        'absence_number',
-        'justification_number'
+        'enseignant_id',
+        'emargement_debut',
+        'emargement_fin',
+        'emargement_confirm',
+        'emargement_not_confirm',
     ];
 
     public function enseignant () : HasOne

@@ -77,10 +77,10 @@ export function useEmargement () {
 
     }
 
-    async function getEnseignantEmargements (enseignantId) {
+    async function getEnseignantEmargements (page, enseignantId) {
         enseignantEmargements.value = []
 
-        const response = await $fetch(`http://localhost:8000/api/v1/emargements?`, {
+        const response = await $fetch(`http://localhost:8000/api/v1/emargements-by-enseignant/${enseignantId}?page=${page}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${cookie.value.access_token}`
@@ -174,10 +174,13 @@ export function useEmargement () {
     async function getEmargement (emargementId) {
         const emargement = {
             emargement_id: "",
-            emargement_name: "",
-            emargement_level: "",
-            modules: [],
-            createdAt: ""
+            enseignants: "",
+            cours: "",
+            beginHour: "",
+            endHour: "",
+            status: "",
+            createdAt: "",
+            deletedAt: ""
         }
 
         const response = await $fetch(`http://localhost:8000/api/v1/emargements/${emargementId}`, {
@@ -188,12 +191,14 @@ export function useEmargement () {
             }
         })
 
-        emargement.emargement_id = response.emargement_id
-        emargement.emargement_name = response.emargement_name
-        emargement.emargement_level = response.emargement_level
-        emargement.modules = response.module
-        emargement.createdAt = dayjs(response.created_at).format("ddd, MMM D YYYY")
-
+        emargement.emargement_id = element.emargement_id
+        emargement.enseignants = element.enseignant?.user?.name + " " + element.enseignant?.user?.surname
+        emargement.cours = "Cour #" + element.cour.cour_id
+        emargement.beginHour = element.begin_hour
+        emargement.endHour = element.end_hour
+        emargement.status = element.status
+        emargement.deletedAt = element.deleted_at
+        emargement.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
         oneEmargement.value = []
         oneEmargement.value.push(emargement)
     }
@@ -225,13 +230,16 @@ export function useEmargement () {
                 'Accept': 'application/json'
             },
             body: {
-                emargement_name: emargementData.emargement_name,
-                emargement_level: emargementData.emargement_level.name,
+                enseignant_id: emargementData.enseignant_id,
+                module_id: emargementData.module_id.code,
+                begin_hour: emargementData.begin_hour,
+                end_hour: emargementData.end_hour,
+                status: emargementData.status,
             }
         })
 
         getAllEmargements(1)
-        return navigateTo('/admin/modules-emargements/emargements')
+        return navigateTo('/enseignants/emargements')
     }
 
     async function deleteEmargement (emargementId) {

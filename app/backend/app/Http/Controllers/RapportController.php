@@ -47,6 +47,15 @@ class RapportController extends Controller
         );
     }
 
+    public function generate(int $enseignantId) : JsonResponse
+    {
+        $rapportToGenerated = $this->rapportUsecase->generateRapport($enseignantId);
+        return new JsonResponse(
+            $rapportToGenerated,
+            Response::HTTP_CREATED
+        );
+    }
+
     /**
      * Display the specified resource.
      */

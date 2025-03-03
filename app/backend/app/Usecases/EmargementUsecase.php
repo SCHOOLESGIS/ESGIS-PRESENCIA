@@ -13,6 +13,11 @@ class EmargementUsecase implements EmargementInterface {
         return Emargement::with(['module.filiere', 'enseignant.user'])->latest()->paginate(10);
     }
 
+    public function getAllEnseignantEmargementsByID(int $enseignantID): LengthAwarePaginator
+    {
+        return Emargement::with(['module.filiere', 'enseignant.user'])->where('enseignant_id', $enseignantID)->latest()->paginate(10);
+    }
+
     public function getAllEmargementsArchived(): LengthAwarePaginator
     {
         return Emargement::onlyTrashed()->with(['module.filiere', 'enseignant.user'])->latest()->paginate(10);
@@ -29,7 +34,7 @@ class EmargementUsecase implements EmargementInterface {
         $emargementData = $createEmargementRequest->validated();
         $emargement = new Emargement();
         $emargement->enseignant_id =  $emargementData['enseignant_id'];
-        $emargement->cour_id =  $emargementData['cour_id'];
+        $emargement->module_id =  $emargementData['module_id'];
         $emargement->begin_hour =  $emargementData['begin_hour'];
         $emargement->end_hour =  $emargementData['end_hour'];
         $emargement->status =  $emargementData['status'];
@@ -42,7 +47,7 @@ class EmargementUsecase implements EmargementInterface {
     {
         $emargementData = $updateEmargementRequest->validated();
         $emargement->enseignant_id =  $emargementData['enseignant_id']??$emargement->enseignant_id;
-        $emargement->cour_id =  $emargementData['cour_id']??$emargement->cour_id;
+        $emargement->module_id =  $emargementData['module_id']??$emargement->module_id;
         $emargement->begin_hour =  $emargementData['begin_hour']??$emargement->begin_hour;
         $emargement->end_hour =  $emargementData['end_hour']??$emargement->end_hour;
         $emargement->status =  $emargementData['status']??$emargement->status;

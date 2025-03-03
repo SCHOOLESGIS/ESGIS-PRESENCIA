@@ -1,7 +1,7 @@
 <template>
     <div class="w-full min-h-[80vh] flex flex-col items-center justify-center gap-[20px]">
         <div class="md:w-[75%] w-[100%]">
-            <NuxtLink to="/admin/emargements/emargements-liste" class="shadow-lg w-[100px] px-[20px] py-[5px] bg-(--primary) text-(--white) flex items-center justify-center gap-3 rounded-[4px]">
+            <NuxtLink to="/enseignants/emargements/" class="shadow-lg w-[100px] px-[20px] py-[5px] bg-(--primary) text-(--white) flex items-center justify-center gap-3 rounded-[4px]">
                 <i class="pi pi-chevron-circle-left"></i> 
                 retour               
             </NuxtLink>

@@ -23,7 +23,7 @@ class CreateEmargementRequest extends FormRequest
     {
         return [
             'enseignant_id' => 'required|exists:enseignants,enseignant_id',
-            'cour_id' => 'required|exists:cours,cour_id',
+            'module_id' => 'required|exists:modules,module_id',
             'begin_hour' => 'required|date_format:H:i:s',
             'end_hour' => 'nullable|date_format:H:i:s|after:begin_hour',
             'status' => 'required|in:COCHE,DECOCHE',

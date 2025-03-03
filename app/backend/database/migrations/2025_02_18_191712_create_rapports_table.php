@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('rapports', function (Blueprint $table) {
             $table->id('rapport_id');
             $table->unsignedBigInteger('enseignant_id');
-            $table->integer('hour_number');
-            $table->integer('absence_number');
-            $table->integer('justification_number');
+            $table->integer('emargement_debut');
+            $table->integer('emargement_fin');
+            $table->integer('emargement_confirm');
+            $table->integer('emargement_not_confirm');
             $table->softDeletes();
             $table->timestamps();
         });

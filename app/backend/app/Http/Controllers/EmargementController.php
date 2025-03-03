@@ -25,6 +25,15 @@ class EmargementController extends Controller
         );
     }
 
+    public function allByEnseignantID(int $enseignantID) : JsonResponse
+    {
+        $collection = $this->emargementUsecase->getAllEnseignantEmargementsByID($enseignantID);
+        return new JsonResponse(
+            $collection,
+            Response::HTTP_OK
+        );
+    }
+
     public function archive() : JsonResponse
     {
         $collection = $this->emargementUsecase->getAllEmargementsArchived();

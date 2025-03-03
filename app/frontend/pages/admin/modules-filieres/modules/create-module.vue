@@ -109,9 +109,7 @@
             layout: 'dashboard',
             middleware: ['auth', 'admin']
         }
-    ) 
-    
-    const route = useRouter().currentRoute.value.fullPath
+    )
 
     const data = [
         {

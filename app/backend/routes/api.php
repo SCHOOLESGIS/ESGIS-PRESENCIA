@@ -28,12 +28,15 @@ Route::prefix('/v1/')->group(function () {
             return [
                 Route::apiResource('users', UserController::class),
                 Route::apiResource('emargements', EmargementController::class),
+                Route::get('/emargements-by-enseignant/{enseignantID}', [EmargementController::class, 'allByEnseignantID']),
                 Route::apiResource('enseignants', EnseignantController::class),
                 Route::apiResource('filieres', FiliereController::class),
                 Route::get('/all-filieres', [FiliereController::class, 'all']),
+                Route::get('/modules/all', [ModuleController::class, 'all']),
                 Route::apiResource('modules', ModuleController::class),
                 Route::apiResource('rapports', RapportController::class),
                 Route::get('/rapports/{enseignantId}/all', [RapportController::class, 'showByEnseignantID']),
+                Route::get('/rapports/{enseignantId}/generate', [RapportController::class, 'generate']),
                 Route::get('/current-user', [AuthController::class, 'getCurrentUser']),
                 Route::delete('/logout', [AuthController::class, 'logout']),
 

@@ -24,21 +24,12 @@
                                             Module
                                         </div>
                                         <div >
-                                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Selectionnez le module" class="w-full" />
-                                        </div>
-                                    </div>
-
-                                    <div class="flex flex-col justify-start gap-[10px]">
-                                        <div class="text-(--black-mate) font-semibold">
-                                            Module
-                                        </div>
-                                        <div >
-                                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Selectionnez le module" class="w-full" />
+                                            <Select v-model="createEmargementData.module_id" :options="modules" optionLabel="name" placeholder="Selectionnez le module" class="w-full" />
                                         </div>
                                     </div>
 
                                     <div class="w-full">
-                                        <Button @click="createEnseignant" label="Emarger le début du cour" class="bg-primary w-full"/>
+                                        <Button @click="createEmargementFunction()" label="Emarger le début du cour" class="bg-primary w-full"/>
                                     </div>
                                 </div>
                             </form>
@@ -57,9 +48,13 @@
 
 <script setup>
     import DataTableComponent from '~/components/EnseignantDataTableComponent.vue';
-    import { useTeacher } from '@/composables/useTeacher';
+    import { useModule } from '@/composables/useModule';
+    import { useEmargement } from '@/composables/useEmargement';
     import z from 'zod'
-    const {createTeacher} = useTeacher()
+    const {getAllModulesWithoutPagination} = useModule()
+    const {createEmargement} = useEmargement()
+    const modules = useState("modulesData")
+    const cookie = useCookie('auth')
 
     definePageMeta(
         {
@@ -68,36 +63,31 @@
         }
     )
 
-    const createEnseignantData = reactive(
+    const createEmargementData = reactive(
         {
-            name: "",
-            surname: "",
-            email: "",
-            password: "",
-            password_confirmation: "",
-            specialite: ""
+            enseignant_id: cookie.value.user.enseignant.enseignant_id,
+            module_id: "",
+            begin_hour: (new Date()).toTimeString().split(' ')[0],
+            end_hour: null,
+            status: "COCHE",
         }
     )
 
-    const emailSchema = z.string().email({ message: "Veuillez entrer un email valide." })
-    const error = ref("")
-    const enseignantId = useRoute().params.enseignantId
-    
-    function verify () {
-        try {
-            emailSchema.parse(createEnseignantData.email)
-            error.value = ''
-        } catch (err) {
-            if (err instanceof z.ZodError) {
-                error.value = err.errors[0].message
-            }
+    // const emailSchema = z.string().email({ message: "Veuillez entrer un email valide." })
+    // const error = ref("")
+    // const enseignantId = useRoute().params.enseignantId
+
+
+    function createEmargementFunction () {
+        if (createEmargementData.module_id !== "") {
+            // verify()
+            createEmargement(createEmargementData)
         }
     }
 
-    function createEnseignant () {
-        verify()
-        createTeacher(createEnseignantData)
-    }
+    onMounted(() => {
+        getAllModulesWithoutPagination()
+    })
 </script>
 
 
