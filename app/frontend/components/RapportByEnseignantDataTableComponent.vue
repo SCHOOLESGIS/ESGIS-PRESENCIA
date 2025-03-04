@@ -5,18 +5,14 @@
             <div class="card shadow-sm rounded-[10px] bg-(--white)">
                 <DataTable :value="data" tableStyle="min-width: 50rem rounded-[10px]">
                     <Column :field="'rapport_id'" :header="'Id'"></Column>
-                    <Column :field="'enseignant'" :header="'Enseignant'"></Column>
-                    <Column :field="'hour_number'" :header="'Nbre d\'heures effectuées'"></Column>
+                    <Column :field="'emargement_debut'" :header="'Nbre d\'émargement en début de séance'"></Column>
+                    <Column :field="'emargement_fin'" :header="'Nbre d\'émargement en fin de séance'"></Column>
+                    <Column :field="'emargement_confirm'" :header="'Nbre d\'émargement confirmé'"></Column>
+                    <Column :field="'emargement_not_confirm'" :header="'Nbre d\'émargement non confirmé'"></Column>
                     <Column :field="'createdAt'" :header="'Date de création'"></Column>
                     <Column :field="'action'" :header="'Actions'">
                         <template #body="slotProps">
                             <div class="flex gap-[5px]">
-                                <NuxtLink :to="`/admin/absences/${slotProps.data.rapport_id}`">
-                                    <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--primary) text-(--primary) flex items-center justify-center">
-                                        <i class="pi pi-eye"></i>
-                                    </div>
-                                </NuxtLink>
-                                
                                 <NuxtLink to="" class="cursor-pointer" @click="confirmDelete(slotProps.data.rapport_id)">
                                     <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--red) text-(--red) flex items-center justify-center">
                                         <i class="pi pi-trash"></i>
@@ -74,7 +70,7 @@
         getAllRapportsByID(0, enseignantId)
     });
 
-    const confirmDelete = (enseignantId) => {
+    const confirmDelete = (rapportId) => {
         confirm.require({
             message: 'Êtes-vous sur de supprimer le rapport ?',
             header: 'Suppression d\'un rapport',

@@ -55,24 +55,25 @@ class RapportUsecase implements RapportInterface{
         $allEmargement = Emargement::where('enseignant_id', $enseignantId)->get()->groupBy('module_id');
 
         foreach ($allEmargement as $module => $emargements) {
-            if (isset($emargements[0])) {
-                if ($emargements[0]->begin_hour !== null) {
-                    $statsBegin++;
-                }
+            foreach ($emargements as $key => $value) {
+                if (isset($value)) {
+                    if ($value->begin_hour !== null) {
+                        $statsBegin++;
+                    }
 
-                if ($emargements[0]->end_hour !== null) {
-                    $statsEnd++;
-                }
+                    if ($value->end_hour !== null) {
+                        $statsEnd++;
+                    }
 
-                if ($emargements[0]->status === "COCHE") {
-                    $statsConfirm++;
-                } else {
-                    $statsNotConfirm++;
+                    if ($value->status === "COCHE") {
+                        $statsConfirm++;
+                    } else {
+                        $statsNotConfirm++;
+                    }
                 }
             }
         }
 
-        dd($statsBegin);
 
         $rapport = new Rapport();
         $rapport->enseignant_id = $enseignantId;

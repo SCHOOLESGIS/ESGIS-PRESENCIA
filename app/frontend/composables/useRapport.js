@@ -161,23 +161,18 @@ export function useRapport () {
         return navigateTo('/admin/rapports/rapports-liste')
     }
 
-    async function createRapport (rapportData) {
+    async function createRapport (enseignantID) {
 
-        const responseA = await $fetch(`http://localhost:8000/api/v1/rapports`, {
-            method: 'POST',
+        const responseA = await $fetch(`http://localhost:8000/api/v1/rapports/${enseignantID}/generate`, {
+            method: 'GET',
             headers: {
                 'Authorization': `Bearer ${cookie.value.access_token}`,
                 'Accept': 'application/json'
-            },
-            body: {
-                cour_id: rapportData.cour_id,
-                rapport_date: rapportData.rapport_date,
-                status: rapportData.status,
             }
         })
 
-        getAllRapports(1)
-        return navigateTo('/admin/rapports/rapports-liste')
+        getAllRapportsByID(0, cookie.value.user.enseignant.enseignant_id)
+        return navigateTo('/enseignants/rapports/')
     }
 
     async function deleteRapport (rapportId) {
@@ -190,7 +185,8 @@ export function useRapport () {
             }
         })
 
-        getAllRapports(1)
+        getAllRapportsByID(0, cookie.value.user.enseignant.enseignant_id)
+        return navigateTo('/enseignants/rapports');
     }
 
     async function restoreRapport (rapportId) {
@@ -219,14 +215,18 @@ export function useRapport () {
         response.data.forEach(element => {
             const rapport = {
                 rapport_id: "",
-                enseignant: "",
-                hour_number: "",
+                emargement_debut: "",
+                emargement_fin: "",
+                emargement_confirm: "",
+                emargement_not_confirm: "",
                 createdAt: "",
                 deletedAt: ""
             }
             rapport.rapport_id = element.rapport_id
-            rapport.enseignant = element.enseignant?.user?.name + ' ' + element.enseignant?.user?.surname
-            rapport.hour_number = element.hour_number
+            rapport.emargement_debut = element.emargement_debut
+            rapport.emargement_fin = element.emargement_fin
+            rapport.emargement_confirm = element.emargement_confirm
+            rapport.emargement_not_confirm = element.emargement_not_confirm
             rapport.deletedAt = element.deleted_at
             rapport.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
 

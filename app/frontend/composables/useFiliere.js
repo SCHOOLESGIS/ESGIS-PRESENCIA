@@ -69,6 +69,42 @@ export function useFiliere () {
 
     }
 
+    async function getAllFilieresByEnseignant (page, enseignantID) {
+        data.value = []
+
+        const response = await $fetch(`http://localhost:8000/api/v1/filieres/${enseignantID}/all?page=${page}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${cookie.value.access_token}`
+            }
+        })
+
+        response.data.forEach(element => {
+            const filiere = {
+                filiere_id: "",
+                filiere_name: "",
+                filiere_level: "",
+                createdAt: "",
+                deletedAt: ""
+            }
+            filiere.filiere_id = element.filiere_id
+            filiere.filiere_name = element.filiere_name
+            filiere.filiere_level = element.filiere_level
+            filiere.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
+
+            if (data.value.length < 10) {
+                data.value.push(filiere)
+            }
+        });
+
+        links.value = []
+        if (links.value.length === 0) {
+            links.value.push(response.total)
+            links.value.push(response.per_page)
+        }
+
+    }
+
     async function getAllFilieresArchived (page) {
         dataArchived.value = []
 
@@ -203,6 +239,7 @@ export function useFiliere () {
         deleteFiliere,
         getAllFiliereWithoutPaginate,
         getAllFilieresArchived,
-        restoreFiliere
+        restoreFiliere,
+        getAllFilieresByEnseignant
     }
 }

@@ -6,6 +6,8 @@
                 <DataTable :value="data" tableStyle="min-width: 50rem rounded-[10px]">
                     <Column :field="'emargement_id'" :header="'M'"></Column>
                     <Column :field="'modules'" :header="'Libellé cours'"></Column>
+                    <Column :field="'beginHour'" :header="'Heure de début'"></Column>
+                    <Column :field="'endHour'" :header="'Heure de fin'"></Column>
                     <Column :field="'status'" :header="'Statuts'"></Column>
                     <Column :field="'createdAt'" :header="'Date de création'"></Column>
                     <Column :field="'action'" :header="'Actions'">
@@ -20,6 +22,12 @@
                                 <NuxtLink :to="`/enseignants/emargements/${slotProps.data.emargement_id}/edit`">
                                     <div class="white-hover h-[25px] w-[25px] rounded-[2px] border border-(--yellow) text-(--yellow) flex items-center justify-center">
                                         <i class="pi pi-pencil"></i>
+                                    </div>
+                                </NuxtLink>
+
+                                <NuxtLink v-if="!slotProps.data.endHour" @click="updateEmargementFunc(slotProps.data.emargement_id)">
+                                    <div class="cursor-pointer white-hover h-[25px] w-[25px] rounded-[2px] border border-[2px] border-(--green) bg-(--green) text-(--white) flex items-center justify-center">
+                                        <i class="pi pi-check"></i>
                                     </div>
                                 </NuxtLink>
                             </div>
@@ -52,7 +60,7 @@
 
     const confirm = useConfirm();
     const toast = useToast();
-    const {getEnseignantEmargements, deleteEmargement} = useEmargement()
+    const {getEnseignantEmargements, deleteEmargement, updateEmargement} = useEmargement()
     const data = useState("enseignantEmargements")
     const links = useState("enseignantEmargementLinks")
     const cookie = useCookie('auth')
@@ -66,6 +74,42 @@
         const page = ((first.value)/(number_per_page)) + 1
         getEnseignantEmargements(page, enseignantId)
     })
+
+    function updateEmargementFunc (emargementID) {
+        const updateEmargementData = reactive(
+            {
+                enseignant_id: "",
+                module_id: "",
+                begin_hour: null,
+                end_hour: (new Date()).toTimeString().split(' ')[0],
+                status: "",
+            }
+        )
+
+        confirm.require({
+            message: 'Vous allez marquer la fin de la séance !',
+            header: 'Fin de séance',
+            icon: 'pi pi-question-circle',
+            rejectLabel: 'Cancel',
+            rejectProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true
+            },
+            acceptProps: {
+                label: 'Marquer la fin',
+                severity: 'primary'
+            },
+            accept: async () => {
+                await updateEmargement(updateEmargementData, emargementID)
+                toast.add({ severity: 'info', summary: 'Confirmé', detail: 'Séance terminé', life: 3000 });
+            },
+            reject: () => {
+                toast.add({ severity: 'error', summary: 'Rejeté', detail: 'Action rejetée', life: 3000 });
+            }
+        });
+
+    }
 
 
 

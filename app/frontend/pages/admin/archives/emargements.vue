@@ -1,6 +1,6 @@
 <template>
     <div class="w-full min-h-[80vh] flex flex-col gap-[20px]">
-        <div class="w-full h-[20px] flex justify-between">
+        <div class="max-w-[600px] overflow-x-scroll md:w-full md:overflow-x-hidden h-[20px] pb-6 flex justify-between">
             <ul class="flex gap-[20px] sub-link">
                 <li><NuxtLink to="/admin/archives" class="active-sub-link">Utilisateurs</NuxtLink></li>
                 <li><NuxtLink to="/admin/archives/enseignants" class="active-sub-link">Enseignants</NuxtLink></li>

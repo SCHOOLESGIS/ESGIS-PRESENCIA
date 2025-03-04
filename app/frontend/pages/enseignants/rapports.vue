@@ -11,11 +11,13 @@
                 </div>
             </div>
         </div>
+        <!-- hhhh{{ cookie }} -->
         <div class="w-full flex justify-start gap-4">
             <div class="flex gap-[10px]">
-                <NuxtLink class="flex gap-2 p-1 bg-(--white) rounded-[4px] shadow-md cursor-pointer">
+                <NuxtLink @click="createRapport(enseignantID)" class="flex gap-2 p-1 bg-(--white) rounded-[4px] shadow-md cursor-pointer">
                     <div class="flex items-center justify-center w-[25px] h-[25px] rounded-[2px] bg-(--primary) text-(--white)">
-                        <i class="pi pi-chart-line"></i>
+                        <template v-if="data && data.length"><i class="pi pi-chart-line"></i></template>
+                        <template v-else><i class="pi pi-spin pi-spinner" style="font-size: 1rem"></i></template>
                     </div>
                     Générer un rapport
                 </NuxtLink>
@@ -30,7 +32,11 @@
 
 <script setup>
     import RapportByEnseignantDataTableComponent from '~/components/RapportByEnseignantDataTableComponent.vue';
-
+    import { useRapport } from '@/composables/useRapport';
+    const {getAllRapportsByID, createRapport} = useRapport()
+    const cookie = useCookie('auth')
+    const enseignantID = cookie.value.user.enseignant.enseignant_id
+    const data = useState("rapportsByID")
     definePageMeta(
         {
             layout: 'enseignant-dashboard',

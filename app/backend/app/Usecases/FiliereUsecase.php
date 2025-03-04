@@ -14,6 +14,11 @@ class FiliereUsecase implements FiliereInterface{
         return Filiere::with(['modules'])->latest()->paginate(10);
     }
 
+    public function getAllFilieresByEnseignantID(int $enseignantID): LengthAwarePaginator
+    {
+        return Filiere::join("modules", "filieres.filiere_id", "modules.module_id")->join("emargements", "emargements.module_id", "modules.module_id")->join("enseignants", "enseignants.enseignant_id", "emargements.enseignant_id")->where("enseignants.enseignant_id", $enseignantID)->select("filieres.filiere_id", "filieres.filiere_name", "filieres.filiere_level", "filieres.created_at")->groupBy("filieres.filiere_id", "filieres.filiere_name", "filieres.filiere_level", "filieres.created_at")->paginate(10);
+    }
+
     public function getAllFilieresArchived(): LengthAwarePaginator
     {
         return Filiere::onlyTrashed()->with(['modules'])->latest()->paginate(10);

@@ -69,7 +69,7 @@
             module_id: "",
             begin_hour: (new Date()).toTimeString().split(' ')[0],
             end_hour: null,
-            status: "COCHE",
+            status: "DECOCHE",
         }
     )
 

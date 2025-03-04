@@ -10,7 +10,7 @@
             <div class="w-[100%] flex p-[10px] sm:py-[10px] sm:px-[10px] gap-[20px]">
                 <div class="w-[100%] sm:w-[100%] lg:w-[50%] min-h-[80vh] pb-2">
                     <div class="logo w-[100%] min-h-[35px]">
-                        <div class="text-(--primary) text-[1.25rem] font-semibold">Emargement dans un module</div>
+                        <div class="text-(--primary) text-[1.25rem] font-semibold">Mettre à jour l'emargement</div>
                     </div>
                     <div class="w-[100%] min-h-[calc(100%-35px)] flex items-center justify-center p-[0px] sm:p-[10px]">
                         <div class="w-[100%] sm:w-[100%] lg:w-[500px] min-h-[200px] sm:w-[100%] flex justify-center items-start">
@@ -19,26 +19,18 @@
                                     Entrer les champs ci-dessous
                                 </div>
                                 <div class="flex flex-col gap-[20px]">
-                                    <div class="flex flex-col justify-start gap-[10px]">
-                                        <div class="text-(--black-mate) font-semibold">
-                                            Module
-                                        </div>
-                                        <div >
-                                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Selectionnez le module" class="w-full" />
-                                        </div>
-                                    </div>
 
                                     <div class="flex flex-col justify-start gap-[10px]">
                                         <div class="text-(--black-mate) font-semibold">
                                             Module
                                         </div>
                                         <div >
-                                            <Select v-model="selectedCity" :options="cities" optionLabel="name" placeholder="Selectionnez le module" class="w-full" />
+                                            <Select v-model="updateEmargementData.module_id" :options="modules" optionLabel="name" placeholder="Selectionnez le module" class="w-full" />
                                         </div>
                                     </div>
 
                                     <div class="w-full">
-                                        <Button @click="createEnseignant" label="Emarger le début du cour" class="bg-primary w-full"/>
+                                        <Button @click="updateEmargementFunction" label="Emarger le début du cour" class="bg-primary w-full"/>
                                     </div>
                                 </div>
                             </form>
@@ -57,9 +49,19 @@
 
 <script setup>
     import DataTableComponent from '~/components/EnseignantDataTableComponent.vue';
-    import { useTeacher } from '@/composables/useTeacher';
+    import { useModule } from '@/composables/useModule';
+    import { useEmargement } from '@/composables/useEmargement';
     import z from 'zod'
-    const {createTeacher} = useTeacher()
+    const {getAllModulesWithoutPagination} = useModule()
+    const {updateEmargement, getEmargement} = useEmargement()
+    const modules = useState("modulesData")
+    const emargement = useState("emargementData")
+
+    const emargementSelected = reactive({
+        code: "",
+        name: "",
+    })
+    const cookie = useCookie('auth')
 
     definePageMeta(
         {
@@ -68,36 +70,44 @@
         }
     )
 
-    const createEnseignantData = reactive(
+    const updateEmargementData = reactive(
         {
-            name: "",
-            surname: "",
-            email: "",
-            password: "",
-            password_confirmation: "",
-            specialite: ""
+            enseignant_id: "",
+            module_id: emargementSelected,
+            begin_hour: null,
+            end_hour: null,
+            status: "",
         }
     )
 
-    const emailSchema = z.string().email({ message: "Veuillez entrer un email valide." })
-    const error = ref("")
-    const enseignantId = useRoute().params.enseignantId
-    
-    function verify () {
-        try {
-            emailSchema.parse(createEnseignantData.email)
-            error.value = ''
-        } catch (err) {
-            if (err instanceof z.ZodError) {
-                error.value = err.errors[0].message
-            }
+    // const emailSchema = z.string().email({ message: "Veuillez entrer un email valide." })
+    // const error = ref("")
+    const emargementId = useRoute().params.emargementId
+
+
+    function updateEmargementFunction () {
+        if (updateEmargementData.module_id !== "") {
+            // verify()
+            updateEmargement(updateEmargementData, emargementId)
         }
     }
+    // function verify () {
+    //     try {
+    //         emailSchema.parse(updateEmargement.email)
+    //         error.value = ''
+    //     } catch (err) {
+    //         if (err instanceof z.ZodError) {
+    //             error.value = err.errors[0].message
+    //         }
+    //     }
+    // }
 
-    function createEnseignant () {
-        verify()
-        createTeacher(createEnseignantData)
-    }
+    onMounted(async () => {
+        getAllModulesWithoutPagination()
+        await getEmargement(emargementId)
+        emargementSelected.code = emargement.value[0].module.module_id
+        emargementSelected.name = emargement.value[0].module.module_name
+    })
 </script>
 
 

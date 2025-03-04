@@ -175,7 +175,7 @@ export function useEmargement () {
         const emargement = {
             emargement_id: "",
             enseignants: "",
-            cours: "",
+            module: null,
             beginHour: "",
             endHour: "",
             status: "",
@@ -190,17 +190,18 @@ export function useEmargement () {
                 'Accept': 'application/json'
             }
         })
-
-        emargement.emargement_id = element.emargement_id
-        emargement.enseignants = element.enseignant?.user?.name + " " + element.enseignant?.user?.surname
-        emargement.cours = "Cour #" + element.cour.cour_id
-        emargement.beginHour = element.begin_hour
-        emargement.endHour = element.end_hour
-        emargement.status = element.status
-        emargement.deletedAt = element.deleted_at
-        emargement.createdAt = dayjs(element.created_at).format("ddd, MMM D YYYY")
+        console.log(response);
+        emargement.emargement_id = response.emargement_id
+        emargement.enseignants = response.enseignant_id
+        emargement.module = response.module
+        emargement.beginHour = response.begin_hour
+        emargement.endHour = response.end_hour
+        emargement.status = response.status
+        emargement.deletedAt = response.deleted_at
+        emargement.createdAt = dayjs(response.created_at).format("ddd, MMM D YYYY")
         oneEmargement.value = []
         oneEmargement.value.push(emargement)
+        console.log(oneEmargement);
     }
 
     async function updateEmargement (emargementData, emargementId) {
@@ -212,13 +213,21 @@ export function useEmargement () {
                 'Accept': 'application/json'
             },
             body: {
-                emargement_name: emargementData.emargement_name,
-                emargement_level: emargementData.emargement_level,
+                enseignant_id: emargementData.enseignant_id,
+                module_id: emargementData.module_id.code,
+                begin_hour: emargementData.begin_hour,
+                end_hour: emargementData.end_hour,
+                status: emargementData.status,
             }
         })
 
-        getAllEmargements(1)
-        return navigateTo('/admin/modules-emargements/emargements')
+        if (cookie.value.user.role === "admin") {
+            getAllEmargements(1)
+            return navigateTo('/admin/modules-emargements/emargements')
+        } else {
+            getEnseignantEmargements(0, cookie.value.user.enseignant.enseignant_id)
+            return navigateTo('/enseignants/emargements')
+        }
     }
 
     async function createEmargement (emargementData) {

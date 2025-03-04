@@ -34,10 +34,47 @@
                 </div>
             </div>
         </div>
+        <Drawer v-model:visible="visible" header="Drawer">
+            <template #header>
+                <div class="h-[70px] flex items-center justify-center">
+                    <img src="../assets/images/logo/logo.svg" alt="">
+                </div>
+            </template>
+            <div class="w-[100%] h-[calc(100vh-120px)] pt-[25px] p-[10px]">
+                <ul class="flex flex-col gap-[15px]">
+                    <li v-for="navigation in navigations" :key="navigation.icon">
+                        <NuxtLink @click="visible = false" :to="`${navigation.link}`" class="rounded-[4px] w-[100%] text-start flex items-center gap-3 px-[20px] py-[10px] cursor-pointer" :class="{'active' : route.includes(navigation.link)}">
+                            <Icon :icon="`${navigation.icon}`" :ssr="true" class="text-(--dark-text-color-2)"/>
+                            <span class="font-normal text-(--dark-text-color-2)">{{navigation.libel}}</span>
+                        </NuxtLink>
+                    </li>
+                </ul>
 
+                <div class="my-4 w-full border-b border-(--stroke)">
+                    Autres
+                </div>
+
+                <ul class="flex flex-col gap-[15px]">
+                    <li v-for="navigation in secondNavigations" :key="navigation.icon">
+                        <NuxtLink @click="visible = false" :to="`${navigation.link}`" class="rounded-[4px] w-[100%] text-start flex items-center gap-3 px-[20px] py-[10px] cursor-pointer" :class="{'active' : route.includes(navigation.link)}">
+                            <Icon :icon="`${navigation.icon}`" :ssr="true" class="text-(--dark-text-color-2)"/>
+                            <span class="font-normal text-(--dark-text-color-2)">{{navigation.libel}}</span>
+                        </NuxtLink>
+                    </li>
+                </ul>
+            </div>            
+            <template #footer>
+                <div class="w-full px-[10px]">
+                    <div class="rounded-[4px] w-[100%] text-start flex items-center gap-3 px-[20px] py-[5px] bg-(--stroke) border border-[var(--dark-text-color-1)] shadow-md cursor-pointer" @click="logoutUser">
+                        <Icon icon="uiw:logout" class="text-slate-600" />
+                        <span class="font-medium text-slate-600">Se déconnecter</span>
+                    </div>
+                </div>
+            </template>
+        </Drawer>
         <div class="w-[100%] lg:w-[calc(100%-200px)] min-h-[100vh] ">
             <div class="z-[10] sticky top-0 shadow-[4px_2px_10px_1px_rgba(0,0,0,0.2)] h-[70px]  bg-[var(--white)] flex items-center lg:justify-end justify-between px-[20px]">
-                <div class="text-[var(--primary)] lg:hidden block flex gap-[2px]">
+                <div @click="visible = true" class="text-[var(--primary)] lg:hidden block flex gap-[2px]">
                     <img src="/icons/form_logo.svg" class="cursor-pointer shadow sm:w-normal w-[40px]" alt="">
                     <div class="text-[30px] flex items-center cursor-pointer">
                         <i class="pi pi-align-justify" style="font-size: 2rem; color: var(--primary)"></i>
@@ -49,7 +86,7 @@
                             <span>{{name}}</span>
                             <span class="role">{{role}}</span>
                         </div>
-                        <Avatar image="/patterns/Mash_19.png" class="mr-2 shadow-lg" size="large" shape="circle" />
+                        <Avatar image="/patterns/Mash_19.png" class="mr-2 shadow-lg overflow-hidden" size="large" shape="circle" />
                     </div>
                 </div>
             </div>
@@ -66,7 +103,12 @@
     import secondNavigations from '@/data/secondaryNavigations';
     import { useUser } from '@/composables/useUser';
     import { Icon } from "@iconify/vue";
+    import Drawer from 'primevue/drawer';
+    import { ref } from "vue";
+
+    const visible = ref(false);
     const { logout } = useUser()
+    
     
     definePageMeta(
         {

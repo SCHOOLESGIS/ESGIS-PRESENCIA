@@ -44,6 +44,15 @@ class FiliereController extends Controller
         );
     }
 
+    public function allByEnseignantID(int $enseignantID) : JsonResponse
+    {
+        $collection = $this->filiereUsecase->getAllFilieresByEnseignantID($enseignantID);
+        return new JsonResponse(
+            $collection,
+            Response::HTTP_OK
+        );
+    }
+
     /**
      * Store a newly created resource in storage.
      */

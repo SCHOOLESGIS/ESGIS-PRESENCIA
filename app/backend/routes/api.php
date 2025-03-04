@@ -36,6 +36,7 @@ Route::prefix('/v1/')->group(function () {
                 Route::apiResource('modules', ModuleController::class),
                 Route::apiResource('rapports', RapportController::class),
                 Route::get('/rapports/{enseignantId}/all', [RapportController::class, 'showByEnseignantID']),
+                Route::get('/filieres/{enseignantId}/all', [FiliereController::class, 'allByEnseignantID']),
                 Route::get('/rapports/{enseignantId}/generate', [RapportController::class, 'generate']),
                 Route::get('/current-user', [AuthController::class, 'getCurrentUser']),
                 Route::delete('/logout', [AuthController::class, 'logout']),
