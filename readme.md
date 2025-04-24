@@ -102,15 +102,6 @@ Vérifie que les variables suivantes sont bien configurées dans le **backend (.
 
 ---
 
-## 🐳 **Exécution avec Docker (Optionnel)**  
-Si tu souhaites exécuter l’ensemble du projet avec Docker, utilise :  
-```bash
-# Lancer la stack complète (backend + frontend + base de données)
-docker-compose up -d
-```
-
----
-
 ## 🤝 **Contribution**  
 💡 Contributions bienvenues ! Suis ces étapes :  
 1. **Fork le projet** 📌  
