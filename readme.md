@@ -9,9 +9,9 @@ _Un système de gestion des émargements des enseignants basé sur Laravel 11 (b
 |------|------------|
 | **Backend** | Laravel 11 (PHP 8.2) |
 | **Frontend** | Nuxt.js 3.15.4 (Vue 3) |
-| **Base de données** | MySQL / PostgreSQL |
+| **Base de données** | MySQL |
 | **Authentification** | Laravel Sanctum / JWT |
-| **UI Components** | PrimeVue & Vuesax |
+| **UI Components** | PrimeVue |
 | **Stylisation** | Tailwind CSS |
 
 ---
@@ -52,7 +52,7 @@ _Un système de gestion des émargements des enseignants basé sur Laravel 11 (b
 
 ### **1️⃣ Backend (Laravel 11 - API REST)**  
 #### 📌 Prérequis :  
-- PHP **8.2+**, Composer, MySQL/PostgreSQL  
+- PHP **8.2+**, Composer, MySQL  
 
 ```bash
 # Aller dans le dossier backend
@@ -95,38 +95,10 @@ npm run dev  # ou yarn dev
 ## 🛡 **Sécurité et Authentification**  
 - **Laravel Sanctum** pour l'authentification API.  
 - **JWT Tokens** pour sécuriser les accès.  
-- **Gestion des rôles et permissions** (Admin, Enseignant, Superviseur).  
-
----
-
-## 🔄 **Documentation API**  
-Après avoir démarré le backend, accède à la documentation API avec Swagger :  
-📜 `http://localhost:8000/api/documentation`  
-
----
+- **Gestion des rôles et permissions** (Admin, Enseignant).  
 
 ## 📌 **Configuration des Variables d'Environnement**  
 Vérifie que les variables suivantes sont bien configurées dans le **backend (.env)** :  
-
-```
-APP_NAME=ESGIS_Presencia
-APP_ENV=local
-APP_KEY=base64:xxxxxxxxxxxxxxxxxx
-APP_DEBUG=true
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=esgis_presencia
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-Pour le **frontend (.env)** :  
-
-```
-NUXT_PUBLIC_API_BASE=http://localhost:8000/api
-NUXT_PUBLIC_AUTH_TOKEN=
-```
 
 ---
 
@@ -152,4 +124,4 @@ docker-compose up -d
 ## 📜 **Licence**  
 📌 Ce projet est sous licence **MIT**.  
 
-🔗 **Développé par l’équipe ESGIS 🚀**  🔥
+🔗 **Développé par l’équipe @Ibraum 🚀**  🔥
